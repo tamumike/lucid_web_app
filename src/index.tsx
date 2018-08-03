@@ -1,23 +1,13 @@
 import "./config";
-import esri = __esri;
 
-import EsriMap from "esri/Map";
-import MapView from "esri/views/MapView";
+import "@dojo/shim/Promise";
 
-var map = new EsriMap({
-    basemap: 'streets'
+import App from "./widgets/App";
+
+/**
+ * Initialize application
+ */
+export const app = new App({
+  appName: "Demo App",
+  container: document.getElementById("app") as HTMLElement
 });
-
-var view = new MapView({
-    map: map,
-    container: "app",
-    zoom: 9
-});
-
-view.when(() => {
-    view.goTo({
-        target: [-104.23, 32.41]
-    });
-});
-
-console.log('yes');

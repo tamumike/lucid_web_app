@@ -27,8 +27,6 @@
   "types": [
     "arcgis-js-api",
     "node",
-    "react",
-    "react-dom",
     "webpack-env",
     "moment"
   ],
