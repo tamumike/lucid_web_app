@@ -12,18 +12,26 @@ module.exports = {
     },
     module: {
         rules: [
-            { test: /\.tsx$/, loader: "ts-loader" }
+            { 
+                test: /\.tsx$/, 
+                loader: "ts-loader",
+                options: {
+                    transpileOnly: true
+                }
+            }
         ]
     },
     plugins: [
-        new ArcGISPlugin()
+        new ArcGISPlugin({
+            root: "."
+        })
     ],
     resolve: {
         modules: [
             path.resolve(__dirname, "/src"),
             path.resolve(__dirname, "node_modules/")
         ],
-        extensions: ["*",".ts",".tsx",".js"]
+        extensions: [".ts", ".tsx", ".js", ".scss", ".css"]
     },
     node: {
         process: false,
