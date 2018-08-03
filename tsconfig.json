@@ -1,12 +1,26 @@
 {
   "compilerOptions": {
-    "module": "amd",
+    "module": "commonjs",
     "target": "es5",
-    "sourceMap": false,
+    "sourceMap": true,
     "noImplicitAny": false,
-    "jsx": "react"
+    "jsx": "react",
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "skipLibCheck": true
   },
-  "exclude":[
-    "node_modules" 
+  "types": [
+    "arcgis-js-api",
+    "node",
+    "react",
+    "react-dom",
+    "webpack-env"
+  ],
+  "typeRoots": [
+    "node_modules/@types"
+  ],
+  "include": [
+    "src/*"
   ]
 }
