@@ -1,23 +1,22 @@
 import $ = require("jquery");
 
+import {elements, CSS} from "../views/base";
 
 export const renderPanel = () => {
-    const CSS = {
-        id: "panel"
-    };
 
-    const markup = `<div id=${CSS.id}></div>`;
+    const markup = `<div id=${CSS.panel}></div>`;
 
-    $(markup).insertBefore($("#app"));
+    $(markup).insertBefore($(`${elements.app}`));
 };
 
 export const showPanel = (label: string) => {
 
-    return $("#panel").show();
-    // return $("#panel").append(`<p>${label}</p>`);
+    return $(`${elements.panel}`).show();
+    
 };
 
 export const destroyPanel = () => {
-    $("#panel").empty();
-    $("#panel").hide();
+
+    $(`${elements.panel}`).empty().hide();
+
 };

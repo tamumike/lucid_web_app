@@ -78,15 +78,21 @@ export const appController = () => {
     // Acreage Events
     $(elements.acreage.add_btn).on('click', () => {
 
-      let producer = $(elements.acreage.dropdown).val();
+      const producer = $(elements.acreage.dropdown).val();
 
       widget.addFeature(appMap, producer, state);
 
+      widget.addListItemEvent();
+
+      widget.addFilterOptionEvent();
+
+      widget.queryLayer(producer, "Shape.STArea() > 0", state);
+    
     });
 
     $(elements.acreage.remove_btn).on('click', () => {
       
-      let producer = $(elements.acreage.dropdown).val();
+      const producer = $(elements.acreage.dropdown).val();
 
       widget.removeFeature(appMap, producer, state);
 
@@ -99,8 +105,6 @@ export const appController = () => {
       state.acreage = [];
 
     });
-
-
     
   };
 

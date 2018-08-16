@@ -24,26 +24,12 @@ export const renderWidget = (): void => {
     $(elements.panel).append(markup);
 };
 
-const addListItemEvent = (): void => {
-
-    $(elements.list_item).on('click', (e) => {
-
-        e.stopImmediatePropagation();
-
-        renderFeatureOptions($(e.currentTarget));
-
-      });
-
-};
-
 export const renderListItem = (text: string): void => {
 
     const markup = 
     `<li class=${CSS.list_item}>${text}</li>`;
 
     $(elements.acreage.list).append(markup);
-
-    addListItemEvent();
     
 };
 
@@ -53,22 +39,60 @@ export const removeListItem = (text: string): void => {
     
 };
 
-const renderFeatureOptions = (element: JQuery): void => {
+export const renderFeatureOptions = (element: JQuery): void => {
 
     const markup = 
     `<div class=${CSS.acreage.options}>
-        Options
+        <img class=${CSS.acreage.options_img} title="Filter" />
     </div>`;
-
-    if ($(`.${CSS.acreage.options}`).length !== 0) {
-        $(`.${CSS.acreage.options}`).remove();
-    }
     
+    if (!hasOptions(element)) {
 
-    if (!element.next().hasClass(CSS.acreage.options)) {
+        element.append(markup);
 
-        $(markup).insertAfter(element);
+        removeExistingOptions(element);
+
+    } else {
+
+        element.children().remove();
 
     }
+
+};
+
+const hasOptions = (element: JQuery): boolean => {
+    
+    return (element.children().length > 0) ? true : false;
+
+};
+
+const removeExistingOptions = (element: JQuery): void => {
+
+    let existingOptions = $(`${elements.acreage.options}`);
+    
+    existingOptions.each((index) => {
+
+        if (!$(existingOptions[index]).parent().is(element)) {
+
+            $(existingOptions[index]).remove();
+
+        }
+
+    });
+
+};
+
+export const renderFilterPanel = (name: string): void => {
+
+    const markup = 
+        `<div class=${CSS.modal.subcontainer}>
+            <p class=${CSS.modal.title}>${name}</p>
+            <p class=${CSS.modal.heading}>Add Filter: </p>
+            <select class=${CSS.modal.dropdown}>
+                <option value="dedication">Dedication</option>
+            </select>
+        </div>`;
+
+    $(elements.modal.panel).append(markup);
 
 };
