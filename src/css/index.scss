@@ -10,11 +10,158 @@ body,
   width: 100%;
   height: 100%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   letter-spacing: 0em;
   font-family: "Avenir Next", "Helvetica Neue", sans-serif;
   line-height: 1.55rem;
   font-feature-settings: "liga" 1, "calt" 0;
+}
+
+/* controller */
+#controller {
+  width: 5%;
+  // min-width: 48px;
+  // max-width: 80px;
+  height: 100%;
+  background-color: #0f1129;
+}
+
+#controller__branding {
+  width: 100%;
+  height: auto;
+  padding-top: 0.2em;
+}
+
+#controller__branding > img {
+  max-width: 80%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#controller__widgets {
+  max-width: 100%;
+  color: white;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30%;
+}
+
+#controller__widgets:hover {
+  cursor: pointer;
+}
+
+.controller__widgets-container {
+  height: 100%;
+  width: 100%;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border-bottom: 2px grey solid;
+  background: #485563;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #29323c, #485563);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #29323c, #485563); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.controller__widgets-container:hover {
+  color: yellow;
+  background: #4b6cb7;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #182848, #4b6cb7);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #182848, #4b6cb7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+@media screen and (min-width: 150px) {
+  #controller {
+    width: calc(48px + (80 - 48) * ((100vw - 150px) / (2162 - 150)));
+  }
+  #controller__widgets, .controller__widgets-label {
+    font-size: calc(9px + (14 - 9) * ((100vw - 150px) / (2162 - 150)));
+  }
+  #panel {
+    left: calc(48px + (80 - 48) * ((100vw - 150px) / (2162 - 150)));
+  }
+}
+
+/* Widget Nodes*/
+
+.controller__widgets-label {
+  font-weight: bold;
+  // letter-spacing: 0.05em;
+}
+
+.controller__widgets-container > img {
+  max-width: 55%;
+  max-height: 55%;
+  min-width: 45%;
+  min-height: 45%;
+}
+
+.controller__widgets-img-Legend {
+  content: url("./img/legend_icon.png");
+}
+
+.controller__widgets-img-Layer_List {
+  content: url("./img/layerlist_icon.png");
+}
+
+.active-widget {
+  color: yellow;
+  background: #4b6cb7;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #182848, #4b6cb7);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #182848, #4b6cb7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+/*Panel*/
+#panel {
+  width: 15%;
+  min-width: 140px;
+  height: 60%;
+  min-height: 340px;
+  // overflow-y: scroll;
+  background-color: #0f1129;
+  position: absolute;
+  border: 2px #fff solid;
+  z-index: 1;
+  text-align: center;
+  color: #fff;
+
+  .panel__widget-container {
+    height: 100%;
+    width: 100%;
+  }
+
+  .panel__widget-title {
+    font-weight: bold;
+  }
+
+  .panel__widget-unordered_list {
+    list-style-type: none;
+    padding: 0;
+    font-size: 14px;
+  }
+
+  .panel__widget-list_item {
+    background-color: #29323c;
+    background: #485563;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #29323c, #485563);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #29323c, #485563); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    border-bottom: 2px grey solid;
+  }
+
+  .panel__widget-list_item:hover {
+    color: yellow;
+    cursor: pointer;
+    background: #4b6cb7;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #182848, #4b6cb7);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #182848, #4b6cb7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  }
+
+}
+
+/* Acreage Widget */
+#acreage__button-remove_all {
+  position: absolute;
+  bottom: 2%;
+  right: 5%;
 }
 
 /* map view */
@@ -41,3 +188,5 @@ body,
 .esri-attribution {
   display: none;
 }
+
+

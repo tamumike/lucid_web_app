@@ -40,6 +40,15 @@ module.exports = {
                   },
                   "sass-loader?sourceMap"
                 ]
+            }, {
+                test: /\.(png)$/,
+                use: [{
+                    loader: "url-loader",
+                    options: {
+                        limit: 8000,
+                        name:"./src/css/img/[hash]-[name].[ext]"
+                    }
+                }]
             }
         ]
     },
