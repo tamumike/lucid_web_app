@@ -1,6 +1,7 @@
 import $ = require("jquery");
 
-import {CSS, elements} from "../views/base";
+import {CSS, elements, acreageProducers} from "../views/base";
+
 
 export const renderWidget = (): void => {
 
@@ -27,7 +28,7 @@ export const renderWidget = (): void => {
 export const renderListItem = (text: string): void => {
 
     const markup = 
-    `<li class=${CSS.list_item}>${text}</li>`;
+    `<li class=${CSS.acreage.list_item}>${text}</li>`;
 
     $(elements.acreage.list).append(markup);
     
@@ -91,8 +92,45 @@ export const renderFilterPanel = (name: string): void => {
             <select class=${CSS.modal.dropdown}>
                 <option value="dedication">Dedication</option>
             </select>
+            <ul id=${CSS.acreage.filter_list} class=${CSS.modal.options_list}>
+            </ul>
         </div>`;
 
     $(elements.modal.panel).append(markup);
+
+};
+
+export const populateSelect = () => {
+    acreageProducers.forEach(producer => {
+
+        $(elements.acreage.dropdown).append(`<option>${producer}</option>`);
+
+    });
+};
+
+export const populateFieldValues = (features: any) => {
+    
+    let uniqueValues: string[] = [];
+
+    features.forEach((feature: {attributes: {Dedication: string}}) => {
+
+        let value = feature.attributes.Dedication;
+        
+        if (uniqueValues.indexOf(value) === -1) uniqueValues.push(value);
+
+    });
+
+    renderFieldValuesList(uniqueValues);
+    
+};
+
+const renderFieldValuesList = (values: string[]) => {
+
+    values.forEach((value: string) => {
+        const markup = 
+        `<li class=${CSS.acreage.list_item}>${value}</li>`;
+    
+        $(elements.acreage.filter_list).append(markup);
+    });
 
 };

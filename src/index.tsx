@@ -4,15 +4,17 @@ import $ = require("jquery");
 import "@dojo/shim/Promise";
 
 import App from "./widgets/models/App";
-// import Widget from "./widgets/models/Widget";
 import Panel from "./widgets/models/Panel";
+import Modal from "./widgets/models/Modal";
 import Acreage from "./widgets/models/Acreage";
 import Coordinates from "./widgets/models/Coordinates";
 
 import * as panelView from "./widgets/views/panelView";
 import * as widgetView from "./widgets/views/widgetView";
+import * as acreageView from "./widgets/views/acreageView";
 
-import {elements} from "./widgets/views/base";
+import {CSS, elements} from "./widgets/views/base";
+import { resolve } from 'path';
 
 const state: {[key: string]: any} = {};
 
@@ -70,7 +72,7 @@ export const appController = () => {
     const appMap = app.applicationMap.map;
 
     // Populate the dropdown menu
-    widget.populateSelect();
+    acreageView.populateSelect();
 
     // Add current acreage layers to the list
     widget.addCurrentLayersToList(state);
@@ -78,16 +80,37 @@ export const appController = () => {
     // Acreage Events
     $(elements.acreage.add_btn).on('click', () => {
 
-      const producer = $(elements.acreage.dropdown).val();
+      let producer: string = ($(elements.acreage.dropdown).val() as string);
 
       widget.addFeature(appMap, producer, state);
 
-      widget.addListItemEvent();
-
-      widget.addFilterOptionEvent();
-
-      widget.queryLayer(producer, "Shape.STArea() > 0", state);
+      acreageView.renderListItem(producer);
     
+    });
+
+    $(elements.acreage.list).on('click', 'li.acreage__list-item', (e) => {
+      
+      e.stopImmediatePropagation();
+
+      acreageView.renderFeatureOptions($(e.currentTarget));
+      
+    });
+
+    $(elements.acreage.list).on('click', 'img.acreage__options-img', (e) => {
+
+      e.stopImmediatePropagation();
+
+      const featureName = $(e.currentTarget).parent().parent().text().trim();
+
+      new Modal();
+
+      acreageView.renderFilterPanel(featureName);
+
+      widget.queryLayer(featureName, "Shape.STArea() > 0", state);
+      
+
+      // acreageView.populateFieldValues(state);
+      
     });
 
     $(elements.acreage.remove_btn).on('click', () => {

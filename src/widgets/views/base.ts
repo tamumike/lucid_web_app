@@ -19,16 +19,19 @@ export const CSS = {
         subcontainer: "modal__subcontainer",
         title: "modal__title",
         heading: "modal__heading",
-        dropdown: "modal__dropdown"
+        dropdown: "modal__dropdown",
+        options_list: "modal__options-list"
     },
     acreage: {
         add: "acreage__button-add",
         dropdown: "acreage__dropdown",
         remove: "acreage__button-remove",
         list: "acreage__list",
+        list_item: "acreage__list-item",
         removeAll: "acreage__button-remove_all",
         options: "acreage__options",
-        options_img: "acreage__options-img"
+        options_img: "acreage__options-img",
+        filter_list: "acreage__filter-list"
     }
 };
 
@@ -41,16 +44,19 @@ export const elements = {
         base: `#${CSS.modal.base}`,
         panel: `#${CSS.modal.panel}`,
         close: `.${CSS.modal.close}`,
-        subcontainer: `.${CSS.modal.subcontainer}`
+        subcontainer: `.${CSS.modal.subcontainer}`,
+        options_list: `.${CSS.modal.options_list}`
     },
     acreage: {
         add_btn: `#${CSS.acreage.add}`,
         remove_btn: `#${CSS.acreage.remove}`,
         dropdown: `#${CSS.acreage.dropdown}`,
         list: `#${CSS.acreage.list}`,
+        list_item: `.${CSS.acreage.list_item}`,
         remove_all_btn: `#${CSS.acreage.removeAll}`,
         options: `.${CSS.acreage.options}`,
-        options_filter: `.${CSS.acreage.options_img}`
+        options_filter: `.${CSS.acreage.options_img}`,
+        filter_list: `#${CSS.acreage.filter_list}`
     }
 };
 

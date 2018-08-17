@@ -8,7 +8,7 @@ import Query from "esri/tasks/support/Query";
 import Widget from "./Widget";
 import Modal from "./Modal";
 import * as acreageView from "../views/acreageView";
-import {elements, acreageProducers} from "../views/base";
+import {elements} from "../views/base";
 
 
 
@@ -22,16 +22,16 @@ export default class Acreage extends Widget {
         acreageView.renderWidget();
     }
 
-    addFeature(map: EsriMap, producer: string, state: { acreage: string[] }): void {
+    addFeature(map: EsriMap, producer: string, state: { acreage: string[], query: {} }): void {
 
         if (!this.isDuplicate(map, producer)) {
 
             const featureURL = `https://gisportal.lucid-energy.com/arcgis/rest/services/Acreage/${producer}/MapServer`;
             map.add(new MapImageLayer({url: featureURL, id: `${producer}`}));
-            
-            acreageView.renderListItem(producer);
 
             state.acreage.push(producer);
+
+            // this.addListItemEvent(state);
 
         }
 
@@ -49,15 +49,15 @@ export default class Acreage extends Widget {
 
     }
 
-    populateSelect(): void {
+    // populateSelect(): void {
 
-        acreageProducers.forEach(producer => {
+    //     acreageProducers.forEach(producer => {
 
-            $(elements.acreage.dropdown).append(`<option>${producer}</option>`);
+    //         $(elements.acreage.dropdown).append(`<option>${producer}</option>`);
 
-        });
+    //     });
 
-    }
+    // }
 
     isDuplicate(map: EsriMap, id: string): boolean {
 
@@ -65,7 +65,7 @@ export default class Acreage extends Widget {
 
     }
 
-    addCurrentLayersToList(state: { acreage: string[] }) {
+    addCurrentLayersToList(state: { acreage: string[] }): void {
 
         state.acreage.forEach((layer) => {
 
@@ -75,7 +75,7 @@ export default class Acreage extends Widget {
 
     }
 
-    removeAllFeatures(map: EsriMap, state: { acreage: string[] }) {
+    removeAllFeatures(map: EsriMap, state: any): void {
 
         state.acreage.forEach((producer: string) => {
 
@@ -86,46 +86,62 @@ export default class Acreage extends Widget {
         });
 
     }
-
-    addListItemEvent() {
-
-        return $(elements.list_item).on('click', (e) => {
     
-            e.stopImmediatePropagation();
-    
-            acreageView.renderFeatureOptions($(e.currentTarget));
-
-            // this.addFilterOptionEvent();
-    
-          });
-
-    }
-
-    addFilterOptionEvent() {
-
-        return $(elements.acreage.options_filter).on('click', (e) => {
-
-            e.stopImmediatePropagation();
-
-            const featureName = $(e.currentTarget).parent().parent().text().trim();
-
-            new Modal();
-
-            acreageView.renderFilterPanel(featureName);
-            
-        }) ;
-    }
-
-    queryLayer(name: string, clause: string, state: { query: {}}): void {
+    queryLayer(name: string, clause: string, state: { acreage_query: {}}) {
         
         const URL = `https://gisportal.lucid-energy.com/arcgis/rest/services/Acreage/${name}/MapServer/0`;
         const queryTask = new QueryTask({ url: URL });
         const query = new Query({ where: clause, outFields: ["*"] });
 
-        queryTask.execute(query).then((results) => {
-            state.query = results;
-        });
+
+        queryTask.execute(query)
+        .then(this.getQueryResults);
+
 
     }
 
+    getQueryResults(results: any): { features: {attributes: {Dedication: string}}[]} {
+
+        let features = results.features;
+
+        acreageView.populateFieldValues(features);
+
+        return features;
+
+    };
+
+    // addListItemEvent(state: { query: {} }): void {
+
+    //     $(elements.list_item).on('click', (e) => {
+    
+    //         e.stopImmediatePropagation();
+    
+    //         // acreageView.renderFeatureOptions($(e.currentTarget));
+
+    //         // this.addFilterOptionEvent(state);
+    
+    //       });
+
+    // }
+
+    // addFilterOptionEvent(state: { query: { features: any[]} }): void {
+
+    //     $(elements.acreage.options_filter).on('click', (e) => {
+
+    //         e.stopImmediatePropagation();
+
+    //         const featureName = $(e.currentTarget).parent().parent().text().trim();
+
+    //         new Modal();
+
+    //         console.log(featureName);
+            
+
+    //         this.queryLayer(featureName, "Shape.STArea() > 0", state);
+
+    //         acreageView.renderFilterPanel(featureName);
+
+    //         acreageView.populateFieldValues(state.query.features);
+    //     });
+    // }
 }
