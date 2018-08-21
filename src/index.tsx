@@ -14,7 +14,6 @@ import * as widgetView from "./widgets/views/widgetView";
 import * as acreageView from "./widgets/views/acreageView";
 
 import {CSS, elements} from "./widgets/views/base";
-import { resolve } from 'path';
 
 const state: {[key: string]: any} = {};
 
@@ -48,7 +47,7 @@ export const appController = () => {
     if (!widgetView.isActive($this)) {
 
       panelView.destroyPanel();
-      panelView.showPanel("acreage");
+      panelView.showPanel($($this).attr('widgetid') as string);
       widgetView.toggleCurrentActive();
       widgetView.toggleActive($this);
       state.currentWidget.render();
@@ -88,7 +87,7 @@ export const appController = () => {
     
     });
 
-    $(elements.acreage.list).on('click', 'li.acreage__list-item', (e) => {
+    $(elements.acreage.list).on('click', `li.${CSS.acreage.list_item}`, (e) => {
       
       e.stopImmediatePropagation();
 
@@ -96,28 +95,65 @@ export const appController = () => {
       
     });
 
-    $(elements.acreage.list).on('click', 'img.acreage__options-img', (e) => {
+    $(elements.acreage.list).on('click', `img#${CSS.acreage.filter_img}`, (e) => {
 
       e.stopImmediatePropagation();
 
       const featureName = $(e.currentTarget).parent().parent().text().trim();
 
-      new Modal();
+      const modal = new Modal();
 
       acreageView.renderFilterPanel(featureName);
 
-      widget.queryLayer(featureName, "Shape.STArea() > 0", state);
-      
+      let currentExpressions = widget.getCurrentDefinitionQuery(appMap, featureName);
 
-      // acreageView.populateFieldValues(state);
+      widget.queryLayer(featureName, "Shape.STArea() > 0", state, currentExpressions);      
+
+
+      $(elements.modal.options_list).on('click', `li.${CSS.acreage.list_item}`, (e) => {
+        
+        let $this = e.currentTarget;
+
+        $($this).toggleClass('active-filter');
+        
+      });
+
+      $(elements.modal.apply_btn).on('click', (e) => {
+        
+        e.preventDefault();
+
+        const selectedOptions: string[] = [];
+
+        const fieldName: string = $(elements.modal.dropdown).text().trim();
+
+        $('.active-filter').each((key, value) => {
+
+          selectedOptions.push($(value).text().trim());
+
+        });
+        
+        widget.applyFilter({
+          map: appMap,
+          name: featureName,
+          definitionQuery: widget.generateDefinitionQuery(fieldName, selectedOptions)
+        });
+      });
+
+      $(elements.modal.ok_btn).on('click', (e) => {
+        $(elements.modal.apply_btn).trigger('click');
+        modal.removeModal();
+      
+      });
       
     });
 
-    $(elements.acreage.remove_btn).on('click', () => {
-      
-      const producer = $(elements.acreage.dropdown).val();
+    $(elements.acreage.list).on('click', `img#${CSS.acreage.remove_img}`, (e) => {
 
-      widget.removeFeature(appMap, producer, state);
+      e.stopImmediatePropagation();
+
+      const featureName = $(e.currentTarget).parent().parent().text().trim();
+
+      widget.removeFeature(appMap, featureName, state);
 
     });
 

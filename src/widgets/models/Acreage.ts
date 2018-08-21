@@ -1,16 +1,13 @@
 import $ = require("jquery");
 
 import EsriMap from "esri/Map";
+import Layer from "esri/layers/Layer";
 import MapImageLayer from "esri/layers/MapImageLayer";
 import QueryTask from "esri/tasks/QueryTask";
 import Query from "esri/tasks/support/Query";
 
 import Widget from "./Widget";
-import Modal from "./Modal";
 import * as acreageView from "../views/acreageView";
-import {elements} from "../views/base";
-
-
 
 export default class Acreage extends Widget {
 
@@ -27,11 +24,14 @@ export default class Acreage extends Widget {
         if (!this.isDuplicate(map, producer)) {
 
             const featureURL = `https://gisportal.lucid-energy.com/arcgis/rest/services/Acreage/${producer}/MapServer`;
-            map.add(new MapImageLayer({url: featureURL, id: `${producer}`}));
+            const feature = new MapImageLayer({url: featureURL, id: `${producer}`});
+            map.add(feature);
 
-            state.acreage.push(producer);
+            feature.when(() => {
 
-            // this.addListItemEvent(state);
+                state.acreage.push(producer);
+                
+            });
 
         }
 
@@ -48,16 +48,6 @@ export default class Acreage extends Widget {
         state.acreage = state.acreage.filter((item: string) => item !== producer);
 
     }
-
-    // populateSelect(): void {
-
-    //     acreageProducers.forEach(producer => {
-
-    //         $(elements.acreage.dropdown).append(`<option>${producer}</option>`);
-
-    //     });
-
-    // }
 
     isDuplicate(map: EsriMap, id: string): boolean {
 
@@ -87,16 +77,19 @@ export default class Acreage extends Widget {
 
     }
     
-    queryLayer(name: string, clause: string, state: { acreage_query: {}}) {
+    queryLayer(name: string, clause: string, state: { acreage_query: {}}, currentExpressions: string[]): void {
         
         const URL = `https://gisportal.lucid-energy.com/arcgis/rest/services/Acreage/${name}/MapServer/0`;
         const queryTask = new QueryTask({ url: URL });
         const query = new Query({ where: clause, outFields: ["*"] });
 
-
         queryTask.execute(query)
-        .then(this.getQueryResults);
+        .then(this.getQueryResults)
+        .then(() => {
+            
+            if (currentExpressions.length > 0) acreageView.toggleActiveFilters(currentExpressions);
 
+        });
 
     }
 
@@ -108,40 +101,59 @@ export default class Acreage extends Widget {
 
         return features;
 
-    };
+    }
 
-    // addListItemEvent(state: { query: {} }): void {
+    applyFilter(filterParams : {map: EsriMap, name: string, definitionQuery: string}): void {
 
-    //     $(elements.list_item).on('click', (e) => {
-    
-    //         e.stopImmediatePropagation();
-    
-    //         // acreageView.renderFeatureOptions($(e.currentTarget));
+        const layer: MapImageLayer = filterParams.map.findLayerById(filterParams.name) as MapImageLayer;
 
-    //         // this.addFilterOptionEvent(state);
-    
-    //       });
+        layer.sublayers.forEach((sublayer, i) => {
 
-    // }
-
-    // addFilterOptionEvent(state: { query: { features: any[]} }): void {
-
-    //     $(elements.acreage.options_filter).on('click', (e) => {
-
-    //         e.stopImmediatePropagation();
-
-    //         const featureName = $(e.currentTarget).parent().parent().text().trim();
-
-    //         new Modal();
-
-    //         console.log(featureName);
+            sublayer.definitionExpression = filterParams.definitionQuery;
             
+        });
+         
+    }
 
-    //         this.queryLayer(featureName, "Shape.STArea() > 0", state);
+    generateDefinitionQuery(field: string, options: string[]): string | null {
 
-    //         acreageView.renderFilterPanel(featureName);
+        let definitionQuery: string | null = '';
 
-    //         acreageView.populateFieldValues(state.query.features);
-    //     });
-    // }
+        if (options.length > 0) {
+
+            definitionQuery = `${field} IN (`;
+
+            options.forEach((option: string, index: number) => {
+                (index !== options.length - 1) ? definitionQuery += `'${option}',` : definitionQuery += `'${option}')`;
+            });
+
+        } else definitionQuery = null;
+
+        return definitionQuery;
+    }
+
+    getCurrentDefinitionQuery(map: EsriMap, name: string): string[] {
+
+        const expressionValues: string[] = [];
+        const layer: MapImageLayer = map.findLayerById(name) as MapImageLayer;
+
+        layer.sublayers.forEach((sublayer, id) => {
+
+            let expression: string = sublayer.definitionExpression;
+
+            if (expression) {
+
+                expression.slice(expression.indexOf('(') + 1, expression.indexOf(')'))
+                    .replace(/[()'']/g, '')
+                    .split(',').forEach((value) => {
+                        expressionValues.push(value);
+                    });
+                
+            }
+            
+        });
+
+        return expressionValues;
+
+    }
 }

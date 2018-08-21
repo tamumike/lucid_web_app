@@ -103,6 +103,7 @@ body,
   background: -webkit-linear-gradient(to right, #182848, #4b6cb7);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right, #182848, #4b6cb7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
+/************/
 
 /*Panel*/
 #panel {
@@ -150,6 +151,7 @@ body,
   }
 
 }
+/************/
 
 /* Modal */
 #modal__base {
@@ -208,17 +210,58 @@ body,
     color: white;
     width: 25%;
     margin: 0 auto;
+    font-size: 12px;
   }
 
-  // .modal__options-list > .acreage__list-item {
-    
-  // }
+  .modal__options-list > li.active-filter::before {
+    content: url("./img//check.png");
+  }
+
+  .modal__btn-container {
+    position: absolute;
+    bottom: 3px;
+    width: 95%;
+    margin: 0 auto;
+  }
+
+  .modal__btn {
+    cursor: pointer;
+  }
+
+  .modal__btn-container > .modal__btn {
+    position: absolute;
+    bottom: 5px;
+  }
+
+  #modal__cancel-btn {
+    left: 1%;
+  }
+
+  #modal__ok-btn {
+    right: -1%;
+  }
+
+  #modal__apply-btn {
+    right: 8%;
+  }
 
 }
+/************/
 
-
+/* Shared Elements */
+.widget-dropdown {
+  appearance: none;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  background-color: #808080;
+  color: #fff;
+  overflow: hidden;
+}
+/************/
 
 /* Acreage Widget */
+
 #acreage__button-remove_all {
   position: absolute;
   bottom: 2%;
@@ -252,12 +295,20 @@ body,
 }
 
 .acreage__options-img {
-  content: url("./img/filter_icon.png");
   position: relative;
-  display: block;
+  display: inline-block;
   margin-left: auto;
-  margin-right: auto;
+  margin-right: 5px;
 }
+
+#acreage__filter-img {
+  content: url("./img/filter_icon.png");
+}
+
+#acreage__remove-img {
+  content: url("./img/rmv_lyr_icon.png");
+}
+/************/
 
 /* map view */
 .main,

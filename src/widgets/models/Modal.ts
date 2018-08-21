@@ -5,7 +5,7 @@ import {elements} from "../views/base";
 
 export default class Modal {
 
-    constructor() {
+     constructor() {
         modalView.renderModal();
         this.addModalCloseEvent();
     }
@@ -16,5 +16,9 @@ export default class Modal {
             modalView.removeModal();
             
         });
+    }
+
+    removeModal(): void {
+        modalView.removeModal();
     }
 }

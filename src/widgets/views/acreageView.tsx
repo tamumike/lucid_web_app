@@ -7,19 +7,18 @@ export const renderWidget = (): void => {
 
     const markup = 
 
-    `<div class=${CSS.container}>
-        <p class=${CSS.title}>Acreage</p>
-        <p class=${CSS.heading}>Add Acreage</p>
+    `<div class=${CSS.panel_obj.container}>
+        <p class=${CSS.panel_obj.title}>Acreage</p>
+        <p class=${CSS.panel_obj.heading}>Add Acreage</p>
         <select id=${CSS.acreage.dropdown} class=${CSS.dropdown}></select>
-        <div class=${CSS.subcontainer}>
-            <button id=${CSS.acreage.add} class=${CSS.button}>Add</button>
-            <button id=${CSS.acreage.remove} class=${CSS.button}>Remove</button>
+        <div class=${CSS.panel_obj.subcontainer}>
+            <button id=${CSS.acreage.add} class=${CSS.panel_obj.button}>Add</button>
         </div>
-        <div class=${CSS.subcontainer}>
-            <ul id=${CSS.acreage.list} class=${CSS.unordered_list}>
+        <div class=${CSS.panel_obj.subcontainer}>
+            <ul id=${CSS.acreage.list} class=${CSS.panel_obj.unordered_list}>
             </ul>
         </div>
-        <button id=${CSS.acreage.removeAll} class=${CSS.button}>Remove All</button>
+        <button id=${CSS.acreage.removeAll} class=${CSS.panel_obj.button}>Remove All</button>
     </div>`;
 
     $(elements.panel).append(markup);
@@ -44,7 +43,8 @@ export const renderFeatureOptions = (element: JQuery): void => {
 
     const markup = 
     `<div class=${CSS.acreage.options}>
-        <img class=${CSS.acreage.options_img} title="Filter" />
+        <img id=${CSS.acreage.filter_img} class=${CSS.acreage.options_img} title="Filter" />
+        <img id=${CSS.acreage.remove_img} class=${CSS.acreage.options_img} title="Remove" />
     </div>`;
     
     if (!hasOptions(element)) {
@@ -89,15 +89,36 @@ export const renderFilterPanel = (name: string): void => {
         `<div class=${CSS.modal.subcontainer}>
             <p class=${CSS.modal.title}>${name}</p>
             <p class=${CSS.modal.heading}>Add Filter: </p>
-            <select class=${CSS.modal.dropdown}>
+            <select class=${CSS.dropdown}>
                 <option value="dedication">Dedication</option>
             </select>
             <ul id=${CSS.acreage.filter_list} class=${CSS.modal.options_list}>
             </ul>
+            <div class=${CSS.modal.btn_container}>
+                <button id=${CSS.modal.cancel_btn} class=${CSS.modal.button}>Cancel</button>
+                <button id=${CSS.modal.apply_btn} class=${CSS.modal.button}>Apply</button>
+                <button id=${CSS.modal.ok_btn} class=${CSS.modal.button}>OK</button>
+            </div>
         </div>`;
 
     $(elements.modal.panel).append(markup);
 
+};
+
+export const toggleActiveFilters = (values: string[]) => {
+
+    values.forEach((value) => {
+        let list = $(`${elements.modal.options_list} > li${elements.acreage.list_item}`);
+
+        list.each((index, element) => {
+            
+            if ($(element).text() === value) $(element).toggleClass('active-filter');
+            
+            
+        });
+    });
+    
+    
 };
 
 export const populateSelect = () => {
