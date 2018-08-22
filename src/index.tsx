@@ -8,10 +8,12 @@ import Panel from "./widgets/models/Panel";
 import Modal from "./widgets/models/Modal";
 import Acreage from "./widgets/models/Acreage";
 import Coordinates from "./widgets/models/Coordinates";
+import DrillingInfo from "./widgets/models/DrillingInfo";
 
 import * as panelView from "./widgets/views/panelView";
 import * as widgetView from "./widgets/views/widgetView";
 import * as acreageView from "./widgets/views/acreageView";
+import * as drillingInfoView from "./widgets/views/drillingInfoView";
 
 import {CSS, elements} from "./widgets/views/base";
 
@@ -21,13 +23,14 @@ export const appController = () => {
 
   const app = new App();  
 
-  state.widgets = [new Acreage(), new Coordinates()];
+  state.widgets = [new Acreage(), new Coordinates(), new DrillingInfo()];
   state.acreage = [];
 
   const launchWidget = (currentWidget: string): void => {
     
     (currentWidget == "acreage") ? controlAcreage() : 
     (currentWidget == "coords") ? controlCoordinates() : 
+    (currentWidget == "drillInfo") ? controlDrillingInfo() : 
     console.log('no Widget');
 
   };
@@ -173,6 +176,54 @@ export const appController = () => {
   const controlCoordinates = () => {
     console.log('coords');
     
+  };
+
+  /*
+   * Drilling Info Controller 
+   */
+  const controlDrillingInfo = () => {
+    const widget = state.currentWidget;
+    const appMap = app.applicationMap.map;
+
+    let feature: string;
+
+    // Drilling Info Events
+    $(elements.drillingInfo.tab).on('click', (e) => {
+      
+      const $this = $(e.currentTarget);
+      
+      feature = $this.text();
+
+      if (!drillingInfoView.isActive($this)) {
+
+        drillingInfoView.toggleCurrentActive();
+        drillingInfoView.toggleActiveFeature($this);
+        drillingInfoView.renderFeatureMarkup(feature);
+
+      } else {
+
+        drillingInfoView.toggleActiveFeature($this);
+        drillingInfoView.removeFeatureMarkup();
+      
+      }
+      
+    });
+
+    $(elements.drillingInfo.action_container).on('click', `button#${CSS.drillingInfo.add_all_btn}`, (e) => {
+      
+      widget.addFeature(appMap, feature);
+      
+    });
+
+    $(elements.drillingInfo.action_container).on('click', `button#${CSS.drillingInfo.search_btn}`, (e) => {
+
+      const modal = new Modal();
+
+      drillingInfoView.renderSearchPanel(feature);
+
+      widget.queryLayer(feature, "Label <> '$$$'", state);
+
+    });
   };
 
 };

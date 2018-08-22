@@ -41,6 +41,15 @@ export const CSS = {
         filter_img: "acreage__filter-img",
         remove_img: "acreage__remove-img",
         filter_list: "acreage__filter-list"
+    },
+    drillingInfo: {
+        tab_container: "drillingInfo__tab-container",
+        tab_list: "drillingInfo__tab-list",
+        tab: "drillingInfo__tab",
+        action_container: "drillingInfo__function-container",
+        add_all_btn: "drillingInfo__add-all-btn",
+        search_btn: "drillingInfo__search-btn",
+        values_container: "drillingInfo__values-container"
     }
 };
 
@@ -53,7 +62,7 @@ export const elements = {
         base: `#${CSS.modal.base}`,
         panel: `#${CSS.modal.panel}`,
         close: `.${CSS.modal.close}`,
-        dropdown: `.${CSS.modal.dropdown}`,
+        dropdown: `#${CSS.modal.dropdown}`,
         subcontainer: `.${CSS.modal.subcontainer}`,
         options_list: `.${CSS.modal.options_list}`,
         apply_btn: `#${CSS.modal.apply_btn}`,
@@ -71,6 +80,15 @@ export const elements = {
         options_filter: `#${CSS.acreage.filter_img}`,
         options_remove: `#${CSS.acreage.remove_img}`,
         filter_list: `#${CSS.acreage.filter_list}`
+    },
+    drillingInfo: {
+        tab_container: `#${CSS.drillingInfo.tab_container}`,
+        tab_list: `#${CSS.drillingInfo.tab_list}`,
+        tab: `.${CSS.drillingInfo.tab}`,
+        action_container: `#${CSS.drillingInfo.action_container}`,
+        add_all_btn: `#${CSS.drillingInfo.add_all_btn}`,
+        search_btn: `#${CSS.drillingInfo.search_btn}`,
+        values_container: `#${CSS.drillingInfo.values_container}`
     }
 };
 

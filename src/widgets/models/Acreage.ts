@@ -1,7 +1,6 @@
 import $ = require("jquery");
 
 import EsriMap from "esri/Map";
-import Layer from "esri/layers/Layer";
 import MapImageLayer from "esri/layers/MapImageLayer";
 import QueryTask from "esri/tasks/QueryTask";
 import Query from "esri/tasks/support/Query";
@@ -23,8 +22,8 @@ export default class Acreage extends Widget {
 
         if (!this.isDuplicate(map, producer)) {
 
-            const featureURL = `https://gisportal.lucid-energy.com/arcgis/rest/services/Acreage/${producer}/MapServer`;
-            const feature = new MapImageLayer({url: featureURL, id: `${producer}`});
+            const featureURL: string = `https://gisportal.lucid-energy.com/arcgis/rest/services/Acreage/${producer}/MapServer`;
+            const feature: MapImageLayer = new MapImageLayer({url: featureURL, id: `${producer}`});
             map.add(feature);
 
             feature.when(() => {
@@ -108,7 +107,7 @@ export default class Acreage extends Widget {
         const layer: MapImageLayer = filterParams.map.findLayerById(filterParams.name) as MapImageLayer;
 
         layer.sublayers.forEach((sublayer, i) => {
-
+            
             sublayer.definitionExpression = filterParams.definitionQuery;
             
         });
@@ -121,7 +120,7 @@ export default class Acreage extends Widget {
 
         if (options.length > 0) {
 
-            definitionQuery = `${field} IN (`;
+            definitionQuery = `${field} IN (`;            
 
             options.forEach((option: string, index: number) => {
                 (index !== options.length - 1) ? definitionQuery += `'${option}',` : definitionQuery += `'${option}')`;

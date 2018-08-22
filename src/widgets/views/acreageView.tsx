@@ -89,7 +89,7 @@ export const renderFilterPanel = (name: string): void => {
         `<div class=${CSS.modal.subcontainer}>
             <p class=${CSS.modal.title}>${name}</p>
             <p class=${CSS.modal.heading}>Add Filter: </p>
-            <select class=${CSS.dropdown}>
+            <select id=${CSS.modal.dropdown} class=${CSS.dropdown}>
                 <option value="dedication">Dedication</option>
             </select>
             <ul id=${CSS.acreage.filter_list} class=${CSS.modal.options_list}>

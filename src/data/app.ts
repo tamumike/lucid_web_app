@@ -11,7 +11,3 @@ export const featureLayer = new FeatureLayer({
 export const map = new EsriMap({
     basemap: 'streets'
 });
-
-export const mapImageLayer = new MapImageLayer({
-    url: "https://gisportal.lucid-energy.com/arcgis/rest/services/Acreage/Devon/MapServer"
-});
