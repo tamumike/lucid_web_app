@@ -27,7 +27,8 @@ export const CSS = {
         apply_btn: "modal__apply-btn",
         cancel_btn: "modal__cancel-btn",
         ok_btn: "modal__ok-btn",
-        btn_container: "modal__btn-container"
+        btn_container: "modal__btn-container",
+        list_item: "modal__list-item"
     },
     acreage: {
         add: "acreage__button-add",
@@ -67,7 +68,8 @@ export const elements = {
         options_list: `.${CSS.modal.options_list}`,
         apply_btn: `#${CSS.modal.apply_btn}`,
         cancel_btn: `#${CSS.modal.cancel_btn}`,
-        ok_btn: `#${CSS.modal.ok_btn}`
+        ok_btn: `#${CSS.modal.ok_btn}`,
+        list_item: `.${CSS.modal.list_item}`
     },
     acreage: {
         add_btn: `#${CSS.acreage.add}`,

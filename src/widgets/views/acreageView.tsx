@@ -108,7 +108,7 @@ export const renderFilterPanel = (name: string): void => {
 export const toggleActiveFilters = (values: string[]) => {
 
     values.forEach((value) => {
-        let list = $(`${elements.modal.options_list} > li${elements.acreage.list_item}`);
+        let list = $(`${elements.modal.options_list} > li${elements.modal.list_item}`);
 
         list.each((index, element) => {
             
@@ -149,7 +149,7 @@ const renderFieldValuesList = (values: string[]) => {
 
     values.forEach((value: string) => {
         const markup = 
-        `<li class=${CSS.acreage.list_item}>${value}</li>`;
+        `<li class=${CSS.modal.list_item}>${value}</li>`;
     
         $(elements.acreage.filter_list).append(markup);
     });

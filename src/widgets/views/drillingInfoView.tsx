@@ -2,14 +2,26 @@ import $ = require("jquery");
 
 import {CSS, elements} from "../views/base";
 
-const templates: {} = {
-    wells: 
-    `<div class=${CSS.panel_obj.subcontainer}>
-        <p class=${CSS.panel_obj.heading}></p>
-    </div>`,
-    production: ``,
-    rigs: ``,
-    permits: ``
+const templates = {
+    wells: {
+        markup:
+        `<div class=${CSS.panel_obj.subcontainer}>
+            <p class=${CSS.panel_obj.heading}></p>
+        </div>`,
+        op_field: "operator_alias"
+    },
+    production: {
+        markup: ``,
+        op_field: "current_operator"
+    },
+    rigs: {
+        markup: ``,
+        op_field: "operator_name"
+    },
+    permits: {
+        markup: ``,
+        op_field: "operator_alias"
+    }
 };
 
 export const renderWidget = (): void => {
@@ -85,8 +97,59 @@ export const renderSearchPanel = (name: string): void => {
                 <ul class=${CSS.modal.options_list}>
                 </ul>
             </div>
+            <div class=${CSS.modal.btn_container}>
+                <button id=${CSS.modal.cancel_btn} class=${CSS.modal.button}>Cancel</button>
+                <button id=${CSS.modal.apply_btn} class=${CSS.modal.button}>Apply</button>
+                <button id=${CSS.modal.ok_btn} class=${CSS.modal.button}>OK</button>
+            </div>
         </div>`;
 
     $(elements.modal.panel).append(markup);
+
+};
+
+export const getFieldName = (name: string): string => {
+
+    let field: string;
+
+    (name === 'Rigs') ? field = templates.rigs.op_field : 
+    (name === 'Wells') ? field = templates.wells.op_field :
+    (name === 'Production') ? field = templates.production.op_field : 
+    field = templates.permits.op_field;
+
+    return field;
+
+}
+
+export const getValuesList = (results: any, name: string): void => {
+    
+    let field: string = getFieldName(name);
+    const values: string[] = [];
+
+
+    results.forEach((feature) => {
+
+        if (values.indexOf(feature.attributes[field]) === -1) values.push(feature.attributes[field]);
+        
+    });
+
+    renderValuesList(values.sort());
+    
+};
+
+const renderValuesList = (values: string[]): void => {
+
+    values.forEach((value) => {
+
+        const markup = `<li class=${CSS.modal.list_item}>${value}</li>`;
+
+        $(elements.modal.options_list).append(markup);
+
+    });
+    
+
+};
+
+export const toggleActiveFilter = (element: JQuery): void => {
 
 };

@@ -113,7 +113,7 @@ export const appController = () => {
       widget.queryLayer(featureName, "Shape.STArea() > 0", state, currentExpressions);      
 
 
-      $(elements.modal.options_list).on('click', `li.${CSS.acreage.list_item}`, (e) => {
+      $(elements.modal.options_list).on('click', `li.${CSS.modal.list_item}`, (e) => {
         
         let $this = e.currentTarget;
 
@@ -140,6 +140,7 @@ export const appController = () => {
           name: featureName,
           definitionQuery: widget.generateDefinitionQuery(fieldName, selectedOptions)
         });
+
       });
 
       $(elements.modal.ok_btn).on('click', (e) => {
@@ -222,6 +223,36 @@ export const appController = () => {
       drillingInfoView.renderSearchPanel(feature);
 
       widget.queryLayer(feature, "Label <> '$$$'", state);
+
+      $(elements.drillingInfo.values_container).on('click', `li.${CSS.modal.list_item}`, (e) => {
+        
+        const $this = e.currentTarget;
+
+        $($this).toggleClass('active-filter');
+        
+      });
+
+      $(elements.modal.apply_btn).on('click', (e) => {
+
+        e.preventDefault();
+
+        const selectedOptions: string[] = [];
+
+        $('.active-filter').each((key, value) => {
+
+          selectedOptions.push($(value).text().trim());
+
+        });
+
+        // console.log(widget.generateDefinitionQuery(drillingInfoView.getFieldName(feature), selectedOptions));
+
+        widget.applyFilter({
+          name: feature,
+          definitionQuery: widget.generateDefinitionQuery(drillingInfoView.getFieldName(feature), selectedOptions),
+          map: appMap
+        });
+
+      });
 
     });
   };

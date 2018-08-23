@@ -43,7 +43,10 @@ export default class DrillingInfo extends Widget {
         const query = new Query({ where: clause, outFields: ["*"] });
 
         queryTask.execute(query)
-        .then(this.getQueryResults);
+        .then((results) => {
+            drillingInfoView.getValuesList(results.features, name);
+            
+        });
         
     }
 
@@ -51,9 +54,48 @@ export default class DrillingInfo extends Widget {
 
         let features = results.features;
 
-        console.log(features);
-
         return features;
 
     }
+
+    applyFilter(filterParams: {name: string, definitionQuery: string, map: EsriMap}): void {
+
+        const layer: MapImageLayer = filterParams.map.findLayerById(filterParams.name) as MapImageLayer;
+
+        if (layer) {
+
+            layer.sublayers.forEach((sublayer, i) => {
+
+                sublayer.definitionExpression = filterParams.definitionQuery;
+    
+            });
+
+        } else {
+
+            
+
+        }
+
+    }
+
+    generateDefinitionQuery(field: string, options: string[]): string | null {
+
+        let definitionQuery: string | null = '';
+
+        if (options.length > 0) {
+
+            definitionQuery = `${field} IN (`;            
+
+            options.forEach((option: string, index: number) => {
+
+                (index !== options.length - 1) ? definitionQuery += `'${option}',` : definitionQuery += `'${option}')`;
+
+            });
+
+        } else definitionQuery = null;
+
+        return definitionQuery;
+
+    }
+
 }

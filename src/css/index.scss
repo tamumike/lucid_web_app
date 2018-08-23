@@ -204,20 +204,34 @@ body,
     margin: 0 auto;
     position: relative;
     top: 8%;
-    padding: 0.5em;
+    // padding: 0.5em;
     text-align: center;
   }
 
   .modal__options-list {
     list-style-type: none;
     color: white;
-    width: 25%;
-    margin: 0 auto;
-    font-size: 12px;
+    // width: 75%;
+    margin: auto;
+    font-size: 11px;
   }
 
   .modal__options-list > li.active-filter::before {
     content: url("./img//check.png");
+  }
+
+  .modal__list-item {
+    background-color: #1e67a3;
+    cursor: pointer;
+  }
+
+  .modal__list-item:nth-child(odd) {
+    background-color: #34a2e2;
+  }
+
+  .modal__list-item:hover {
+    background-color: #c1c1c5;
+    color: yellow;
   }
 
   .modal__btn-container {
@@ -356,6 +370,12 @@ body,
   background: #4b6cb7;
   background: -webkit-linear-gradient(to right, #182848, #4b6cb7);
   background: linear-gradient(to right, #182848, #4b6cb7);
+}
+
+#drillingInfo__values-container {
+  overflow-y: scroll;
+  height: 60%;
+  width: auto;
 }
 
 /************/
