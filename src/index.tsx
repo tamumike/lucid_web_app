@@ -34,7 +34,6 @@ export const appController = () => {
     console.log('no Widget');
 
   };
-  
 
   /* 
   * Events 
@@ -144,7 +143,9 @@ export const appController = () => {
       });
 
       $(elements.modal.ok_btn).on('click', (e) => {
+
         $(elements.modal.apply_btn).trigger('click');
+
         modal.removeModal();
       
       });
@@ -183,6 +184,7 @@ export const appController = () => {
    * Drilling Info Controller 
    */
   const controlDrillingInfo = () => {
+    
     const widget = state.currentWidget;
     const appMap = app.applicationMap.map;
 
@@ -210,10 +212,16 @@ export const appController = () => {
       
     });
 
-    $(elements.drillingInfo.action_container).on('click', `button#${CSS.drillingInfo.add_all_btn}`, (e) => {
+    $(elements.drillingInfo.action_container).on('click', `button#${CSS.drillingInfo.add_btn}`, (e) => {
       
       widget.addFeature(appMap, feature);
       
+    });
+
+    $(elements.drillingInfo.action_container).on('click', `button#${CSS.drillingInfo.remove_btn}`, (e) => {
+
+      widget.removeFeature(appMap, feature);
+
     });
 
     $(elements.drillingInfo.action_container).on('click', `button#${CSS.drillingInfo.search_btn}`, (e) => {
@@ -222,13 +230,17 @@ export const appController = () => {
 
       drillingInfoView.renderSearchPanel(feature);
 
-      widget.queryLayer(feature, "Label <> '$$$'", state);
+      let currentExpressions = widget.getCurrentDefinitionQuery(appMap, feature);
+
+      widget.queryLayer(feature, "Label <> '$$$'", state, currentExpressions);
 
       $(elements.drillingInfo.values_container).on('click', `li.${CSS.modal.list_item}`, (e) => {
         
         const $this = e.currentTarget;
 
         $($this).toggleClass('active-filter');
+
+        drillingInfoView.transferItem($($this));
         
       });
 
@@ -244,8 +256,6 @@ export const appController = () => {
 
         });
 
-        // console.log(widget.generateDefinitionQuery(drillingInfoView.getFieldName(feature), selectedOptions));
-
         widget.applyFilter({
           name: feature,
           definitionQuery: widget.generateDefinitionQuery(drillingInfoView.getFieldName(feature), selectedOptions),
@@ -254,11 +264,17 @@ export const appController = () => {
 
       });
 
+      $(elements.modal.ok_btn).on('click', (e) => {
+
+        $(elements.modal.apply_btn).trigger('click');
+
+        modal.removeModal();
+
+      });
+
     });
   };
 
 };
-
-
 
 appController();

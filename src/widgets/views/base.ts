@@ -48,9 +48,12 @@ export const CSS = {
         tab_list: "drillingInfo__tab-list",
         tab: "drillingInfo__tab",
         action_container: "drillingInfo__function-container",
-        add_all_btn: "drillingInfo__add-all-btn",
+        add_btn: "drillingInfo__add-btn",
+        remove_btn: "drillingInfo__remove-btn",
         search_btn: "drillingInfo__search-btn",
-        values_container: "drillingInfo__values-container"
+        values_container: "drillingInfo__values-container",
+        avail_opts: "drillingInfo__avail-opts",
+        selected_opts: "drillingInfo__selected-opts"
     }
 };
 
@@ -88,9 +91,12 @@ export const elements = {
         tab_list: `#${CSS.drillingInfo.tab_list}`,
         tab: `.${CSS.drillingInfo.tab}`,
         action_container: `#${CSS.drillingInfo.action_container}`,
-        add_all_btn: `#${CSS.drillingInfo.add_all_btn}`,
+        add_btn: `#${CSS.drillingInfo.add_btn}`,
+        remove_btn: `#${CSS.drillingInfo.remove_btn}`,
         search_btn: `#${CSS.drillingInfo.search_btn}`,
-        values_container: `#${CSS.drillingInfo.values_container}`
+        values_container: `.${CSS.drillingInfo.values_container}`,
+        avail_opts: `#${CSS.drillingInfo.avail_opts}`,
+        selected_opts: `#${CSS.drillingInfo.selected_opts}`
     }
 };
 

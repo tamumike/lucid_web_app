@@ -209,11 +209,12 @@ body,
   }
 
   .modal__options-list {
-    list-style-type: none;
+    list-style: none;
     color: white;
-    // width: 75%;
-    margin: auto;
-    font-size: 11px;
+    // width: auto;
+    font-size: 9px;
+    padding: 0;
+    margin: 0;
   }
 
   .modal__options-list > li.active-filter::before {
@@ -278,6 +279,7 @@ body,
 /************/
 
 /* Acreage Widget */
+
 
 #acreage__button-remove_all {
   position: absolute;
@@ -372,10 +374,13 @@ body,
   background: linear-gradient(to right, #182848, #4b6cb7);
 }
 
-#drillingInfo__values-container {
+.drillingInfo__values-container {
   overflow-y: scroll;
-  height: 60%;
-  width: auto;
+  height: 40%;
+  width: 48%;
+  display: inline-block;
+  padding: 0;
+  background-color: #34a2e2;
 }
 
 /************/

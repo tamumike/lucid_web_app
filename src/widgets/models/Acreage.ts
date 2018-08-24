@@ -1,5 +1,3 @@
-import $ = require("jquery");
-
 import EsriMap from "esri/Map";
 import MapImageLayer from "esri/layers/MapImageLayer";
 import QueryTask from "esri/tasks/QueryTask";

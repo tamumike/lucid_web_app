@@ -108,6 +108,7 @@ export const renderFilterPanel = (name: string): void => {
 export const toggleActiveFilters = (values: string[]) => {
 
     values.forEach((value) => {
+        
         let list = $(`${elements.modal.options_list} > li${elements.modal.list_item}`);
 
         list.each((index, element) => {
@@ -116,6 +117,7 @@ export const toggleActiveFilters = (values: string[]) => {
             
             
         });
+
     });
     
     

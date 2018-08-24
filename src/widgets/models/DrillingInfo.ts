@@ -1,5 +1,3 @@
-import $ = require("jquery");
-
 import MapImageLayer from "esri/layers/MapImageLayer";
 import EsriMap from "esri/Map";
 import QueryTask from "esri/tasks/QueryTask";
@@ -18,7 +16,7 @@ export default class DrillingInfo extends Widget {
         drillingInfoView.renderWidget();
     }
 
-    addFeature(map: EsriMap, name: string): void {
+    addFeature(map: EsriMap, name: string, definitionQuery?: string): void {
 
         if (!this.isDuplicate(map, name)) {
 
@@ -26,7 +24,30 @@ export default class DrillingInfo extends Widget {
             const feature: MapImageLayer = new MapImageLayer({url: featureURL, id: `${name}`});
 
             map.add(feature);
+
+            if (definitionQuery) {
+
+                feature.when(() => {
+
+                    feature.sublayers.forEach((sublayer, i) => {
+
+                        sublayer.definitionExpression = definitionQuery;
+    
+                    });
+
+                });
+
+
+            }
         }
+
+    }
+
+    removeFeature(map: EsriMap, name: string): void {
+        
+        const feature = map.findLayerById(name);
+
+        map.remove(feature);
 
     }
 
@@ -36,7 +57,7 @@ export default class DrillingInfo extends Widget {
 
     }
 
-    queryLayer(name: string, clause: string, state: { drillingInfo_query: {}}): void {
+    queryLayer(name: string, clause: string, state: { drillingInfo_query: {}}, currentExpressions: string[]): void {
         
         const URL = `https://gisportal.lucid-energy.com/arcgis/rest/services/DI_${name}_NM/MapServer/0`;
         const queryTask = new QueryTask({ url: URL });
@@ -44,8 +65,13 @@ export default class DrillingInfo extends Widget {
 
         queryTask.execute(query)
         .then((results) => {
+
             drillingInfoView.getValuesList(results.features, name);
             
+        }).then(() => {
+            
+            if (currentExpressions.length > 0) drillingInfoView.toggleActiveFilters(currentExpressions);
+
         });
         
     }
@@ -72,7 +98,7 @@ export default class DrillingInfo extends Widget {
 
         } else {
 
-            
+            this.addFeature(filterParams.map, filterParams.name, filterParams.definitionQuery);
 
         }
 
@@ -95,6 +121,35 @@ export default class DrillingInfo extends Widget {
         } else definitionQuery = null;
 
         return definitionQuery;
+
+    }
+
+    getCurrentDefinitionQuery(map: EsriMap, name: string): string[] {
+
+        const expressionValues: string[] = [];
+        const layer: MapImageLayer = map.findLayerById(name) as MapImageLayer;
+
+        if (layer) {
+
+            layer.sublayers.forEach((sublayer, id) => {
+
+                let expression: string = sublayer.definitionExpression;
+
+                if (expression) {
+
+                    expression.slice(expression.indexOf('(') + 1, expression.indexOf(')'))
+                        .replace(/[()'']/g, '')
+                        .split(',').forEach((value) => {
+                            expressionValues.push(value);
+                        });
+                    
+                }
+                
+            });
+
+        }
+        
+        return expressionValues;
 
     }
 

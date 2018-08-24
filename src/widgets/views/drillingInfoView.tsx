@@ -81,7 +81,8 @@ export const renderFeatureMarkup = (feature: string): void => {
 
     const markup: string = 
         `<p class=${CSS.panel_obj.heading}>${feature}</p>
-        <button id=${CSS.drillingInfo.add_all_btn} class=${CSS.panel_obj.button}>Add All</button>
+        <button id=${CSS.drillingInfo.add_btn} class=${CSS.panel_obj.button}>Add</button>
+        <button id=${CSS.drillingInfo.remove_btn} class=${CSS.panel_obj.button}>Remove</button>
         <button id=${CSS.drillingInfo.search_btn} class=${CSS.panel_obj.button}>Search By Operator</button>`;
 
     $(elements.drillingInfo.action_container).append(markup);
@@ -93,8 +94,12 @@ export const renderSearchPanel = (name: string): void => {
     const markup = 
         `<div class=${CSS.modal.subcontainer}>
             <p class=${CSS.modal.title}>${name}</p>
-            <div id=${CSS.drillingInfo.values_container}>
-                <ul class=${CSS.modal.options_list}>
+            <div class=${CSS.drillingInfo.values_container}>
+                <ul id=${CSS.drillingInfo.avail_opts} class=${CSS.modal.options_list}>
+                </ul>
+            </div>
+            <div class=${CSS.drillingInfo.values_container}>
+                <ul id=${CSS.drillingInfo.selected_opts} class=${CSS.modal.options_list}>
                 </ul>
             </div>
             <div class=${CSS.modal.btn_container}>
@@ -143,13 +148,64 @@ const renderValuesList = (values: string[]): void => {
 
         const markup = `<li class=${CSS.modal.list_item}>${value}</li>`;
 
-        $(elements.modal.options_list).append(markup);
+        $(elements.drillingInfo.avail_opts).append(markup);
 
     });
     
 
 };
 
-export const toggleActiveFilter = (element: JQuery): void => {
+export const toggleActiveFilters = (values: string[]): void => {
+
+    values.forEach((value) => {
+
+        let list = $(`${elements.drillingInfo.avail_opts} > li${elements.modal.list_item}`);
+
+        console.log(value);
+        
+
+        list.each((index, element) => {
+            
+            if ($(element).text() === value) 
+                $(element).toggleClass('active-filter')
+                    .detach()
+                    .appendTo(elements.drillingInfo.selected_opts);
+            
+        });
+
+    });
+
+};
+
+export const transferItem = (element: JQuery): void => {
+
+    const itemContents: string[] =[];
+
+    if (element.hasClass('active-filter')) {
+
+        element.detach().appendTo($(elements.drillingInfo.selected_opts));
+
+    } else {
+
+        element.detach();
+
+        $(elements.drillingInfo.avail_opts).children('li').each((key, value) => {
+
+            itemContents.push($(value).text());
+            
+        });
+    
+        itemContents.push(element.text());
+        itemContents.sort();
+
+        let neighbor: string = itemContents[itemContents.indexOf(element.text())+1];
+
+        (neighbor) ? element.insertBefore($(`.${CSS.modal.list_item}:contains(${neighbor})`)) :
+        element.appendTo(elements.drillingInfo.avail_opts);
+        
+    }
+
+
+    
 
 };
