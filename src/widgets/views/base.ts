@@ -5,6 +5,7 @@ export const CSS = {
     panel: "panel",
     controller: "controller",
     dropdown: "widget-dropdown",
+    textbox: "textbox",
     panel_obj: {
         container: "panel__widget-container",
         title: "panel__widget-title",
@@ -53,7 +54,8 @@ export const CSS = {
         search_btn: "drillingInfo__search-btn",
         values_container: "drillingInfo__values-container",
         avail_opts: "drillingInfo__avail-opts",
-        selected_opts: "drillingInfo__selected-opts"
+        selected_opts: "drillingInfo__selected-opts",
+        op_search: "drillingInfo__op-search"
     }
 };
 
@@ -62,6 +64,7 @@ export const elements = {
     panel: `#${CSS.panel}`,
     controller: `#${CSS.controller}`,
     list_item: `.${CSS.panel_obj.list_item}`,
+    textbox: `.${CSS.textbox}`,
     modal: {
         base: `#${CSS.modal.base}`,
         panel: `#${CSS.modal.panel}`,
@@ -96,7 +99,8 @@ export const elements = {
         search_btn: `#${CSS.drillingInfo.search_btn}`,
         values_container: `.${CSS.drillingInfo.values_container}`,
         avail_opts: `#${CSS.drillingInfo.avail_opts}`,
-        selected_opts: `#${CSS.drillingInfo.selected_opts}`
+        selected_opts: `#${CSS.drillingInfo.selected_opts}`,
+        op_search: `#${CSS.drillingInfo.op_search}`
     }
 };
 

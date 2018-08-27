@@ -187,6 +187,7 @@ export const appController = () => {
     
     const widget = state.currentWidget;
     const appMap = app.applicationMap.map;
+    const featureObject = drillingInfoView.templates;
 
     let feature: string;
 
@@ -232,8 +233,9 @@ export const appController = () => {
 
       let currentExpressions = widget.getCurrentDefinitionQuery(appMap, feature);
 
-      widget.queryLayer(feature, "Label <> '$$$'", state, currentExpressions);
-
+      (!drillingInfoView.templates[feature].values) ? widget.queryLayer(feature, "Label <> '$$$'", state, currentExpressions) :
+      drillingInfoView.renderValuesList(drillingInfoView.templates[feature].values, currentExpressions);      
+      
       $(elements.drillingInfo.values_container).on('click', `li.${CSS.modal.list_item}`, (e) => {
         
         const $this = e.currentTarget;
@@ -241,6 +243,30 @@ export const appController = () => {
         $($this).toggleClass('active-filter');
 
         drillingInfoView.transferItem($($this));
+        
+      });
+
+      $(elements.drillingInfo.op_search).on('keyup', (e) => {
+        
+        const $this = $(e.currentTarget);
+        let input = $this.val();
+
+        console.log(e.key);
+        console.log(input);
+
+        if (input) {
+          featureObject[feature].values.forEach((value) => {
+            let itemPos;
+            if (value.toLowerCase().indexOf(input) !== -1) {
+              itemPos = $(`${elements.drillingInfo.avail_opts} > li:contains(${value})`).position();
+              $(elements.drillingInfo.avail_opts).scrollTop();
+            }
+          });
+        }
+        
+
+
+
         
       });
 
@@ -258,7 +284,7 @@ export const appController = () => {
 
         widget.applyFilter({
           name: feature,
-          definitionQuery: widget.generateDefinitionQuery(drillingInfoView.getFieldName(feature), selectedOptions),
+          definitionQuery: widget.generateDefinitionQuery(drillingInfoView.templates[feature].op_field, selectedOptions),
           map: appMap
         });
 

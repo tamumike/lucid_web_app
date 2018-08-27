@@ -2,23 +2,23 @@ import $ = require("jquery");
 
 import {CSS, elements} from "../views/base";
 
-const templates = {
-    wells: {
+export let templates = {
+    "Wells": {
         markup:
         `<div class=${CSS.panel_obj.subcontainer}>
             <p class=${CSS.panel_obj.heading}></p>
         </div>`,
         op_field: "operator_alias"
     },
-    production: {
+    "Production": {
         markup: ``,
         op_field: "current_operator"
     },
-    rigs: {
+    "Rigs": {
         markup: ``,
         op_field: "operator_name"
     },
-    permits: {
+    "Permits": {
         markup: ``,
         op_field: "operator_alias"
     }
@@ -107,71 +107,33 @@ export const renderSearchPanel = (name: string): void => {
                 <button id=${CSS.modal.apply_btn} class=${CSS.modal.button}>Apply</button>
                 <button id=${CSS.modal.ok_btn} class=${CSS.modal.button}>OK</button>
             </div>
+            <input placeholder="Search..." type="text" id=${CSS.drillingInfo.op_search} class=${CSS.textbox}></input>
         </div>`;
 
     $(elements.modal.panel).append(markup);
 
 };
 
-export const getFieldName = (name: string): string => {
-
-    let field: string;
-
-    (name === 'Rigs') ? field = templates.rigs.op_field : 
-    (name === 'Wells') ? field = templates.wells.op_field :
-    (name === 'Production') ? field = templates.production.op_field : 
-    field = templates.permits.op_field;
-
-    return field;
-
-}
-
-export const getValuesList = (results: any, name: string): void => {
-    
-    let field: string = getFieldName(name);
-    const values: string[] = [];
-
-
-    results.forEach((feature) => {
-
-        if (values.indexOf(feature.attributes[field]) === -1) values.push(feature.attributes[field]);
-        
-    });
-
-    renderValuesList(values.sort());
-    
-};
-
-const renderValuesList = (values: string[]): void => {
+export const renderValuesList = (values: string[], currentExpressions: string[]): void => {
 
     values.forEach((value) => {
 
         const markup = `<li class=${CSS.modal.list_item}>${value}</li>`;
 
-        $(elements.drillingInfo.avail_opts).append(markup);
+        if (currentExpressions.indexOf(value) === -1) $(elements.drillingInfo.avail_opts).append(markup);
 
     });
-    
+
+    toggleActiveFilters(currentExpressions);
 
 };
 
 export const toggleActiveFilters = (values: string[]): void => {
-
+    
     values.forEach((value) => {
 
-        let list = $(`${elements.drillingInfo.avail_opts} > li${elements.modal.list_item}`);
-
-        console.log(value);
-        
-
-        list.each((index, element) => {
-            
-            if ($(element).text() === value) 
-                $(element).toggleClass('active-filter')
-                    .detach()
-                    .appendTo(elements.drillingInfo.selected_opts);
-            
-        });
+        const markup = $(`<li class="${CSS.modal.list_item} active-filter">${value}</li>`);
+        $(elements.drillingInfo.selected_opts).append(markup);
 
     });
 

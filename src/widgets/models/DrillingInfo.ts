@@ -57,7 +57,7 @@ export default class DrillingInfo extends Widget {
 
     }
 
-    queryLayer(name: string, clause: string, state: { drillingInfo_query: {}}, currentExpressions: string[]): void {
+    queryLayer(name: string, clause: string, state: {}, currentExpressions: string[]): void {
         
         const URL = `https://gisportal.lucid-energy.com/arcgis/rest/services/DI_${name}_NM/MapServer/0`;
         const queryTask = new QueryTask({ url: URL });
@@ -66,7 +66,7 @@ export default class DrillingInfo extends Widget {
         queryTask.execute(query)
         .then((results) => {
 
-            drillingInfoView.getValuesList(results.features, name);
+            this.getValuesList(results.features, name, currentExpressions);
             
         }).then(() => {
             
@@ -76,12 +76,21 @@ export default class DrillingInfo extends Widget {
         
     }
 
-    getQueryResults(results: any): { features: {}[]} {
-
-        let features = results.features;
-
-        return features;
-
+    getValuesList(results: any, name: string, currentExpressions: string[]): void {
+    
+        let field: string = drillingInfoView.templates[name].op_field;
+        const values: string[] = [];
+        
+    
+        results.forEach((feature) => {
+    
+            if (values.indexOf(feature.attributes[field]) === -1) values.push(feature.attributes[field]);
+            
+        });
+    
+        drillingInfoView.templates[name].values = values;
+        drillingInfoView.renderValuesList(values.sort(), currentExpressions);
+    
     }
 
     applyFilter(filterParams: {name: string, definitionQuery: string, map: EsriMap}): void {
