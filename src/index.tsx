@@ -38,7 +38,7 @@ export const appController = () => {
   /* 
   * Events 
   */
-  $(".controller__widgets-container").on("click", (e) => {
+  $(`${elements.widget_container}`).on("click", (e) => {
 
     e.stopImmediatePropagation();
     Panel.getInstance();
@@ -150,6 +150,12 @@ export const appController = () => {
       
       });
       
+      $(elements.modal.cancel_btn).on('click', (e) => {
+
+        modal.removeModal();
+        
+      });
+      
     });
 
     $(elements.acreage.list).on('click', `img#${CSS.acreage.remove_img}`, (e) => {
@@ -187,9 +193,8 @@ export const appController = () => {
     
     const widget = state.currentWidget;
     const appMap = app.applicationMap.map;
-    const featureObject = drillingInfoView.templates;
 
-    let feature: string;
+    let feature: string = $('.active-feature').text().trim();
 
     // Drilling Info Events
     $(elements.drillingInfo.tab).on('click', (e) => {
@@ -248,26 +253,8 @@ export const appController = () => {
 
       $(elements.drillingInfo.op_search).on('keyup', (e) => {
         
-        const $this = $(e.currentTarget);
-        let input = $this.val();
+        widget.getSearchInput($(e.currentTarget), feature);
 
-        console.log(e.key);
-        console.log(input);
-
-        if (input) {
-          featureObject[feature].values.forEach((value) => {
-            let itemPos;
-            if (value.toLowerCase().indexOf(input) !== -1) {
-              itemPos = $(`${elements.drillingInfo.avail_opts} > li:contains(${value})`).position();
-              $(elements.drillingInfo.avail_opts).scrollTop();
-            }
-          });
-        }
-        
-
-
-
-        
       });
 
       $(elements.modal.apply_btn).on('click', (e) => {
@@ -296,6 +283,12 @@ export const appController = () => {
 
         modal.removeModal();
 
+      });
+
+      $(elements.modal.cancel_btn).on('click', (e) => {
+
+        modal.removeModal();
+        
       });
 
     });

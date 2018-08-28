@@ -12,13 +12,13 @@ export const renderWidget = (): void => {
         <p class=${CSS.panel_obj.heading}>Add Acreage</p>
         <select id=${CSS.acreage.dropdown} class=${CSS.dropdown}></select>
         <div class=${CSS.panel_obj.subcontainer}>
-            <button id=${CSS.acreage.add} class=${CSS.panel_obj.button}>Add</button>
+            <button id=${CSS.acreage.add} class="${CSS.panel_obj.button} ${CSS.button}">Add</button>
         </div>
         <div class=${CSS.panel_obj.subcontainer}>
             <ul id=${CSS.acreage.list} class=${CSS.panel_obj.unordered_list}>
             </ul>
         </div>
-        <button id=${CSS.acreage.removeAll} class=${CSS.panel_obj.button}>Remove All</button>
+        <button id=${CSS.acreage.removeAll} class="${CSS.panel_obj.button} ${CSS.button}">Remove All</button>
     </div>`;
 
     $(elements.panel).append(markup);
@@ -95,9 +95,9 @@ export const renderFilterPanel = (name: string): void => {
             <ul id=${CSS.acreage.filter_list} class=${CSS.modal.options_list}>
             </ul>
             <div class=${CSS.modal.btn_container}>
-                <button id=${CSS.modal.cancel_btn} class=${CSS.modal.button}>Cancel</button>
-                <button id=${CSS.modal.apply_btn} class=${CSS.modal.button}>Apply</button>
-                <button id=${CSS.modal.ok_btn} class=${CSS.modal.button}>OK</button>
+                <button id=${CSS.modal.cancel_btn} class="${CSS.modal.button} ${CSS.button}">Cancel</button>
+                <button id=${CSS.modal.apply_btn} class="${CSS.modal.button} ${CSS.button}">Apply</button>
+                <button id=${CSS.modal.ok_btn} class="${CSS.modal.button} ${CSS.button}">OK</button>
             </div>
         </div>`;
 

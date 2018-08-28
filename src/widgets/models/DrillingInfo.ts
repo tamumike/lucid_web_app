@@ -9,7 +9,7 @@ import * as drillingInfoView from "../views/drillingInfoView";
 export default class DrillingInfo extends Widget {
 
     constructor() {
-        super('Drill Info', 'drillInfo');
+        super('Drill_Info', 'drillInfo');
     }
 
     render(): void {
@@ -159,6 +159,26 @@ export default class DrillingInfo extends Widget {
         }
         
         return expressionValues;
+
+    }
+
+    getSearchInput(element: JQuery, feature: string): void {
+
+        const input = element.val() as string;
+
+        if (input && input !== '') {
+
+            let subArray: string[];
+          
+              subArray = drillingInfoView.templates[feature].values.filter((value) => {
+  
+                return value.startsWith(input.toUpperCase());
+  
+              });
+
+              drillingInfoView.scrollOptionsDiv(subArray[0]);
+  
+          }
 
     }
 

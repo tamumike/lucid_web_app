@@ -32,7 +32,7 @@ export const renderWidget = (): void => {
         <p class=${CSS.panel_obj.title}>Drilling Info</p>
         <div id=${CSS.drillingInfo.tab_container} class=${CSS.panel_obj.subcontainer}>
             <ul id=${CSS.drillingInfo.tab_list}>
-                <li class=${CSS.drillingInfo.tab}>Rigs</li>
+                <li class="${CSS.drillingInfo.tab} active-feature">Rigs</li>
                 <li class=${CSS.drillingInfo.tab}>Production</li>
                 <li class=${CSS.drillingInfo.tab}>Wells</li>
                 <li class=${CSS.drillingInfo.tab}>Permits</li>
@@ -43,6 +43,7 @@ export const renderWidget = (): void => {
     </div>`;
 
     $(elements.panel).append(markup);
+    renderFeatureMarkup("Rigs");
 };
 
 export const toggleActiveFeature = (element: JQuery): void => {
@@ -81,9 +82,9 @@ export const renderFeatureMarkup = (feature: string): void => {
 
     const markup: string = 
         `<p class=${CSS.panel_obj.heading}>${feature}</p>
-        <button id=${CSS.drillingInfo.add_btn} class=${CSS.panel_obj.button}>Add</button>
-        <button id=${CSS.drillingInfo.remove_btn} class=${CSS.panel_obj.button}>Remove</button>
-        <button id=${CSS.drillingInfo.search_btn} class=${CSS.panel_obj.button}>Search By Operator</button>`;
+        <button id=${CSS.drillingInfo.add_btn} class="${CSS.panel_obj.button} ${CSS.button}"><img class=${CSS.add_img} />Add</button>
+        <button id=${CSS.drillingInfo.remove_btn} class="${CSS.panel_obj.button} ${CSS.button}"><img class=${CSS.remove_img} />Remove</button>
+        <button id=${CSS.drillingInfo.search_btn} class="${CSS.panel_obj.button} ${CSS.button}"><img class=${CSS.search_img} />Search By Operator</button>`;
 
     $(elements.drillingInfo.action_container).append(markup);
     
@@ -103,10 +104,11 @@ export const renderSearchPanel = (name: string): void => {
                 </ul>
             </div>
             <div class=${CSS.modal.btn_container}>
-                <button id=${CSS.modal.cancel_btn} class=${CSS.modal.button}>Cancel</button>
-                <button id=${CSS.modal.apply_btn} class=${CSS.modal.button}>Apply</button>
-                <button id=${CSS.modal.ok_btn} class=${CSS.modal.button}>OK</button>
+                <button id=${CSS.modal.cancel_btn} class="${CSS.modal.button} ${CSS.button}">Cancel</button>
+                <button id=${CSS.modal.apply_btn} class="${CSS.modal.button} ${CSS.button}">Apply</button>
+                <button id=${CSS.modal.ok_btn} class="${CSS.modal.button} ${CSS.button}">OK</button>
             </div>
+            <img class=${CSS.search_img} />
             <input placeholder="Search..." type="text" id=${CSS.drillingInfo.op_search} class=${CSS.textbox}></input>
         </div>`;
 
@@ -169,5 +171,18 @@ export const transferItem = (element: JQuery): void => {
 
 
     
+
+};
+
+export const scrollOptionsDiv = (value: string): void => {
+
+    const $parent = $(elements.drillingInfo.avail_opts).parent();
+    const element = $(`${elements.drillingInfo.avail_opts} > li:contains(${value})`);
+
+    if (element.length > 0) {
+        
+        $parent.scrollTop(($parent.scrollTop() as number) + (element.position().top as number) - 
+        ($parent.height() as number)/2 + (element.height() as number)/2);
+    }
 
 };

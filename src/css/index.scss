@@ -54,7 +54,7 @@ body,
   cursor: pointer;
 }
 
-.controller__widgets-container {
+.controller__widget-container {
   height: 100%;
   width: 100%;
   padding-top: 0.5em;
@@ -64,7 +64,7 @@ body,
   background: -webkit-linear-gradient(to right, #29323c, #485563);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right, #29323c, #485563); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
-.controller__widgets-container:hover {
+.controller__widget-container:hover {
   color: yellow;
   background: #4b6cb7;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to right, #182848, #4b6cb7);  /* Chrome 10-25, Safari 5.1-6 */
@@ -75,7 +75,7 @@ body,
   #controller {
     width: calc(48px + (80 - 48) * ((100vw - 150px) / (2162 - 150)));
   }
-  #controller__widgets, .controller__widgets-label {
+  #controller__widgets, .controller__widget-label {
     font-size: calc(9px + (11 - 9) * ((100vw - 150px) / (2162 - 150)));
   }
   #panel {
@@ -85,12 +85,12 @@ body,
 
 /* Widget Nodes*/
 
-.controller__widgets-label {
+.controller__widget-label {
   font-weight: bold;
   // letter-spacing: 0.05em;
 }
 
-.controller__widgets-container > img {
+.controller__widget-container > img {
   max-width: 55%;
   max-height: 55%;
   min-width: 45%;
@@ -275,6 +275,68 @@ body,
   background-color: #808080;
   color: #fff;
   overflow: hidden;
+}
+
+.btn {
+  cursor: pointer;
+  border: 0.1em #c1c1c5 solid;
+  background-color: #808080;
+  color: #fff;
+  border-radius: 2px;
+  font-size: 12px;
+  padding: 0.25em;
+  margin-bottom: 0.3em;
+}
+
+.btn:hover {
+  color: yellow;
+}
+
+.btn:active {
+  background-color: #c1c1c5;
+  border-color: #808080;
+}
+
+.textbox {
+  background-color: #808080;
+  border: 0.1em #c1c1c5 solid;
+  color: #fff;
+}
+
+::-webkit-input-placeholder { /* Chrome */
+  color: #fff;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: #fff;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: #fff;
+  opacity: 1;
+}
+:-moz-placeholder { /* Firefox 4 - 18 */
+  color: #fff;
+  opacity: 1;
+}
+
+.search__img {
+  content: url("./img/search_icon.png");
+  position: relative;
+  top: 2.5px;
+  margin-right: 0.3em;
+}
+
+.add__img {
+  content: url("./img//add_icon.png");
+}
+
+.remove__img {
+  content: url("./img//remove_icon.png");
+}
+
+.add__img, .remove__img {
+  position: relative;
+  top: 1px;
+  margin-right: 0.3em;
 }
 /************/
 

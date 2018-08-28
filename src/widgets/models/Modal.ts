@@ -16,9 +16,12 @@ export default class Modal {
             modalView.removeModal();
             
         });
+        
     }
 
     removeModal(): void {
+
         modalView.removeModal();
+
     }
 }

@@ -5,15 +5,15 @@ import Widget from "../models/Widget";
 export const renderNode = (label: string, widgetID: string) => {
 
     const CSS = {
-        base: "controller__widgets-container",
-        nodeId: `controller__widgets-${label}`,
-        imageClass: `controller__widgets-img-${label}`,
-        labelClass: `controller__widgets-label`
+        base: "controller__widget-container",
+        nodeId: `controller__widget-${label}`,
+        imageClass: `controller__widget-img-${label}`,
+        labelClass: `controller__widget-label`
     };
 
     const markup = 
         `<div id=${CSS.nodeId} class=${CSS.base} widgetId=${widgetID}>
-            <span class=${CSS.labelClass}>${label.toUpperCase()}</span>
+            <span class=${CSS.labelClass}>${label.replace('_', ' ').toUpperCase()}</span>
         </div>`;
 
     $("#controller__widgets").append(markup);
