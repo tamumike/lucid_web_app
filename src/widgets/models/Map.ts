@@ -1,6 +1,8 @@
 import EsriMap from "esri/Map";
 import MapView from "esri/views/MapView";
 
+import * as data from "../../data/app";
+
 export default class ApplicationMap {
 
     map: EsriMap;
@@ -10,7 +12,8 @@ export default class ApplicationMap {
 
     constructor() {
         this.map = new EsriMap({
-            basemap: "streets"
+            basemap: "streets",
+            layers: [data.systemLayer]
         });
         this.view = new MapView({
             map: this.map,
@@ -20,6 +23,12 @@ export default class ApplicationMap {
             ui: {
                 components: []
             }
+        });
+
+        data.systemLayer.when(() => {
+            
+            this.view.goTo({ target: data.systemLayer.fullExtent });
+            
         });
     }
 }

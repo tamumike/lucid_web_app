@@ -9,7 +9,7 @@ import * as drillingInfoView from "../views/drillingInfoView";
 export default class DrillingInfo extends Widget {
 
     constructor() {
-        super('Drill_Info', 'drillInfo');
+        super('Drill_Info', 'drillInfo', true);
     }
 
     render(): void {

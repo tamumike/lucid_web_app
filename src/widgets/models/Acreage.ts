@@ -9,7 +9,7 @@ import * as acreageView from "../views/acreageView";
 export default class Acreage extends Widget {
 
     constructor() {
-        super('Acreage', 'acreage');
+        super('Acreage', 'acreage', true);
     }
 
     render(): void {
@@ -20,9 +20,21 @@ export default class Acreage extends Widget {
 
         if (!this.isDuplicate(map, producer)) {
 
-            const featureURL: string = `https://gisportal.lucid-energy.com/arcgis/rest/services/Acreage/${producer}/MapServer`;
-            const feature: MapImageLayer = new MapImageLayer({url: featureURL, id: `${producer}`});
-            map.add(feature);
+            let definitionQuery: string;
+
+            (producer === 'All') ? definitionQuery = '' : definitionQuery = `Producer = '${producer}'`;
+
+            const featureURL: string = `https://gisportal.lucid-energy.com/arcgis/rest/services/Acreage/AllAcreage/MapServer`;
+            const feature: MapImageLayer = new MapImageLayer({
+                url: featureURL, 
+                id: `Acreage - ${producer}`,
+                sublayers: [{
+                    id: 0,
+                    visible: true,
+                    definitionExpression: definitionQuery
+                }]
+            });
+            map.add(feature, 0);
 
             feature.when(() => {
 
@@ -36,7 +48,7 @@ export default class Acreage extends Widget {
 
     removeFeature(map: EsriMap, producer: string, state: { acreage: string[] }): void {
 
-        const feature = map.findLayerById(producer);
+        const feature = map.findLayerById(`Acreage - ${producer}`);
 
         map.remove(feature);
 
@@ -66,7 +78,7 @@ export default class Acreage extends Widget {
 
         state.acreage.forEach((producer: string) => {
 
-            map.remove(map.findLayerById(producer));
+            map.remove(map.findLayerById(`Acreage - ${producer}`));
 
             acreageView.removeListItem(producer);
 
@@ -74,9 +86,13 @@ export default class Acreage extends Widget {
 
     }
     
-    queryLayer(name: string, clause: string, state: { acreage_query: {}}, currentExpressions: string[]): void {
+    queryLayer(name: string, state: { acreage_query: {}}, currentExpressions: string[]): void {
         
-        const URL = `https://gisportal.lucid-energy.com/arcgis/rest/services/Acreage/${name}/MapServer/0`;
+        let clause: string;
+
+        (name === 'All') ? clause = 'Shape.STArea() > 0' : clause = `Producer = '${name}'`;
+
+        const URL = `https://gisportal.lucid-energy.com/arcgis/rest/services/Acreage/AllAcreage/MapServer/0`;
         const queryTask = new QueryTask({ url: URL });
         const query = new Query({ where: clause, outFields: ["*"] });
 
@@ -102,11 +118,12 @@ export default class Acreage extends Widget {
 
     applyFilter(filterParams : {map: EsriMap, name: string, definitionQuery: string}): void {
 
-        const layer: MapImageLayer = filterParams.map.findLayerById(filterParams.name) as MapImageLayer;
+        const layer: MapImageLayer = filterParams.map.findLayerById(`Acreage - ${filterParams.name}`) as MapImageLayer;
 
         layer.sublayers.forEach((sublayer, i) => {
-            
-            sublayer.definitionExpression = filterParams.definitionQuery;
+
+            (filterParams.name === 'All') ? sublayer.definitionExpression = filterParams.definitionQuery :
+            sublayer.definitionExpression += `AND ${filterParams.definitionQuery}`;
             
         });
          
@@ -132,7 +149,7 @@ export default class Acreage extends Widget {
     getCurrentDefinitionQuery(map: EsriMap, name: string): string[] {
 
         const expressionValues: string[] = [];
-        const layer: MapImageLayer = map.findLayerById(name) as MapImageLayer;
+        const layer: MapImageLayer = map.findLayerById(`Acreage - ${name}`) as MapImageLayer;
 
         layer.sublayers.forEach((sublayer, id) => {
 

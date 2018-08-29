@@ -338,11 +338,24 @@ body,
   top: 1px;
   margin-right: 0.3em;
 }
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #c1c1c5;
+  border-radius: 0 3px 3px 0;
+}
+::-webkit-scrollbar-thumb {
+  background: #808080;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #474747;
+}
 /************/
 
 /* Acreage Widget */
-
-
 #acreage__button-remove_all {
   position: absolute;
   bottom: 2%;
@@ -443,8 +456,12 @@ body,
   display: inline-block;
   padding: 0;
   background-color: #34a2e2;
+  border-radius: 3px;
 }
 
+#drillingInfo__search-btn {
+  margin-top: 15%;
+}
 /************/
 
 /* map view */

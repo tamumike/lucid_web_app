@@ -112,7 +112,7 @@ export const elements = {
 };
 
 export const acreageProducers = [
-    "AllAcreage",
+    "All",
     "Ameredev",
     "Apache",
     "BHP",
@@ -127,7 +127,7 @@ export const acreageProducers = [
     "Energen",
     "EOG",
     "Halcon",
-    "KaiserFrancis",
+    "Kaiser Francis",
     "Lilis",
     "Limestone",
     "Marathon",
@@ -135,7 +135,7 @@ export const acreageProducers = [
     "Mewbourne",
     "Murchison",
     "Oasis",
-    "ReadStevens",
+    "Read & Stevens",
     "Taprock",
     "WPX",
     "XTO",

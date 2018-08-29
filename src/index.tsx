@@ -9,6 +9,7 @@ import Modal from "./widgets/models/Modal";
 import Acreage from "./widgets/models/Acreage";
 import Coordinates from "./widgets/models/Coordinates";
 import DrillingInfo from "./widgets/models/DrillingInfo";
+import ThirdParty from "./widgets/models/ThirdParty";
 
 import * as panelView from "./widgets/views/panelView";
 import * as widgetView from "./widgets/views/widgetView";
@@ -23,7 +24,7 @@ export const appController = () => {
 
   const app = new App();  
 
-  state.widgets = [new Acreage(), new Coordinates(), new DrillingInfo()];
+  state.widgets = [new Acreage(), new Coordinates(), new DrillingInfo(), new ThirdParty()];
   state.acreage = [];
 
   const launchWidget = (currentWidget: string): void => {
@@ -31,6 +32,7 @@ export const appController = () => {
     (currentWidget == "acreage") ? controlAcreage() : 
     (currentWidget == "coords") ? controlCoordinates() : 
     (currentWidget == "drillInfo") ? controlDrillingInfo() : 
+    (currentWidget == "thirdParty") ? controlThirdParty() : 
     console.log('no Widget');
 
   };
@@ -109,7 +111,7 @@ export const appController = () => {
 
       let currentExpressions = widget.getCurrentDefinitionQuery(appMap, featureName);
 
-      widget.queryLayer(featureName, "Shape.STArea() > 0", state, currentExpressions);      
+      widget.queryLayer(featureName, state, currentExpressions);      
 
 
       $(elements.modal.options_list).on('click', `li.${CSS.modal.list_item}`, (e) => {
@@ -292,6 +294,13 @@ export const appController = () => {
       });
 
     });
+  };
+
+  /*
+   * Third Party Controller 
+   */  
+  const controlThirdParty = () => {
+
   };
 
 };

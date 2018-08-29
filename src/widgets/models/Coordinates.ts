@@ -6,7 +6,7 @@ import * as coordinatesView from "../views/coordinatesView";
 export default class Coordinates extends Widget {
 
     constructor() {
-        super('Coords', 'coords');
+        super('Coords', 'coords', false);
     }
 
     render(): void {

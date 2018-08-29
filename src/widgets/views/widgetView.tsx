@@ -2,7 +2,7 @@ import $ = require("jquery");
 
 import Widget from "../models/Widget";
 
-export const renderNode = (label: string, widgetID: string) => {
+export const renderNode = (label: string, widgetID: string): void => {
 
     const CSS = {
         base: "controller__widget-container",
@@ -19,6 +19,11 @@ export const renderNode = (label: string, widgetID: string) => {
     $("#controller__widgets").append(markup);
     
 };
+
+export const renderOutOfPanelNode = (): void => {
+    console.log('out of panel');
+    
+}
 
 export const isActive = (element: JQuery): boolean => {
     return element.hasClass("active-widget");
