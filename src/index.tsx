@@ -15,6 +15,7 @@ import * as panelView from "./widgets/views/panelView";
 import * as widgetView from "./widgets/views/widgetView";
 import * as acreageView from "./widgets/views/acreageView";
 import * as drillingInfoView from "./widgets/views/drillingInfoView";
+import * as thirdPartyView from "./widgets/views/thirdPartyView";
 
 import {CSS, elements} from "./widgets/views/base";
 
@@ -199,7 +200,7 @@ export const appController = () => {
     let feature: string = $('.active-feature').text().trim();
 
     // Drilling Info Events
-    $(elements.drillingInfo.tab).on('click', (e) => {
+    $(elements.panel_obj.tab).on('click', (e) => {
       
       const $this = $(e.currentTarget);
       
@@ -300,6 +301,54 @@ export const appController = () => {
    * Third Party Controller 
    */  
   const controlThirdParty = () => {
+
+    const widget = state.currentWidget;
+    const appMap = app.applicationMap.map;
+
+    let feature: string = $('.active-feature').text().trim();
+
+    widget.addCurrentLayersToList(appMap, feature);
+
+    // Third Party Events
+    $(elements.panel_obj.tab).on('click', (e) => {
+
+      const $this = $(e.currentTarget);
+
+      feature = $this.text();
+      if (!thirdPartyView.isActive($this)) {
+
+        thirdPartyView.toggleCurrentActive();
+        thirdPartyView.toggleActiveFeature($this);
+        thirdPartyView.renderFeatureMarkup(feature);
+
+      } else {
+
+        thirdPartyView.toggleActiveFeature($this);
+        thirdPartyView.removeFeatureMarkup();
+      
+      }
+
+    });
+
+    $(elements.thirdParty.add_btn).on('click', (e) => {
+
+      e.preventDefault();
+
+      const featureClass = $(elements.thirdParty.dropdown).val() as string;
+
+      widget.addFeature(appMap, featureClass);
+
+      thirdPartyView.renderListItem(featureClass);
+
+    });
+
+    $(elements.thirdParty.list).on('click', `li.${CSS.thirdParty.list_item}`, (e) => {
+
+      e.stopImmediatePropagation();
+
+      thirdPartyView.renderFeatureOptions($(e.currentTarget));
+
+    });
 
   };
 

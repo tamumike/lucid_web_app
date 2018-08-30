@@ -1,0 +1,56 @@
+#drillingInfo__tab-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+  }
+  
+  #drillingInfo__tab-list>* {
+    flex: 1 1 30px;
+  }
+  
+  .drillingInfo__tab {
+    // display: inline;
+    cursor: pointer;
+    border: solid;
+    border-color: grey;
+    border-width: 0 2px 2px 0;
+    margin: 0;
+    padding: 0 0.2em 0 0.2em;
+    font-size: 12px;
+    background: #485563;
+    background: -webkit-linear-gradient(to right, #29323c, #485563);
+    background: linear-gradient(to right, #29323c, #485563);
+    border-radius: 0 5px 0 0;
+  }
+  
+  .drillingInfo__tab:hover {
+    color: yellow;
+    background: #4b6cb7;
+    background: -webkit-linear-gradient(to right, #182848, #4b6cb7);
+    background: linear-gradient(to right, #182848, #4b6cb7);
+  }
+  
+  .drillingInfo__tab.active-feature {
+    color: yellow;
+    background: #4b6cb7;
+    background: -webkit-linear-gradient(to right, #182848, #4b6cb7);
+    background: linear-gradient(to right, #182848, #4b6cb7);
+  }
+  
+  .drillingInfo__values-container {
+    overflow-y: scroll;
+    height: 40%;
+    width: 48%;
+    display: inline-block;
+    padding: 0;
+    background-color: #34a2e2;
+    border-radius: 3px;
+  }
+  
+  #drillingInfo__search-btn {
+    margin-top: 15%;
+  }

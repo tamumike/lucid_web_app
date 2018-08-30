@@ -30,12 +30,12 @@ export const renderWidget = (): void => {
 
     `<div class=${CSS.panel_obj.container}>
         <p class=${CSS.panel_obj.title}>Drilling Info</p>
-        <div id=${CSS.drillingInfo.tab_container} class=${CSS.panel_obj.subcontainer}>
-            <ul id=${CSS.drillingInfo.tab_list}>
-                <li class="${CSS.drillingInfo.tab} active-feature">Rigs</li>
-                <li class=${CSS.drillingInfo.tab}>Production</li>
-                <li class=${CSS.drillingInfo.tab}>Wells</li>
-                <li class=${CSS.drillingInfo.tab}>Permits</li>
+        <div id=${CSS.panel_obj.tab_container} class=${CSS.panel_obj.subcontainer}>
+            <ul id=${CSS.panel_obj.tab_list}>
+                <li class="${CSS.panel_obj.tab} active-feature">Rigs</li>
+                <li class=${CSS.panel_obj.tab}>Production</li>
+                <li class=${CSS.panel_obj.tab}>Wells</li>
+                <li class=${CSS.panel_obj.tab}>Permits</li>
             </ul>
         </div>
         <div id=${CSS.drillingInfo.action_container} class=${CSS.panel_obj.subcontainer}>

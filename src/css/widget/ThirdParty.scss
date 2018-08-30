@@ -1,0 +1,40 @@
+.thirdParty__list-item {
+    background-color: #29323c;
+    background: #485563;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #29323c, #485563);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #29323c, #485563); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    border-bottom: 2px grey solid;
+    margin-bottom: 0.5em;
+  }
+  
+  .thirdParty__list-item:hover {
+    color: yellow;
+    cursor: pointer;
+    background: #4b6cb7;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #182848, #4b6cb7);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #182848, #4b6cb7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  }
+
+  .thirdParty__options {
+    // height: 100%;
+    // width: 100%;
+    max-height: 20px;
+    background-color: #0f1129;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+  }
+  
+  .thirdParty__options-img {
+    position: relative;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: 5px;
+  }
+  
+  #thirdParty__filter-img {
+    content: url("../img/filter_icon.png");
+  }
+  
+  #thirdParty__remove-img {
+    content: url("../img/rmv_lyr_icon.png");
+  }

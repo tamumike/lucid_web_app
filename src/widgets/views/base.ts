@@ -18,7 +18,10 @@ export const CSS = {
         subcontainer: "panel__widget-subcontainer",
         unordered_list: "panel__widget-unordered_list",
         list_item: "panel__widget-list_item",
-        heading: "panel__widget-heading"
+        heading: "panel__widget-heading",
+        tab_container: "panel__tab-container",
+        tab_list: "panel__tab-container-list",
+        tab: "panel__tab-container-tab"
     },
     modal: {
         base: "modal__base",
@@ -50,9 +53,6 @@ export const CSS = {
         filter_list: "acreage__filter-list"
     },
     drillingInfo: {
-        tab_container: "drillingInfo__tab-container",
-        tab_list: "drillingInfo__tab-list",
-        tab: "drillingInfo__tab",
         action_container: "drillingInfo__function-container",
         add_btn: "drillingInfo__add-btn",
         remove_btn: "drillingInfo__remove-btn",
@@ -61,6 +61,17 @@ export const CSS = {
         avail_opts: "drillingInfo__avail-opts",
         selected_opts: "drillingInfo__selected-opts",
         op_search: "drillingInfo__op-search"
+    },
+    thirdParty: {
+        add_btn: "thirdParty__add-btn",
+        dropdown: "thirdParty__dropdown",
+        action_container: "thirdParty__action-container",
+        list: "thirdParty__list",
+        list_item: "thirdParty__list-item",
+        options: "thirdParty__options",
+        options_img: "thirdParty__options-img",
+        filter_img: "thirdParty__filter-img",
+        remove_img: "thirdParty__remove-img"
     }
 };
 
@@ -72,6 +83,11 @@ export const elements = {
     list_item: `.${CSS.panel_obj.list_item}`,
     textbox: `.${CSS.textbox}`,
     button: `.${CSS.button}`,
+    panel_obj: {
+        tab_container: `#${CSS.panel_obj.tab_container}`,
+        tab_list: `#${CSS.panel_obj.tab_list}`,
+        tab: `.${CSS.panel_obj.tab}`
+    },
     modal: {
         base: `#${CSS.modal.base}`,
         panel: `#${CSS.modal.panel}`,
@@ -97,9 +113,6 @@ export const elements = {
         filter_list: `#${CSS.acreage.filter_list}`
     },
     drillingInfo: {
-        tab_container: `#${CSS.drillingInfo.tab_container}`,
-        tab_list: `#${CSS.drillingInfo.tab_list}`,
-        tab: `.${CSS.drillingInfo.tab}`,
         action_container: `#${CSS.drillingInfo.action_container}`,
         add_btn: `#${CSS.drillingInfo.add_btn}`,
         remove_btn: `#${CSS.drillingInfo.remove_btn}`,
@@ -108,6 +121,17 @@ export const elements = {
         avail_opts: `#${CSS.drillingInfo.avail_opts}`,
         selected_opts: `#${CSS.drillingInfo.selected_opts}`,
         op_search: `#${CSS.drillingInfo.op_search}`
+    },
+    thirdParty: {
+        add_btn: `#${CSS.thirdParty.add_btn}`,
+        dropdown: `#${CSS.thirdParty.dropdown}`,
+        action_container: `#${CSS.thirdParty.action_container}`,
+        list: `#${CSS.thirdParty.list}`,
+        list_item: `.${CSS.thirdParty.list_item}`,
+        options: `.${CSS.thirdParty.options}`,
+        options_img: `.${CSS.thirdParty.options_img}`,
+        filter_img: `#${CSS.thirdParty.filter_img}`,
+        remove__img: `#${CSS.thirdParty.remove_img}`
     }
 };
 

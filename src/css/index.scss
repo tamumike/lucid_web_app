@@ -4,6 +4,10 @@ $white: #fff;
 $close1: #f56868;
 $close2: #f61717;
 
+@import url("./widget/ThirdParty.scss");
+@import url("./widget/Acreage.scss");
+@import url("./widget/DrillingInfo.scss");
+
 html,
 body,
 #app {
@@ -152,7 +156,47 @@ body,
     background: -webkit-linear-gradient(to right, #182848, #4b6cb7);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #182848, #4b6cb7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   }
-
+  #panel__tab-container-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+  }
+  
+  #panel__tab-container-list>* {
+    flex: 1 1 30px;
+  }
+  
+  .panel__tab-container-tab {
+    cursor: pointer;
+    border: solid;
+    border-color: grey;
+    border-width: 0 2px 2px 0;
+    margin: 0;
+    padding: 0 0.2em 0 0.2em;
+    font-size: 12px;
+    background: #485563;
+    background: -webkit-linear-gradient(to right, #29323c, #485563);
+    background: linear-gradient(to right, #29323c, #485563);
+    border-radius: 0 5px 0 0;
+  }
+  
+  .panel__tab-container-tab:hover {
+    color: yellow;
+    background: #4b6cb7;
+    background: -webkit-linear-gradient(to right, #182848, #4b6cb7);
+    background: linear-gradient(to right, #182848, #4b6cb7);
+  }
+  
+  .panel__tab-container-tab.active-feature {
+    color: yellow;
+    background: #4b6cb7;
+    background: -webkit-linear-gradient(to right, #182848, #4b6cb7);
+    background: linear-gradient(to right, #182848, #4b6cb7);
+  }
 }
 /************/
 
@@ -303,6 +347,8 @@ body,
   color: #fff;
 }
 
+
+
 ::-webkit-input-placeholder { /* Chrome */
   color: #fff;
 }
@@ -352,115 +398,6 @@ body,
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #474747;
-}
-/************/
-
-/* Acreage Widget */
-#acreage__button-remove_all {
-  position: absolute;
-  bottom: 2%;
-  right: 5%;
-}
-
-.acreage__list-item {
-  background-color: #29323c;
-  background: #485563;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #29323c, #485563);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #29323c, #485563); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  border-bottom: 2px grey solid;
-  margin-bottom: 0.5em;
-}
-
-.acreage__list-item:hover {
-  color: yellow;
-  cursor: pointer;
-  background: #4b6cb7;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #182848, #4b6cb7);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #182848, #4b6cb7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-}
-
-.acreage__options {
-  // height: 100%;
-  // width: 100%;
-  max-height: 20px;
-  background-color: #0f1129;
-  padding-top: 0.2em;
-  padding-bottom: 0.2em;
-}
-
-.acreage__options-img {
-  position: relative;
-  display: inline-block;
-  margin-left: auto;
-  margin-right: 5px;
-}
-
-#acreage__filter-img {
-  content: url("./img/filter_icon.png");
-}
-
-#acreage__remove-img {
-  content: url("./img/rmv_lyr_icon.png");
-}
-/************/
-
-/* Drilling Info Widget */
-
-#drillingInfo__tab-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  font-size: 0;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-}
-
-#drillingInfo__tab-list>* {
-  flex: 1 1 30px;
-}
-
-.drillingInfo__tab {
-  // display: inline;
-  cursor: pointer;
-  border: solid;
-  border-color: grey;
-  border-width: 0 2px 2px 0;
-  margin: 0;
-  padding: 0 0.2em 0 0.2em;
-  font-size: 12px;
-  background: #485563;
-  background: -webkit-linear-gradient(to right, #29323c, #485563);
-  background: linear-gradient(to right, #29323c, #485563);
-  border-radius: 0 5px 0 0;
-}
-
-.drillingInfo__tab:hover {
-  color: yellow;
-  background: #4b6cb7;
-  background: -webkit-linear-gradient(to right, #182848, #4b6cb7);
-  background: linear-gradient(to right, #182848, #4b6cb7);
-}
-
-.drillingInfo__tab.active-feature {
-  color: yellow;
-  background: #4b6cb7;
-  background: -webkit-linear-gradient(to right, #182848, #4b6cb7);
-  background: linear-gradient(to right, #182848, #4b6cb7);
-}
-
-.drillingInfo__values-container {
-  overflow-y: scroll;
-  height: 40%;
-  width: 48%;
-  display: inline-block;
-  padding: 0;
-  background-color: #34a2e2;
-  border-radius: 3px;
-}
-
-#drillingInfo__search-btn {
-  margin-top: 15%;
 }
 /************/
 
