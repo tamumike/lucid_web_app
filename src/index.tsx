@@ -336,7 +336,7 @@ export const appController = () => {
 
       const featureClass = $(elements.thirdParty.dropdown).val() as string;
 
-      widget.addFeature(appMap, featureClass);
+      // widget.addFeature(appMap, featureClass);
 
       thirdPartyView.renderListItem(featureClass);
 
@@ -347,6 +347,28 @@ export const appController = () => {
       e.stopImmediatePropagation();
 
       thirdPartyView.renderFeatureOptions($(e.currentTarget));
+
+    });
+
+    $(elements.thirdParty.list).on('click', `img#${CSS.thirdParty.remove_img}`, (e) => {
+
+      e.stopImmediatePropagation();
+
+      const featureName = $(e.currentTarget).parent().parent().text().trim();
+
+      widget.removeFeature(appMap, featureName);
+
+    });
+
+    $(elements.thirdParty.list).on('click', `img#${CSS.thirdParty.filter_img}`, (e) => {
+
+      const modal = new Modal();
+
+      const featureName = $(e.currentTarget).parent().parent().text().trim();
+
+      thirdPartyView.renderFilterPanel(featureName);
+
+      widget.queryLayer(appMap, featureName);
 
     });
 

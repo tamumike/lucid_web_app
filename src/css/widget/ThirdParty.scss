@@ -38,3 +38,18 @@
   #thirdParty__remove-img {
     content: url("../img/rmv_lyr_icon.png");
   }
+
+  .thirdParty__values-container {
+    overflow-y: scroll;
+    height: 40%;
+    width: 48%;
+    display: inline-block;
+    padding: 0;
+    background-color: #34a2e2;
+    border-radius: 3px;
+    margin-top: 5%;
+  }
+
+  #thirdParty__field-select {
+    position: absolute;
+  }

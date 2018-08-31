@@ -71,7 +71,12 @@ export const CSS = {
         options: "thirdParty__options",
         options_img: "thirdParty__options-img",
         filter_img: "thirdParty__filter-img",
-        remove_img: "thirdParty__remove-img"
+        remove_img: "thirdParty__remove-img",
+        values_container: "thirdParty__values-container",
+        avail_opts: "thirdParty__avail-opts",
+        selected_opts: "thirdParty__selected-opts",
+        op_search: "thirdParty__op-search",
+        field_select: "thirdParty__field-select"
     }
 };
 
@@ -131,7 +136,12 @@ export const elements = {
         options: `.${CSS.thirdParty.options}`,
         options_img: `.${CSS.thirdParty.options_img}`,
         filter_img: `#${CSS.thirdParty.filter_img}`,
-        remove__img: `#${CSS.thirdParty.remove_img}`
+        remove__img: `#${CSS.thirdParty.remove_img}`,
+        values_container: `#${CSS.thirdParty.values_container}`,
+        avail_opts: `#${CSS.thirdParty.avail_opts}`,
+        selected_opts: `#${CSS.thirdParty.selected_opts}`,
+        op_search: `#${CSS.thirdParty.op_search}`,
+        field_select: `#${CSS.thirdParty.field_select}`
     }
 };
 

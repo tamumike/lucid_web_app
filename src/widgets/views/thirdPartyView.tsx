@@ -96,13 +96,19 @@ export const removeFeatureMarkup = (): void => {
 export const renderListItem = (name: string): void => {
 
     if ($(`li.${CSS.thirdParty.list_item}:contains(${name})`).length === 0) {
-        
+
         const markup = 
         `<li class=${CSS.thirdParty.list_item}>${name}</li>`;
     
         $(elements.thirdParty.list).append(markup);
     }
     
+};
+
+export const removeListItem = (name: string): void => {
+
+    $(`${elements.thirdParty.list_item}:contains(${name})`).remove();
+
 };
 
 export const renderFeatureOptions = (element: JQuery): void => {
@@ -146,5 +152,32 @@ const removeExistingOptions = (element: JQuery): void => {
         }
 
     });
+
+};
+
+export const renderFilterPanel = (name: string): void => {
+
+    const markup = 
+        `<div class=${CSS.modal.subcontainer}>
+            <p class=${CSS.modal.title}>${name}</p>
+            <select id=${CSS.thirdParty.field_select} class=${CSS.dropdown}></select>
+            <div class=${CSS.thirdParty.values_container}>
+                <ul id=${CSS.thirdParty.avail_opts} class=${CSS.modal.options_list}>
+                </ul>
+            </div>
+            <div class=${CSS.thirdParty.values_container}>
+                <ul id=${CSS.thirdParty.selected_opts} class=${CSS.modal.options_list}>
+                </ul>
+            </div>
+            <div class=${CSS.modal.btn_container}>
+                <button id=${CSS.modal.cancel_btn} class="${CSS.modal.button} ${CSS.button}">Cancel</button>
+                <button id=${CSS.modal.apply_btn} class="${CSS.modal.button} ${CSS.button}">Apply</button>
+                <button id=${CSS.modal.ok_btn} class="${CSS.modal.button} ${CSS.button}">OK</button>
+            </div>
+            <img class=${CSS.search_img} />
+            <input placeholder="Search..." type="text" id=${CSS.thirdParty.op_search} class=${CSS.textbox}></input>
+        </div>`;
+
+        $(elements.modal.panel).append(markup);
 
 };
