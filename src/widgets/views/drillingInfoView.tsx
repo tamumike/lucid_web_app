@@ -168,10 +168,7 @@ export const transferItem = (element: JQuery): void => {
         element.appendTo(elements.drillingInfo.avail_opts);
         
     }
-
-
     
-
 };
 
 export const scrollOptionsDiv = (value: string): void => {

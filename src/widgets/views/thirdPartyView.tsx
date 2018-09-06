@@ -4,11 +4,12 @@ import {CSS, elements} from "../views/base";
 
 export const templates = {
     "Pipelines": {
-        dropdown_opts: ["Natural Gas", "Crude", "NGL", "Refined Products"]
+        dropdown_opts: ["Natural Gas", "Crude Oil", "NGL", "Refined Products"]
     },
     "Facilities": {
-        dropdown_opts: ["Compresors", "Meters", "Processing Plants"]
-    }
+        dropdown_opts: ["Compressors", "Meters", "Processing Plants"]
+    },
+    op_values: {}
 };
 
 export const renderWidget = (): void => {
@@ -19,10 +20,11 @@ export const renderWidget = (): void => {
             <div id=${CSS.panel_obj.tab_container} class=${CSS.panel_obj.subcontainer}>
                 <ul id=${CSS.panel_obj.tab_list}>
                     <li class="${CSS.panel_obj.tab} active-feature">Pipelines</li>
-                    <li class=${CSS.panel_obj.tab}>Facilities</li>
                 </ul>
             </div>
             <button id=${CSS.thirdParty.add_btn} class="${CSS.panel_obj.button} ${CSS.button}"><img class=${CSS.add_img} />Add</button>
+            <p class=${CSS.panel_obj.heading}>Layers</p>
+            <div class=${CSS.panel_obj.divider2}></div>
             <div class=${CSS.panel_obj.subcontainer}>
                 <ul id=${CSS.thirdParty.list} class=${CSS.panel_obj.unordered_list}>
                 </ul>
@@ -39,7 +41,7 @@ export const renderFeatureMarkup = (name: string): void => {
 
     const markup = 
         `<div id=${CSS.thirdParty.action_container} class=${CSS.panel_obj.subcontainer}>
-            <p class=${CSS.panel_obj.heading}>${name}</p>
+            <p class=${CSS.panel_obj.heading}>Select Type</p>
             <select id=${CSS.thirdParty.dropdown} class=${CSS.dropdown}>${populateDropdownOptions(name)}</select>
         </div>`;
 
@@ -160,7 +162,6 @@ export const renderFilterPanel = (name: string): void => {
     const markup = 
         `<div class=${CSS.modal.subcontainer}>
             <p class=${CSS.modal.title}>${name}</p>
-            <select id=${CSS.thirdParty.field_select} class=${CSS.dropdown}></select>
             <div class=${CSS.thirdParty.values_container}>
                 <ul id=${CSS.thirdParty.avail_opts} class=${CSS.modal.options_list}>
                 </ul>
@@ -179,5 +180,75 @@ export const renderFilterPanel = (name: string): void => {
         </div>`;
 
         $(elements.modal.panel).append(markup);
+
+};
+
+export const renderValuesList = (values: string[], currentExpressions: string[]): void => {
+
+    values.forEach((value) => {
+
+        const markup = `<li class=${CSS.modal.list_item}>${value}</li>`;
+
+        if (currentExpressions.indexOf(value) === -1) $(elements.thirdParty.avail_opts).append(markup);
+
+    });
+
+    toggleActiveFilters(currentExpressions);
+
+};
+
+export const toggleActiveFilters = (values: string[]): void => {
+    
+    values.forEach((value) => {
+
+        const markup = $(`<li class="${CSS.modal.list_item} active-filter">${value}</li>`);
+
+        $(elements.thirdParty.selected_opts).append(markup);
+
+    });
+
+};
+
+export const transferItem = (element: JQuery): void => {
+
+    const itemContents: string[] =[];
+
+    if (element.hasClass('active-filter')) {
+
+        element.detach().appendTo($(elements.thirdParty.selected_opts));
+
+    } else {
+
+        element.detach();
+
+        $(elements.thirdParty.avail_opts).children('li').each((key, value) => {
+
+            itemContents.push($(value).text());
+            
+        });
+    
+        itemContents.push(element.text());
+        itemContents.sort();
+
+        let neighbor: string = itemContents[itemContents.indexOf(element.text())+1];
+
+        (neighbor) ? element.insertBefore($(`.${CSS.modal.list_item}:contains(${neighbor})`)) :
+        element.appendTo(elements.thirdParty.avail_opts);
+        
+    }
+    
+};
+
+export const scrollOptionsDiv = (value: string): void => {
+
+    const $parent = $(elements.thirdParty.avail_opts).parent();
+    const element = $(`${elements.thirdParty.avail_opts} > li:contains(${value})`);
+
+    if (element.length > 0) {
+        
+        $parent.scrollTop(($parent.scrollTop() as number) + (element.position().top as number) - 
+        (($parent.height() as number)/2 + (element.height() as number)/1.5));
+
+    }
 
 };

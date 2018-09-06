@@ -9,7 +9,8 @@ export const renderWidget = (): void => {
 
     `<div class=${CSS.panel_obj.container}>
         <p class=${CSS.panel_obj.title}>Acreage</p>
-        <p class=${CSS.panel_obj.heading}>Add Acreage</p>
+        <div class=${CSS.panel_obj.divider}></div>
+        <p class=${CSS.panel_obj.heading}>Select Operator</p>
         <select id=${CSS.acreage.dropdown} class=${CSS.dropdown}></select>
         <div class=${CSS.panel_obj.subcontainer}>
             <button id=${CSS.acreage.add} class="${CSS.panel_obj.button} ${CSS.button}"><img class=${CSS.add_img} />Add</button>

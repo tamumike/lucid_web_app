@@ -21,7 +21,9 @@ export const CSS = {
         heading: "panel__widget-heading",
         tab_container: "panel__tab-container",
         tab_list: "panel__tab-container-list",
-        tab: "panel__tab-container-tab"
+        tab: "panel__tab-container-tab",
+        divider: "panel__divider",
+        divider2: "panel__divider-two"
     },
     modal: {
         base: "modal__base",
@@ -137,7 +139,7 @@ export const elements = {
         options_img: `.${CSS.thirdParty.options_img}`,
         filter_img: `#${CSS.thirdParty.filter_img}`,
         remove__img: `#${CSS.thirdParty.remove_img}`,
-        values_container: `#${CSS.thirdParty.values_container}`,
+        values_container: `.${CSS.thirdParty.values_container}`,
         avail_opts: `#${CSS.thirdParty.avail_opts}`,
         selected_opts: `#${CSS.thirdParty.selected_opts}`,
         op_search: `#${CSS.thirdParty.op_search}`,

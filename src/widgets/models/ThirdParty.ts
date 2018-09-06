@@ -29,18 +29,19 @@ export default class ThirdParty extends Widget {
                 id: featureClass,
                 sublayers: [{
                     id: 0,
-                    definitionExpression: "MAP_LABEL IN ('Frontier', 'Maljamar', 'Empire Abo')"
+                    visible: false
                 }]
             });
 
             map.add(feature);
 
             feature.when(() => {
+
                 thirdPartyView.renderListItem(featureClass);
+
             });
         }
         
-
     }
 
     removeFeature(map: EsriMap, name: string): void {
@@ -72,24 +73,122 @@ export default class ThirdParty extends Widget {
 
      }
 
-     queryLayer(map: EsriMap, name: string) {
+     queryLayer(map: EsriMap, name: string, currentExpressions: string[]) {
         
         const layer = map.findLayerById(name) as MapImageLayer;
-        const url = `https://gisportal.lucid-energy.com/arcgis/rest/services/OPPL/${name.replace(' ', '_')}/MapServer/0`;
+        const url = `https://gisportal.lucid-energy.com/arcgis/rest/services/OPPL/${name.replace(' ', '_')}/MapServer/1`;        
         
         const queryTask = new QueryTask({
             url
         });
 
         const query = new Query();
-        query.where = "STATE IN('New Mexico')";
+        query.where = "MAP_LABEL <> '$$$'";
         query.outFields = ["*"];
 
         queryTask.execute(query).then((results) => {
-            console.log(results);
+            
+            this.getValuesList(results.features, name, currentExpressions);
             
         });
 
      }
+
+     getValuesList(results: any, name: string, currentExpressions: string[]): void {
+
+        const values: string[] = [];
+
+        results.forEach((feature) => {
+            
+            values.push(feature.attributes["MAP_LABEL"]);
+
+        });
+
+        thirdPartyView.templates.op_values[name] = values;
+        thirdPartyView.renderValuesList(values.sort(), currentExpressions);
+        
+     }
+
+     generateDefinitionQuery(options: string[]): string {
+
+        let definitionQuery: string | null = '';
+
+        if (options.length > 0) {
+
+            definitionQuery = "MAP_LABEL IN (";
+
+            options.forEach((option: string, index: number) => {
+
+                (index !== options.length - 1) ? definitionQuery += `'${option}',` : definitionQuery += `'${option}')`;
+
+            });
+
+        }
+
+        return definitionQuery;
+
+     }
+
+     getCurrentDefinitionQuery(map: EsriMap, name: string): string[] {
+
+        const expressionValues: string[] = [];
+        const layer: MapImageLayer = map.findLayerById(name) as MapImageLayer;
+
+        if (layer) {
+
+            layer.sublayers.forEach((sublayer, id) => {
+
+                let expression: string = sublayer.definitionExpression;
+
+                if (expression) {
+
+                    expression.slice(expression.indexOf('(') + 1, expression.indexOf(')'))
+                        .replace(/[()'']/g, '')
+                        .split(',').forEach((value) => {
+                            expressionValues.push(value);
+                        });
+                    
+                }
+                
+            });
+
+        }
+        
+        return expressionValues;
+
+    }
+
+    applyFilter(map: EsriMap, name: string, definitionQuery: string) {
+
+        const layer = map.findLayerById(name) as MapImageLayer;
+        
+        layer.sublayers.forEach((sublayer, i = 0) => {
+
+            sublayer.definitionExpression = definitionQuery;
+            (definitionQuery) ? sublayer.visible = true : sublayer.visible = false;
+
+        });
+
+    }
+
+    getSearchInput(element: JQuery, name: string): void {
+
+        const input = element.val() as string;        
+
+        if (input && input !== '') {
+
+            let subArray: string[];
+
+              subArray = thirdPartyView.templates.op_values[name].filter((value) => {
+  
+                return value.toLowerCase().startsWith(input.toLowerCase());
+  
+              });
+
+              thirdPartyView.scrollOptionsDiv(subArray[0]);
+  
+          }
+
+    }
 
 }

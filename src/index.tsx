@@ -310,10 +310,13 @@ export const appController = () => {
     widget.addCurrentLayersToList(appMap, feature);
 
     // Third Party Events
+
+    /*
     $(elements.panel_obj.tab).on('click', (e) => {
 
       const $this = $(e.currentTarget);
 
+      
       feature = $this.text();
       if (!thirdPartyView.isActive($this)) {
 
@@ -327,8 +330,10 @@ export const appController = () => {
         thirdPartyView.removeFeatureMarkup();
       
       }
+      
 
     });
+    */
 
     $(elements.thirdParty.add_btn).on('click', (e) => {
 
@@ -336,7 +341,7 @@ export const appController = () => {
 
       const featureClass = $(elements.thirdParty.dropdown).val() as string;
 
-      // widget.addFeature(appMap, featureClass);
+      widget.addFeature(appMap, featureClass);
 
       thirdPartyView.renderListItem(featureClass);
 
@@ -366,11 +371,60 @@ export const appController = () => {
 
       const featureName = $(e.currentTarget).parent().parent().text().trim();
 
+      let currentExpressions = widget.getCurrentDefinitionQuery(appMap, featureName);
+
       thirdPartyView.renderFilterPanel(featureName);
 
-      widget.queryLayer(appMap, featureName);
+      (!thirdPartyView.templates.op_values[featureName]) ? widget.queryLayer(appMap, featureName, currentExpressions) :
+      thirdPartyView.renderValuesList(thirdPartyView.templates.op_values[featureName], currentExpressions);
+
+      $(elements.thirdParty.values_container).on('click', `li.${CSS.modal.list_item}`, (e) => {
+        
+        const $this = e.currentTarget;
+
+        $($this).toggleClass('active-filter');
+
+        thirdPartyView.transferItem($($this));
+
+      });
+
+      $(elements.modal.apply_btn).on('click', (e) => {
+
+        e.preventDefault();
+  
+        const selectedOptions: string[] = [];
+  
+        $('.active-filter').each((key, value) => {
+  
+          selectedOptions.push($(value).text().trim());
+  
+        });
+
+        widget.applyFilter(
+          appMap,
+          featureName,
+          widget.generateDefinitionQuery(selectedOptions)
+        );
+        
+      });
+
+      $(elements.modal.ok_btn).on('click', (e) => {
+
+        $(elements.modal.apply_btn).trigger('click');
+
+        modal.removeModal();
+
+      });
+
+      $(elements.thirdParty.op_search).on('keyup', (e) => {
+        
+        widget.getSearchInput($(e.currentTarget), featureName);
+
+      });
 
     });
+
+
 
   };
 
