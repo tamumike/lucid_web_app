@@ -1,0 +1,51 @@
+.symbology__list-item {
+    background-color: #29323c;
+    background: #485563;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #29323c, #485563);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #29323c, #485563); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    border-bottom: 2px grey solid;
+    margin-bottom: 0.5em;
+  }
+  
+  .symbology__list-item:hover {
+    color: yellow;
+    cursor: pointer;
+    background: #4b6cb7;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #182848, #4b6cb7);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #182848, #4b6cb7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  }
+
+  .symbology__values-container {
+    overflow-y: scroll;
+    height: 40%;
+    width: 48%;
+    display: inline-block;
+    padding: 0;
+    background-color: #34a2e2;
+    border-radius: 3px;
+  }
+
+  #symbology__render-container {
+    overflow: hidden;
+    background-color: #182848;
+  }
+
+  .symbology__label {
+      font-size: 10px;
+  }
+
+  #symbology__slider-container {
+      position: relative;
+      left: -20%;
+      bottom: -15%;
+  }
+
+  #symbology__color-display {
+      height: 10%;
+      width: 10%;
+      border: 1px #fff solid;
+      position: absolute;
+      right: 5%;
+      top: 40%;
+      border-radius: 10%;
+  }

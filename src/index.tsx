@@ -10,12 +10,14 @@ import Acreage from "./widgets/models/Acreage";
 import Coordinates from "./widgets/models/Coordinates";
 import DrillingInfo from "./widgets/models/DrillingInfo";
 import ThirdParty from "./widgets/models/ThirdParty";
+import Symbology from "./widgets/models/Symbology";
 
 import * as panelView from "./widgets/views/panelView";
 import * as widgetView from "./widgets/views/widgetView";
 import * as acreageView from "./widgets/views/acreageView";
 import * as drillingInfoView from "./widgets/views/drillingInfoView";
 import * as thirdPartyView from "./widgets/views/thirdPartyView";
+import * as symbologyView from "./widgets/views/symbologyView";
 
 import {CSS, elements} from "./widgets/views/base";
 
@@ -25,7 +27,7 @@ export const appController = () => {
 
   const app = new App();  
 
-  state.widgets = [new Acreage(), new Coordinates(), new DrillingInfo(), new ThirdParty()];
+  state.widgets = [new Acreage(), new Coordinates(), new DrillingInfo(), new ThirdParty(), new Symbology()];
   state.acreage = [];
 
   const launchWidget = (currentWidget: string): void => {
@@ -34,6 +36,7 @@ export const appController = () => {
     (currentWidget == "coords") ? controlCoordinates() : 
     (currentWidget == "drillInfo") ? controlDrillingInfo() : 
     (currentWidget == "thirdParty") ? controlThirdParty() : 
+    (currentWidget == "symbology") ? controlSymbology() : 
     console.log('no Widget');
 
   };
@@ -426,6 +429,46 @@ export const appController = () => {
 
 
 
+  };
+
+  /*
+   * Symbology Controller 
+   */
+  const controlSymbology = () => {
+
+    const widget = state.currentWidget;
+    const appMap = app.applicationMap.map;
+
+    const layerNames = widget.getMapLayers(appMap);
+
+    $(elements.symbology.list).on('click', `li.${CSS.symbology.list_item}`, (e) => {
+      
+      const $this = e.currentTarget;
+      const name = $($this).text().trim();
+
+      /* TESTING
+       widget.setRenderer(appMap, name);
+      */
+
+      widget.getLayerInfo(appMap, name);
+
+      const modal = new Modal();
+
+      $(elements.modal.panel).on('input', `input.${CSS.symbology.slider}`, (e) => {
+
+        console.log($(e.currentTarget).val());
+        
+
+      });
+
+      $(elements.modal.cancel_btn).on('click', (e) => {
+
+        modal.removeModal();
+        
+      });
+      
+    });
+    
   };
 
 };

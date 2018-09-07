@@ -1,5 +1,3 @@
-import $ = require("jquery");
-
 export const CSS = {
     app: "app",
     panel: "panel",
@@ -79,6 +77,18 @@ export const CSS = {
         selected_opts: "thirdParty__selected-opts",
         op_search: "thirdParty__op-search",
         field_select: "thirdParty__field-select"
+    },
+    symbology: {
+        list: "symbology__list",
+        list_item: "symbology__list-item",
+        avail_opts: "symbology__avail-opts",
+        values_container: "symbology__values-container",
+        render_container: "symbology__render-container",
+        slider_container: "symbology__slider-container",
+        opacity_input: "symbology__opacity-input",
+        label: "symbology__label",
+        slider: "symbology__slider",
+        color_display: "symbology__color-display"
     }
 };
 
@@ -144,6 +154,18 @@ export const elements = {
         selected_opts: `#${CSS.thirdParty.selected_opts}`,
         op_search: `#${CSS.thirdParty.op_search}`,
         field_select: `#${CSS.thirdParty.field_select}`
+    },
+    symbology: {
+        list: `#${CSS.symbology.list}`,
+        list_item: `.${CSS.symbology.list_item}`,
+        avail_opts: `#${CSS.symbology.avail_opts}`,
+        values_container: `.${CSS.symbology.values_container}`,
+        render_container: `#${CSS.symbology.render_container}`,
+        slider_container: `#${CSS.symbology.slider_container}`,
+        opacity_input: `#${CSS.symbology.opacity_input}`,
+        label: `.${CSS.symbology.label}`,
+        slider: `.${CSS.symbology.slider}`,
+        color_display: `#${CSS.symbology.color_display}`
     }
 };
 

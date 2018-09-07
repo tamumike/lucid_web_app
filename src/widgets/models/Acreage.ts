@@ -22,7 +22,7 @@ export default class Acreage extends Widget {
 
             let definitionQuery: string;
 
-            (producer === 'All') ? definitionQuery = '' : definitionQuery = `Producer = '${producer}'`;
+            (producer === 'All') ? definitionQuery = '' : definitionQuery = `Producer IN('${producer}')`;
 
             const featureURL: string = `https://gisportal.lucid-energy.com/arcgis/rest/services/Acreage/AllAcreage/MapServer`;
             const feature: MapImageLayer = new MapImageLayer({
