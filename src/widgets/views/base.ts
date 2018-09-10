@@ -88,7 +88,14 @@ export const CSS = {
         opacity_input: "symbology__opacity-input",
         label: "symbology__label",
         slider: "symbology__slider",
-        color_display: "symbology__color-display"
+        display_container: "symbology__display-container",
+        color_display: "symbology__color-display",
+        current_color_display: "symbology__current-color-display",
+        previous_color_display: "symbology__previous-color-display",
+        display_label: "symbology__display-label",
+        slider_r: "symbology__slider-r",
+        slider_g: "symbology__slider-g",
+        slider_b: "symbology__slider-b"
     }
 };
 
@@ -165,7 +172,14 @@ export const elements = {
         opacity_input: `#${CSS.symbology.opacity_input}`,
         label: `.${CSS.symbology.label}`,
         slider: `.${CSS.symbology.slider}`,
-        color_display: `#${CSS.symbology.color_display}`
+        display_container: `#${CSS.symbology.display_container}`,
+        color_display: `.${CSS.symbology.color_display}`,
+        current_color_display: `#${CSS.symbology.current_color_display}`,
+        previous_color_display: `#${CSS.symbology.previous_color_display}`,
+        display_label: `.${CSS.symbology.display_label}`,
+        slider_r: `#${CSS.symbology.slider_r}`,
+        slider_g: `#${CSS.symbology.slider_g}`,
+        slider_b: `#${CSS.symbology.slider_b}`,
     }
 };
 

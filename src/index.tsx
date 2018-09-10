@@ -450,15 +450,24 @@ export const appController = () => {
        widget.setRenderer(appMap, name);
       */
 
-      widget.getLayerInfo(appMap, name);
+      const info = widget.getLayerInfo(appMap, name);
 
       const modal = new Modal();
 
+      $(elements.modal.panel).on('click', 'li.modal__list-item', (e) => {
+
+        symbologyView.toggleCurrentActive();
+
+        $(e.currentTarget).toggleClass('active-filter');
+
+        symbologyView.setElementValues(name, info);
+
+      });
+
       $(elements.modal.panel).on('input', `input.${CSS.symbology.slider}`, (e) => {
 
-        console.log($(e.currentTarget).val());
+        symbologyView.updateColorDisplay($(elements.symbology.current_color_display));
         
-
       });
 
       $(elements.modal.cancel_btn).on('click', (e) => {

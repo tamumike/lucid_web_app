@@ -85,8 +85,13 @@ export default class Symbology extends Widget {
             if (!layerProperties.renderer) layerProperties.renderer = response.data.drawingInfo.renderer;
             
         }).then(() => {
+
             symbologyView.renderSymbologyPanel(ID, layerProperties);
+            // symbologyView.setElementValues(ID, layerProperties);
+
         });
+
+        return layerProperties;
 
     }
 

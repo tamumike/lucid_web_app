@@ -40,12 +40,25 @@
       bottom: -15%;
   }
 
-  #symbology__color-display {
-      height: 10%;
-      width: 10%;
+  #symbology__display-container {
+    position: absolute;
+    top: 33%;
+    right: 5%;
+    height: 18%;
+    width: 8%;
+  }
+
+  .symbology__color-display {
+      height: 50%;
+      width: 100%;
       border: 1px #fff solid;
-      position: absolute;
-      right: 5%;
-      top: 40%;
       border-radius: 10%;
+      background-color: green;
+      margin-bottom: 0.2em;
+      text-align: center;
+  }
+
+  .symbology__display-label {
+    font-size: 9px;
+    mix-blend-mode: screen;
   }
