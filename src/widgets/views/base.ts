@@ -53,7 +53,7 @@ export const CSS = {
         filter_list: "acreage__filter-list"
     },
     drillingInfo: {
-        action_container: "drillingInfo__function-container",
+        action_container: "drillingInfo__action-container",
         add_btn: "drillingInfo__add-btn",
         remove_btn: "drillingInfo__remove-btn",
         search_btn: "drillingInfo__search-btn",

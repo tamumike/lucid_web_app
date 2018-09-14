@@ -47,7 +47,7 @@ export const renderSymbologyPanel = (name: string, info: any): void => {
             </div>
             <div id=${CSS.symbology.render_container} class=${CSS.symbology.values_container}>
                 <label class=${CSS.symbology.label} for=${CSS.symbology.opacity_input}>Opacity</label>
-                <input type="text" size="2" maxLength="2" id=${CSS.symbology.opacity_input} />
+                <input type="text" size="3" maxLength="3" id=${CSS.symbology.opacity_input} />
                 <div id=${CSS.symbology.slider_container}>
                     <input type="range" id=${CSS.symbology.slider_r} class=${CSS.symbology.slider} min="0" max="255" />
                     <input type="range" id=${CSS.symbology.slider_g} class=${CSS.symbology.slider} min="0" max="255" />
@@ -62,11 +62,6 @@ export const renderSymbologyPanel = (name: string, info: any): void => {
                     </div>
                 </div>
             </div>
-            <div class=${CSS.modal.btn_container}>
-                <button id=${CSS.modal.cancel_btn} class="${CSS.modal.button} ${CSS.button}">Cancel</button>
-                <button id=${CSS.modal.apply_btn} class="${CSS.modal.button} ${CSS.button}">Apply</button>
-                <button id=${CSS.modal.ok_btn} class="${CSS.modal.button} ${CSS.button}">OK</button>
-            </div>
         </div>`;
 
     $(elements.modal.panel).append(markup);
@@ -80,10 +75,7 @@ const renderValuesList = (name: string, info: any): string => {
 
     let markup: string = '';
 
-    console.log(info);
-    
-
-    if (info.definitionExpression) {
+    if (info.definitionExpression && info.definitionExpression !== '') {
 
         info.definitionExpression.forEach((value) => {
 
@@ -91,11 +83,11 @@ const renderValuesList = (name: string, info: any): string => {
     
         });
 
-    } else if (info.renderer.type === "uniqueValue") {
+    } else if (info.renderer.type === "unique-value") {
 
         info.renderer.uniqueValueInfos.forEach((value) => {
 
-            markup += `<li class=${CSS.modal.list_item}>${value.label}</li>`;
+            markup += `<li class=${CSS.modal.list_item}>${value.value}</li>`;
 
         });
 
@@ -110,23 +102,22 @@ const renderValuesList = (name: string, info: any): string => {
 };
 
 export const setElementValues = (name: string, props: any): void => {
+    
+    let symbol;
 
-    if (props.renderer.type === "uniqueValue") {
-        props.renderer = getUniqueValueColor(name, props.renderer);
-    }
-
-    console.log(props);
-
-
+    (props.renderer.type === "unique-value") ? 
+    symbol = getUniqueValueColor(name, props.newRenderer) : 
+    symbol = getSimpleValueColor(props.newRenderer);
+    
     // Set slider values with current colors
-    $(elements.symbology.slider_r).val(props.renderer.symbol.color[0]);
-    $(elements.symbology.slider_g).val(props.renderer.symbol.color[1]);
-    $(elements.symbology.slider_b).val(props.renderer.symbol.color[2]);
+    $(elements.symbology.slider_r).val(symbol.symbol.color[0]);
+    $(elements.symbology.slider_g).val(symbol.symbol.color[1]);
+    $(elements.symbology.slider_b).val(symbol.symbol.color[2]);
 
     // Set opacity textbox value
-    $(elements.symbology.opacity_input).val(props.opacity);
+    $(elements.symbology.opacity_input).val((props.opacity * 100));
 
-    updateColorDisplay($(elements.symbology.previous_color_display));
+    updateColorDisplay($(elements.symbology.previous_color_display), props, name);
     updateColorDisplay($(elements.symbology.current_color_display));
 
 };
@@ -143,33 +134,76 @@ const getUniqueValueColor = (name: string, rendererProps: any) => {
 
     valueInfo = rendererProps.uniqueValueInfos.filter((info) => {
         
-        return info.label === name;
+        return info.value === name;
         
     });
 
     return {
-            label: valueInfo[0].label, 
-            symbol: valueInfo[0].symbol, 
-            value: valueInfo[0].value
+            symbol: valueInfo[0].symbol
             };
 
 };
 
-export const updateColorDisplay = (element: JQuery): void => {
+const getSimpleValueColor = (rendererProps: any) => {
 
-    let rValue = $(elements.symbology.slider_r).val() as number;
-    let gValue = $(elements.symbology.slider_g).val() as number;
-    let bValue = $(elements.symbology.slider_b).val() as number;
-
-    element.css({
-        "background-color": `rgb(${rValue}, ${gValue}, ${bValue})`
-    });
+    return {
+        symbol: rendererProps.symbol
+    };
 
 };
 
-export const isActive = (element: JQuery): boolean => {
+export const getSliderValues = (): {r: number, g: number, b: number} => {
 
-    return element.hasClass("active-feature");
+    return {
+        r: Number($(elements.symbology.slider_r).val() as number),
+        g: Number($(elements.symbology.slider_g).val() as number),
+        b: Number($(elements.symbology.slider_b).val() as number)
+    }
+
+};
+
+export const updateColorDisplay = (element: JQuery, props? : any, name? :string): void => {
+
+    const elementID = element.attr('id');
+
+    const slider = getSliderValues();
+
+    if (elementID === 'symbology__current-color-display') {
+
+        element.css({
+            "background-color": `rgb(${slider.r}, ${slider.g}, ${slider.b})`
+        });
+
+    } else {
+
+        let value;
+
+        if (props) {
+
+            if (props.renderer.type === 'unique-value') {
+
+                value = props.renderer.uniqueValueInfos.filter((info) => {
+    
+                    return info.value === name;
+        
+                })[0].symbol;
+            } else {
+    
+                value = props.renderer.symbol.color;
+    
+            }
+
+        } else {
+
+            value = [slider.r, slider.g, slider.b];
+
+        }
+
+            element.css({
+                "background-color": `rgb(${value[0]}, ${value[1]}, ${value[2]})`
+            });
+    
+    }
 
 };
 
@@ -182,5 +216,35 @@ export const toggleCurrentActive = (): void => {
         $(currentActive[index]).toggleClass("active-filter");
 
     });
+
+};
+
+export const setRendererProps = (props: any): void => {
+
+    let name = $('.active-filter').text().trim();
+    let sliders = getSliderValues();
+    
+    if (props.renderer.type === 'unique-value') {
+
+        props.newRenderer.uniqueValueInfos.forEach((info) => {
+
+            if (info.value === name) {
+    
+                info.symbol.color = [sliders.r, sliders.g, sliders.b, 255];
+    
+            }
+    
+        });
+
+    } else {
+
+        props.newRenderer.symbol.color =  [sliders.r, sliders.g, sliders.b, 255];
+
+    }
+
+
+
+    props.opacity = parseInt($(elements.symbology.opacity_input).val() as string);
+    
 
 };

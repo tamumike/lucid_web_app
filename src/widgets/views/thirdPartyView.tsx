@@ -170,11 +170,6 @@ export const renderFilterPanel = (name: string): void => {
                 <ul id=${CSS.thirdParty.selected_opts} class=${CSS.modal.options_list}>
                 </ul>
             </div>
-            <div class=${CSS.modal.btn_container}>
-                <button id=${CSS.modal.cancel_btn} class="${CSS.modal.button} ${CSS.button}">Cancel</button>
-                <button id=${CSS.modal.apply_btn} class="${CSS.modal.button} ${CSS.button}">Apply</button>
-                <button id=${CSS.modal.ok_btn} class="${CSS.modal.button} ${CSS.button}">OK</button>
-            </div>
             <img class=${CSS.search_img} />
             <input placeholder="Search..." type="text" id=${CSS.thirdParty.op_search} class=${CSS.textbox}></input>
         </div>`;

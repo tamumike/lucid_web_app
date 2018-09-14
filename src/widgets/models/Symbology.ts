@@ -1,8 +1,9 @@
+import $ = require('jquery');
+
 import Widget from "./Widget";
 
 import EsriMap from "esri/Map";
 import MapImageLayer from "esri/layers/MapImageLayer";
-import SimpleRenderer from "esri/renderers/SimpleRenderer";
 import EsriRequest from "esri/request";
 
 import * as symbologyView from "../views/symbologyView";
@@ -35,63 +36,95 @@ export default class Symbology extends Widget {
 
     }
 
-    setRenderer(map: EsriMap, ID: string) {
+    setRenderer(map: EsriMap, ID: string, info: any) {
 
         const layer = map.findLayerById(ID) as MapImageLayer;
 
         layer.sublayers.forEach((sublayer, i = 0) => {
-            
-            const symbol = new SimpleRenderer({
-                symbol: {
-                    type: "simple-fill",
-                    color: [255, 0, 0, 0.5],
-                    outline: {
-                        width: 1,
-                        color: "white"
-                    }
-                } 
-            });
 
-            sublayer.renderer = symbol;
+            sublayer.set('renderer', info.newRenderer);
+
+            (info.opacity <= 100 && info.opacity >= 0) ? sublayer.set('opacity', (info.opacity * 0.01)) : sublayer.set('opacity', 1);
 
         });
-
+        
     }
 
-    getLayerInfo(map: EsriMap, ID: string): void {
-        
+    getLayerInfo(map: EsriMap, ID: string): any {
+
         const layer = map.findLayerById(ID) as MapImageLayer;
         let layerProperties: any = {};
 
-        layer.sublayers.forEach((sublayer, i = 0) => {
+        layer.sublayers.forEach((sublayer, index = 0) => {
 
             layerProperties.definitionExpression = this.extractDefinitionQueryValues(sublayer.definitionExpression);
-            layerProperties.renderer = sublayer.renderer;
-            layerProperties.labelingInfo = sublayer.labelingInfo;
-            layerProperties.opacity = sublayer.opacity;
-        
-        });
 
-        EsriRequest(`${layer.url}/0`, {
-            query: {
-                f: "json"
-            },
-            responseType: "json"
-        }).then((response) => {
+            layerProperties.opacity = layer.opacity;
             
-            layerProperties.geometry = response.data.geometryType;
-            if (!layerProperties.labelingInfo) layerProperties.labelingInfo = response.data.labelingInfo;
-            if (!layerProperties.opacity) layerProperties.opacity = response.data.drawingInfo.transparency;
-            if (!layerProperties.renderer) layerProperties.renderer = response.data.drawingInfo.renderer;
-            
-        }).then(() => {
+            if (!sublayer.get('renderer')) {
 
-            symbologyView.renderSymbologyPanel(ID, layerProperties);
-            // symbologyView.setElementValues(ID, layerProperties);
+                this.requestInfo(layer).then((response) => {
+                    
+                    layerProperties.geometry = response.data.geometryType;
+
+                    layerProperties.renderer = this.convertRendererInfo(response.data.drawingInfo.renderer);
+
+                    layerProperties.newRenderer = $.extend(true, {}, layerProperties.renderer);
+
+                }).then(() => {
+
+                    symbologyView.renderSymbologyPanel(ID, layerProperties);
+
+                });
+                
+            } else {
+
+                layerProperties.renderer = this.convertRendererInfo(sublayer.get('renderer'));
+
+                layerProperties.newRenderer = $.extend(true, {}, layerProperties.renderer);
+
+                symbologyView.renderSymbologyPanel(ID, layerProperties);
+
+            }
 
         });
 
         return layerProperties;
+
+    }
+
+    requestInfo(layer: MapImageLayer): IPromise<any> {
+
+        let request = EsriRequest(`${layer.url}/0`, {
+            query: {
+                f: "json"
+            },
+            responseType: "json"
+        });
+        
+        return request;
+
+    }
+
+    extractInfoFromProps(props: any): any {
+
+        let extractedProps;
+
+        if (props.drawingInfo) {
+
+            extractedProps = {
+                opacity: props.drawingInfo.transparency,
+                renderer: props.drawingInfo.renderer,
+                geometry: props.geometryType
+            };
+            
+        } else {
+
+            console.log('no request');
+
+        }
+
+        return extractedProps;
 
     }
 
@@ -107,5 +140,89 @@ export default class Symbology extends Widget {
         }
         
     }
+
+    convertRendererInfo(info: any): any {
+
+        let convertedInfo: any = {};
+
+        this.convertSymbolColor(info.symbol.color);
+
+        if (info.type === 'uniqueValue' || info.type == 'unique-value') {
+
+            convertedInfo.type = "unique-value";
+            convertedInfo.field = info.field1;
+
+            convertedInfo.uniqueValueInfos = info.uniqueValueInfos.map((valueInfo) => {
+                
+                return {
+                    value: valueInfo.value,
+                    symbol: {
+                        type: this.getRendererType(valueInfo.symbol.type),
+                        color: this.convertSymbolColor(valueInfo.symbol.color),
+                        outline: {
+                            color: this.convertSymbolColor(valueInfo.symbol.outline.color),
+                            width: valueInfo.symbol.outline.width
+                        }
+                    }
+
+                }
+
+            });
+
+        } else if (info.type === 'simple') {
+
+            convertedInfo.type = 'simple';
+            convertedInfo.symbol = {
+                type: this.getRendererType(info.symbol.type),
+                color: this.convertSymbolColor(info.symbol.color)
+            };
+
+            if (convertedInfo.symbol.type === 'simple-marker') {
+
+                convertedInfo.symbol.size = info.symbol.size;
+                convertedInfo.symbol.outline = {
+                    width: info.symbol.outline.width,
+                    color: this.convertSymbolColor(info.symbol.outline.color)
+                }
+
+            } else if (convertedInfo.symbol.type === 'simple-line') {
+
+                convertedInfo.symbol.width = info.symbol.width;
+
+            }
+
+        }
+
+        return convertedInfo;
+
+    }
+
+    getRendererType(type: string): string {
+
+        const oldValues = ['esriSMS', 'esriSFS', 'esriSLS'];
+        const newValues = ['simple-marker', 'simple-fill', 'simple-line'];
+
+        (oldValues.indexOf(type) !== -1) ? type = newValues[oldValues.indexOf(type)] : type = type;
+
+        return type;
+
+    }
+
+    convertSymbolColor(color: any): number[] {
+
+        if (Array.isArray(color)) {
+
+            color = color;
+
+        } else {
+
+            color = [color.r, color.g, color.b]
+
+        }
+        
+        return color;
+
+    }
+
 
 }

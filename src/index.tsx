@@ -438,30 +438,44 @@ export const appController = () => {
 
     const widget = state.currentWidget;
     const appMap = app.applicationMap.map;
-
     const layerNames = widget.getMapLayers(appMap);
 
     $(elements.symbology.list).on('click', `li.${CSS.symbology.list_item}`, (e) => {
-      
+    
       const $this = e.currentTarget;
+
       const name = $($this).text().trim();
-
-      /* TESTING
-       widget.setRenderer(appMap, name);
-      */
-
-      const info = widget.getLayerInfo(appMap, name);
-
       const modal = new Modal();
+      let info = widget.getLayerInfo(appMap, name);
+
+      
 
       $(elements.modal.panel).on('click', 'li.modal__list-item', (e) => {
+
+        symbologyView.setRendererProps(info);
 
         symbologyView.toggleCurrentActive();
 
         $(e.currentTarget).toggleClass('active-filter');
 
-        symbologyView.setElementValues(name, info);
+        symbologyView.setElementValues($(e.currentTarget).text().trim(), info);
 
+      });
+
+      $(elements.modal.apply_btn).on('click', (e) => {
+
+        e.preventDefault();
+
+        symbologyView.setRendererProps(info);
+
+        widget.setRenderer(appMap, name, info);
+
+      });
+
+      $(elements.modal.cancel_btn).on('click', (e) => {
+
+        modal.removeModal();
+        
       });
 
       $(elements.modal.panel).on('input', `input.${CSS.symbology.slider}`, (e) => {
@@ -470,12 +484,6 @@ export const appController = () => {
         
       });
 
-      $(elements.modal.cancel_btn).on('click', (e) => {
-
-        modal.removeModal();
-        
-      });
-      
     });
     
   };
