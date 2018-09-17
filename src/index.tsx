@@ -446,9 +446,8 @@ export const appController = () => {
 
       const name = $($this).text().trim();
       const modal = new Modal();
-      let info = widget.getLayerInfo(appMap, name);
-
       
+      let info = widget.getLayerInfo(appMap, name);
 
       $(elements.modal.panel).on('click', 'li.modal__list-item', (e) => {
 

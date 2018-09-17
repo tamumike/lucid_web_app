@@ -186,7 +186,7 @@ export const updateColorDisplay = (element: JQuery, props? : any, name? :string)
     
                     return info.value === name;
         
-                })[0].symbol;
+                })[0].symbol.color;
             } else {
     
                 value = props.renderer.symbol.color;
@@ -230,7 +230,7 @@ export const setRendererProps = (props: any): void => {
 
             if (info.value === name) {
     
-                info.symbol.color = [sliders.r, sliders.g, sliders.b, 255];
+                info.symbol.color = [sliders.r, sliders.g, sliders.b];
     
             }
     
@@ -238,13 +238,13 @@ export const setRendererProps = (props: any): void => {
 
     } else {
 
-        props.newRenderer.symbol.color =  [sliders.r, sliders.g, sliders.b, 255];
+        props.newRenderer.symbol.color =  [sliders.r, sliders.g, sliders.b];
 
     }
 
 
 
-    props.opacity = parseInt($(elements.symbology.opacity_input).val() as string);
+    props.opacity = parseInt($(elements.symbology.opacity_input).val() as string) * 0.01;
     
 
 };

@@ -44,7 +44,7 @@ export default class Symbology extends Widget {
 
             sublayer.set('renderer', info.newRenderer);
 
-            (info.opacity <= 100 && info.opacity >= 0) ? sublayer.set('opacity', (info.opacity * 0.01)) : sublayer.set('opacity', 1);
+            (info.opacity <= 100 && info.opacity >= 0) ? sublayer.set('opacity', (info.opacity)) : sublayer.set('opacity', 1);
 
         });
         
@@ -58,6 +58,8 @@ export default class Symbology extends Widget {
         layer.sublayers.forEach((sublayer, index = 0) => {
 
             layerProperties.definitionExpression = this.extractDefinitionQueryValues(sublayer.definitionExpression);
+
+            layerProperties.valueField = this.extractValueField(sublayer.definitionExpression);
 
             layerProperties.opacity = layer.opacity;
             
@@ -131,6 +133,7 @@ export default class Symbology extends Widget {
     extractDefinitionQueryValues(expression: string): string[] | string {
 
         if (expression) {
+
         return expression
             .slice(expression.indexOf('(') + 1, expression.indexOf(')'))
             .replace(/[()'']/g, '')
@@ -141,31 +144,60 @@ export default class Symbology extends Widget {
         
     }
 
+    extractValueField(expression: string): string {
+
+        if (expression) {
+
+        return expression
+            .slice(0, expression.indexOf(' '));
+
+        } else {
+            return expression;
+        }
+
+    }
+
     convertRendererInfo(info: any): any {
 
         let convertedInfo: any = {};
 
-        this.convertSymbolColor(info.symbol.color);
-
         if (info.type === 'uniqueValue' || info.type == 'unique-value') {
 
             convertedInfo.type = "unique-value";
-            convertedInfo.field = info.field1;
+            (info.field1) ? convertedInfo.field = info.field1 : convertedInfo.field = info.field;
 
             convertedInfo.uniqueValueInfos = info.uniqueValueInfos.map((valueInfo) => {
                 
-                return {
+                let data: any = {
                     value: valueInfo.value,
                     symbol: {
                         type: this.getRendererType(valueInfo.symbol.type),
                         color: this.convertSymbolColor(valueInfo.symbol.color),
-                        outline: {
-                            color: this.convertSymbolColor(valueInfo.symbol.outline.color),
-                            width: valueInfo.symbol.outline.width
-                        }
+                    }
+                }
+
+                if (data.symbol.type === 'simple-fill') {
+
+                    data.symbol.outline = {
+                        color: this.convertSymbolColor(valueInfo.symbol.outline.color),
+                        width: valueInfo.symbol.outline.width
                     }
 
+                } else if (data.symbol.type === 'simple-line') {
+
+                    data.symbol.width = valueInfo.symbol.width;
+
+                } else if (data.symbol.type === 'simple-marker') {
+
+                    data.symbol.outline = {
+                        color: this.convertSymbolColor(valueInfo.symbol.outline.color),
+                        width: valueInfo.symbol.outline.width
+                    }
+                    data.symbol.size = valueInfo.symbol.size;
+
                 }
+
+                return data;
 
             });
 
