@@ -1,6 +1,37 @@
 import $ = require("jquery");
 
-import {CSS, elements, acreageProducers} from "../views/base";
+import {CSS, elements} from "../views/base";
+
+
+const acreageProducers = [
+    "All",
+    "Ameredev",
+    "Apache",
+    "BHP",
+    "Caza",
+    "Centennial",
+    "Chevron",
+    "Chi",
+    "Chisholm",
+    "Cimarex",
+    "Concho",
+    "Devon",
+    "Energen",
+    "EOG",
+    "Halcon",
+    "Kaiser Francis",
+    "Lilis",
+    "Limestone",
+    "Marathon",
+    "Matador",
+    "Mewbourne",
+    "Murchison",
+    "Oasis",
+    "Read & Stevens",
+    "Taprock",
+    "WPX",
+    "XTO"
+];
 
 
 export const renderWidget = (): void => {

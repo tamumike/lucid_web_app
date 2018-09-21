@@ -2,6 +2,8 @@ import $ = require("jquery");
 
 import Widget from "../models/Widget";
 
+import {elements} from "../views/base";
+
 export const renderNode = (label: string, widgetID: string): void => {
 
     const CSS = {
@@ -16,13 +18,21 @@ export const renderNode = (label: string, widgetID: string): void => {
             <span class=${CSS.labelClass}>${label.replace('_', ' ').toUpperCase()}</span>
         </div>`;
 
-    $("#controller__widgets").append(markup);
+    $(`#controller__widgets`).append(markup);
     
 };
 
-export const renderOutOfPanelNode = (): void => {
-    console.log('out of panel');
+export const renderOutOfPanelNode = (widgetID: string): void => {
+
+    const CSS = {
+        outOfPanelBase: `${widgetID}__container`
+    }
     
+    const markup = 
+    `<div id=${CSS.outOfPanelBase}>
+    </div>`;
+
+    $(markup).insertBefore(`${elements.app}`);
 }
 
 export const isActive = (element: JQuery): boolean => {

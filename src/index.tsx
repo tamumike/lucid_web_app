@@ -33,7 +33,6 @@ export const appController = () => {
   const launchWidget = (currentWidget: string): void => {
     
     (currentWidget == "acreage") ? controlAcreage() : 
-    (currentWidget == "coords") ? controlCoordinates() : 
     (currentWidget == "drillInfo") ? controlDrillingInfo() : 
     (currentWidget == "thirdParty") ? controlThirdParty() : 
     (currentWidget == "symbology") ? controlSymbology() : 
@@ -188,7 +187,30 @@ export const appController = () => {
   * Coordinates Controller 
   */
   const controlCoordinates = () => {
-    console.log('coords');
+    
+    const appView = app.applicationMap.view;
+    
+    const widget = state.widgets.filter(item => {
+
+      return item.ID === 'coordinates';
+
+    })[0];
+
+    widget.pointerMoveEvent(appView);
+
+    widget.targetEvent(appView);
+
+    $(elements.coordinates.target_btn).on('click', (e) => {
+
+      $(e.currentTarget).toggleClass('active');
+
+    });
+
+    $(elements.coordinates.copy_btn).on('click', (e) => {
+
+      widget.copyEvent();
+
+    });
     
   };
 
@@ -471,6 +493,16 @@ export const appController = () => {
 
       });
 
+      $(elements.modal.ok_btn).on('click', (e) => {
+
+        e.preventDefault();
+
+        $(elements.modal.apply_btn).trigger('click');
+
+        modal.removeModal();
+
+      });
+
       $(elements.modal.cancel_btn).on('click', (e) => {
 
         modal.removeModal();
@@ -486,6 +518,11 @@ export const appController = () => {
     });
     
   };
+
+  /*
+  * Launch Perpetual Widgets
+  */
+  controlCoordinates();
 
 };
 

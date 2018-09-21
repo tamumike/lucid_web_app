@@ -1,16 +1,22 @@
 import $ = require("jquery");
-import {CSS} from "./base";
+import {CSS, elements} from "./base";
 
 export const renderWidget = () => {
 
     const markup = 
-    `<div class=${CSS.panel_obj.container}>
-        <p class=${CSS.panel_obj.title}>Coordinates</p>
-        <button class=${CSS.panel_obj.button}>X Y</button>
-        <ul ${CSS.panel_obj.unordered_list}>
-            <li class=${CSS.panel_obj.list_item}>Test</li>
-        </ul>
+    `<div id=${CSS.coordinates.values_container}>
+        <p id=${CSS.coordinates.values}>0, 0</p>
+        <div id=${CSS.coordinates.action_container}>
+            <img id=${CSS.coordinates.copy_btn} class=${CSS.coordinates.action_btn} title="Copy" />
+            <img id=${CSS.coordinates.target_btn} class=${CSS.coordinates.action_btn} title="Target" />
+        </div>
     </div>`;
 
-    $("#panel").append(markup);  
+    $(elements.coordinates.container).append(markup);
+};
+
+export const setCoordinateValues = (value: string) => {
+
+    $(elements.coordinates.values).text(value);
+
 };

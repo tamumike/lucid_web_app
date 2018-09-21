@@ -15,6 +15,7 @@ export default class ApplicationMap {
             basemap: "streets",
             layers: [data.systemLayer]
         });
+
         this.view = new MapView({
             map: this.map,
             container: "app",
@@ -25,6 +26,12 @@ export default class ApplicationMap {
             }
         });
 
+        data.search.view = this.view;
+        data.scalebar.view = this.view;
+
+        this.view.ui.add(data.search, 'top-right');
+        this.view.ui.add(data.scalebar, 'bottom-right');
+
         data.systemLayer.when(() => {
             
             this.view.goTo({ target: data.systemLayer.fullExtent });
@@ -32,3 +39,4 @@ export default class ApplicationMap {
         });
     }
 }
+

@@ -12,7 +12,7 @@ export default class Widget {
         this.ID = ID;
         this.inPanel = inPanel;
 
-        (inPanel) ? widgetView.renderNode(this.label, this.ID) : widgetView.renderOutOfPanelNode();
+        (inPanel) ? widgetView.renderNode(this.label, this.ID) : widgetView.renderOutOfPanelNode(this.ID);
         
 
     }

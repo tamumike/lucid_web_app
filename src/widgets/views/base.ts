@@ -96,6 +96,15 @@ export const CSS = {
         slider_r: "symbology__slider-r",
         slider_g: "symbology__slider-g",
         slider_b: "symbology__slider-b"
+    },
+    coordinates: {
+        container: "coordinates__container",
+        values_container: "coordinates__values-container",
+        values: "coordinates__values",
+        action_container: "coordinates__action-container",
+        action_btn: "coordinates__action-btn",
+        copy_btn: "coordinates__copy-btn",
+        target_btn: "coordinates__target-btn"
     }
 };
 
@@ -180,36 +189,14 @@ export const elements = {
         slider_r: `#${CSS.symbology.slider_r}`,
         slider_g: `#${CSS.symbology.slider_g}`,
         slider_b: `#${CSS.symbology.slider_b}`,
+    },
+    coordinates: {
+        container: `#${CSS.coordinates.container}`,
+        values_container: `#${CSS.coordinates.values_container}`,
+        values: `#${CSS.coordinates.values}`,
+        action_container: `#${CSS.coordinates.action_container}`,
+        action_btn: `.${CSS.coordinates.action_btn}`,
+        copy_btn: `#${CSS.coordinates.copy_btn}`,
+        target_btn: `#${CSS.coordinates.target_btn}`
     }
 };
-
-export const acreageProducers = [
-    "All",
-    "Ameredev",
-    "Apache",
-    "BHP",
-    "Caza",
-    "Centennial",
-    "Chevron",
-    "Chi",
-    "Chisholm",
-    "Cimarex",
-    "Concho",
-    "Devon",
-    "Energen",
-    "EOG",
-    "Halcon",
-    "Kaiser Francis",
-    "Lilis",
-    "Limestone",
-    "Marathon",
-    "Matador",
-    "Mewbourne",
-    "Murchison",
-    "Oasis",
-    "Read & Stevens",
-    "Taprock",
-    "WPX",
-    "XTO",
-    "Yates"
-];
