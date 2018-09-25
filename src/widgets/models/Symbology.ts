@@ -80,6 +80,8 @@ export default class Symbology extends Widget {
                 });
                 
             } else {
+                
+                layerProperties.opacity = sublayer.opacity;
 
                 layerProperties.renderer = this.convertRendererInfo(sublayer.get('renderer'));
 

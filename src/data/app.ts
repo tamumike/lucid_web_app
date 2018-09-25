@@ -6,7 +6,7 @@ import Search from "esri/widgets/Search";
 import ScaleBar from "esri/widgets/ScaleBar";
 
 export const systemLayer = new MapImageLayer({
-    url: "https://gisportal.lucid-energy.com/arcgis/rest/services/Lucid_II_System_Com2/MapServer",
+    url: "https://gisportal.lucid-energy.com/arcgis/rest/services/Lucid_System/MapServer",
     id: "System"
 });
 

@@ -35,7 +35,7 @@ const acreageProducers = [
 
 
 export const renderWidget = (): void => {
-
+    
     const markup = 
 
     `<div class=${CSS.panel_obj.container}>

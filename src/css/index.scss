@@ -9,6 +9,7 @@ $close2: #f61717;
 @import url("./widget/DrillingInfo.scss");
 @import url("./widget/Symbology.scss");
 @import url("./widget/Coordinates.scss");
+@import url("./widget/Measure.scss");
 
 html,
 body,
@@ -280,6 +281,15 @@ body,
     top: 8%;
     // padding: 0.5em;
     text-align: center;
+  }
+
+  .modal__title {
+    font-weight: bold;
+    font-size: 22px;
+  }
+
+  .modal__heading {
+    font-size: 12px;
   }
 
   .modal__options-list {

@@ -19,8 +19,8 @@ export default class ApplicationMap {
         this.view = new MapView({
             map: this.map,
             container: "app",
-            center: [-104.24, 32.41],
-            zoom: 9,
+            center: [-104.071, 32.568],
+            zoom: 10,
             ui: {
                 components: []
             }
@@ -31,12 +31,7 @@ export default class ApplicationMap {
 
         this.view.ui.add(data.search, 'top-right');
         this.view.ui.add(data.scalebar, 'bottom-right');
-
-        data.systemLayer.when(() => {
-            
-            this.view.goTo({ target: data.systemLayer.fullExtent });
-            
-        });
+        
     }
 }
 

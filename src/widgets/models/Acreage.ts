@@ -41,7 +41,6 @@ export default class Acreage extends Widget {
                 state.acreage.push(producer);
                 
             });
-
         }
 
     }
@@ -123,10 +122,44 @@ export default class Acreage extends Widget {
         layer.sublayers.forEach((sublayer, i) => {
 
             (filterParams.name === 'All') ? sublayer.definitionExpression = filterParams.definitionQuery :
-            sublayer.definitionExpression += `AND ${filterParams.definitionQuery}`;
+            sublayer.definitionExpression = this.replaceExistingClause(sublayer.definitionExpression, filterParams.definitionQuery);
             
         });
          
+    }
+
+    replaceExistingClause(oldClause: string, newClause: string): string {
+
+        let newExpression: string = '';
+
+        if (newClause) {
+            
+            if (oldClause.indexOf('AND') !== -1) {
+
+                newExpression = `${oldClause.slice(0, oldClause.indexOf('AND') - 1)} AND ${newClause}`;
+                
+            } else {
+
+                newExpression = `${oldClause} AND ${newClause}`;
+                
+            }
+
+        } else {
+
+            if (oldClause.indexOf('AND') !== -1) {
+
+                newExpression = oldClause.slice(0, oldClause.indexOf('AND') - 1);
+
+            } else {
+
+                newExpression = oldClause;
+
+            }
+
+        }
+
+        return newExpression;
+        
     }
 
     generateDefinitionQuery(field: string, options: string[]): string | null {
@@ -157,11 +190,18 @@ export default class Acreage extends Widget {
 
             if (expression) {
 
-                expression.slice(expression.indexOf('(') + 1, expression.indexOf(')'))
-                    .replace(/[()'']/g, '')
-                    .split(',').forEach((value) => {
-                        expressionValues.push(value);
+                if (expression.indexOf('Dedication IN (') !==  -1) {
+
+                    let clause = 'Dedication IN (';
+                    let first = expression.indexOf(clause);
+                    let clauseLength = clause.length;
+
+                    expression.slice(first + clauseLength)
+                        .replace(/[()'']/g, '')
+                        .split(',').forEach((value) => {
+                            expressionValues.push(value);
                     });
+                }
                 
             }
             

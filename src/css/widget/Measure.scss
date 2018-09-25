@@ -1,0 +1,25 @@
+#measure__action-container {
+    margin-top: 10%;
+}
+
+label {
+    font-size: 14px;
+    font-weight: bold;
+    color: yellow;
+}
+
+#measure__go-btn {
+    margin: 20%;
+    padding: 4%;
+    font-weight: bold;
+}
+
+.is_measuring {
+    border-color: yellow !important;
+}
+
+.measure__is-measuring {
+    margin: 0;
+    padding: 0;
+    content: url("../img/is_measuring_icon.png");
+}

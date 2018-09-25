@@ -105,6 +105,11 @@ export const CSS = {
         action_btn: "coordinates__action-btn",
         copy_btn: "coordinates__copy-btn",
         target_btn: "coordinates__target-btn"
+    },
+    measure: {
+        action_container: "measure__action-container",
+        go_btn: "measure__go-btn",
+        is_measuring_img: "measure__is-measuring"
     }
 };
 
@@ -198,5 +203,9 @@ export const elements = {
         action_btn: `.${CSS.coordinates.action_btn}`,
         copy_btn: `#${CSS.coordinates.copy_btn}`,
         target_btn: `#${CSS.coordinates.target_btn}`
+    },
+    measure: {
+        action_container: `#${CSS.measure.action_container}`,
+        go_btn: `#${CSS.measure.go_btn}`
     }
 };

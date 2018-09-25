@@ -11,6 +11,7 @@ import Coordinates from "./widgets/models/Coordinates";
 import DrillingInfo from "./widgets/models/DrillingInfo";
 import ThirdParty from "./widgets/models/ThirdParty";
 import Symbology from "./widgets/models/Symbology";
+import Measure from "./widgets/models/Measure";
 
 import * as panelView from "./widgets/views/panelView";
 import * as widgetView from "./widgets/views/widgetView";
@@ -18,6 +19,7 @@ import * as acreageView from "./widgets/views/acreageView";
 import * as drillingInfoView from "./widgets/views/drillingInfoView";
 import * as thirdPartyView from "./widgets/views/thirdPartyView";
 import * as symbologyView from "./widgets/views/symbologyView";
+import * as measureView from "./widgets/views/measureView";
 
 import {CSS, elements} from "./widgets/views/base";
 
@@ -27,7 +29,7 @@ export const appController = () => {
 
   const app = new App();  
 
-  state.widgets = [new Acreage(), new Coordinates(), new DrillingInfo(), new ThirdParty(), new Symbology()];
+  state.widgets = [new Acreage(), new Coordinates(), new DrillingInfo(), new ThirdParty(), new Symbology(), new Measure()];
   state.acreage = [];
 
   const launchWidget = (currentWidget: string): void => {
@@ -36,6 +38,7 @@ export const appController = () => {
     (currentWidget == "drillInfo") ? controlDrillingInfo() : 
     (currentWidget == "thirdParty") ? controlThirdParty() : 
     (currentWidget == "symbology") ? controlSymbology() : 
+    (currentWidget == "measure") ? controlMeasure() : 
     console.log('no Widget');
 
   };
@@ -517,6 +520,53 @@ export const appController = () => {
 
     });
     
+  };
+
+  /*
+   * Measure Controller 
+   */
+  const controlMeasure = () => {
+
+    const appView = app.applicationMap.view;
+    const widget = state.currentWidget;
+
+    let type = $('.active-feature').text().trim().toLowerCase();
+
+    // Measure Events
+    $(elements.panel_obj.tab).on('click', (e) => {
+
+      const $this = $(e.currentTarget);
+
+      type = $this.text().trim().toLowerCase();
+
+      if (!measureView.isActive($this)) {
+
+        measureView.toggleCurrentActive();
+        measureView.toggleActiveFeature($this);
+        measureView.renderMeasurementTypeOptions(type);
+
+      } else {
+
+        measureView.toggleActiveFeature($this);
+        measureView.removeTypeMarkup();
+      
+      }
+      
+    });
+
+    $(elements.measure.go_btn).on('click', (e) => {
+
+      e.preventDefault();
+
+      const $this = $(e.currentTarget);
+
+      $this.toggleClass('is_measuring');
+
+      measureView.toggleIsMeasuringImg($this);
+      
+
+    });
+
   };
 
   /*
