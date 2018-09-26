@@ -109,7 +109,8 @@ export const CSS = {
     measure: {
         action_container: "measure__action-container",
         go_btn: "measure__go-btn",
-        is_measuring_img: "measure__is-measuring"
+        is_measuring_img: "measure__is-measuring",
+        unit_select: "measure__unit-select"
     }
 };
 
@@ -206,6 +207,7 @@ export const elements = {
     },
     measure: {
         action_container: `#${CSS.measure.action_container}`,
-        go_btn: `#${CSS.measure.go_btn}`
+        go_btn: `#${CSS.measure.go_btn}`,
+        unit_select: `#${CSS.measure.unit_select}`
     }
 };

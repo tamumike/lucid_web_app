@@ -7,7 +7,7 @@ const templates = {
         units: ["Acres"]
     },
     "length": {
-        units: ["Feet (US)", "Miles"]
+        units: ["Feet", "Miles"]
     }
 };
 
@@ -22,6 +22,8 @@ export const renderWidget = () => {
                 <li class=${CSS.panel_obj.tab}>Length</li>
             </ul>
         </div>
+        <div id=${CSS.measure.action_container} class=${CSS.panel_obj.subcontainer}>
+        </div
     </div>`;
 
     $(elements.panel).append(markup);
@@ -36,13 +38,12 @@ export const renderMeasurementTypeOptions = (type: string) => {
     removeTypeMarkup();
 
     const markup = 
-    `<div id=${CSS.measure.action_container} class=${CSS.panel_obj.subcontainer}>
-        <label for="unitSelect">Units: </label>
-        <select name="unitSelect" class=${CSS.dropdown}>${populateSelect(type)}</select>
-        <button id=${CSS.measure.go_btn} class=${CSS.button}><img class=>Start</button>
-    </div>`;
+    `<label for="unitSelect">Units: </label>
+    <select name="unitSelect" id=${CSS.measure.unit_select} class=${CSS.dropdown}>${populateSelect(type)}</select>
+    <br>
+    <button id=${CSS.measure.go_btn} class=${CSS.button}><img class=${CSS.measure.is_measuring_img} /></button>`;
 
-    $(markup).insertAfter($(elements.panel_obj.tab_container));
+    $(elements.measure.action_container).append(markup);
 
 };
 
@@ -84,11 +85,5 @@ export const toggleActiveFeature = (element: JQuery): void => {
 export const removeTypeMarkup = (): void => {
 
     $(elements.measure.action_container).empty();
-
-};
-
-export const toggleIsMeasuringImg = (element: JQuery): void => {
-
-    (element.hasClass('is_measuring')) ? element.html(`<img class=${CSS.measure.is_measuring_img} />`) : element.text('Start');
 
 };

@@ -84,6 +84,7 @@ export const renderFeatureMarkup = (feature: string): void => {
         `<p class=${CSS.panel_obj.heading}>${feature}</p>
         <button id=${CSS.drillingInfo.add_btn} class="${CSS.panel_obj.button} ${CSS.button}"><img class=${CSS.add_img} />Add</button>
         <button id=${CSS.drillingInfo.remove_btn} class="${CSS.panel_obj.button} ${CSS.button}"><img class=${CSS.remove_img} />Remove</button>
+        <br>
         <button id=${CSS.drillingInfo.search_btn} class="${CSS.panel_obj.button} ${CSS.button}"><img class=${CSS.search_img} />Search By Operator</button>`;
 
     $(elements.drillingInfo.action_container).append(markup);

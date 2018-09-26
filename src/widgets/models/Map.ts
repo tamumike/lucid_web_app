@@ -13,7 +13,7 @@ export default class ApplicationMap {
     constructor() {
         this.map = new EsriMap({
             basemap: "streets",
-            layers: [data.systemLayer]
+            layers: [data.systemLayer, data.STR]
         });
 
         this.view = new MapView({

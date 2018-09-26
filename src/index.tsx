@@ -50,6 +50,7 @@ export const appController = () => {
 
     e.stopImmediatePropagation();
     Panel.getInstance();
+    app.applicationMap.view.graphics.removeAll();
     var $this = $(e.currentTarget);
 
     widgetView.getWidget(state, $this.attr("widgetid"));
@@ -536,7 +537,7 @@ export const appController = () => {
     $(elements.panel_obj.tab).on('click', (e) => {
 
       const $this = $(e.currentTarget);
-
+       if(!$(elements.measure.go_btn).hasClass('is_measuring')) {
       type = $this.text().trim().toLowerCase();
 
       if (!measureView.isActive($this)) {
@@ -551,10 +552,12 @@ export const appController = () => {
         measureView.removeTypeMarkup();
       
       }
+      appView.graphics.removeAll();
+      }
       
     });
 
-    $(elements.measure.go_btn).on('click', (e) => {
+    $(elements.measure.action_container).on('click', `button#${CSS.measure.go_btn}`, (e) => {
 
       e.preventDefault();
 
@@ -562,9 +565,8 @@ export const appController = () => {
 
       $this.toggleClass('is_measuring');
 
-      measureView.toggleIsMeasuringImg($this);
+      widget.addMeasurement(appView, type);
       
-
     });
 
   };

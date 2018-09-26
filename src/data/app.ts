@@ -10,6 +10,11 @@ export const systemLayer = new MapImageLayer({
     id: "System"
 });
 
+export const STR = new MapImageLayer({
+    url: "https://gisportal.lucid-energy.com/arcgis/rest/services/STR/MapServer",
+    id: "STR"
+});
+
 const searchSources = [{
     featureLayer: new FeatureLayer({
         url: "https://gisportal.lucid-energy.com/arcgis/rest/services/Lucid_II_Lines/FeatureServer/0",

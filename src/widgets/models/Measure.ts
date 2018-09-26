@@ -3,6 +3,7 @@ import $ = require("jquery");
 import MapView from "esri/views/MapView";
 import Draw from "esri/views/2d/draw/Draw";
 import Polyline from "esri/geometry/Polyline";
+import Polygon from "esri/geometry/Polygon";
 import Graphic from "esri/Graphic";
 import GeometryEngine from "esri/geometry/geometryEngine";
 
@@ -13,7 +14,7 @@ import { elements } from '../views/base';
 export default class Measure extends Widget {
 
     constructor() {
-        
+
         super('Measure', 'measure', true);
 
     }
@@ -22,39 +23,46 @@ export default class Measure extends Widget {
         measureView.renderWidget();
     }
 
-    addLine(view: MapView): void {
+    addMeasurement(view: MapView, type: string): void {
 
-        let pts: number[][] = [[-104.3264, 32.5408], [-104.1905, 32.5622], [-104.0305, 32.3908]];
+        view.graphics.removeAll();
 
-        // create a new instance of draw
+        let unit = $(elements.measure.unit_select).val() as string;
+        unit = unit.toLowerCase();
+
         var draw = new Draw({
             view: view
         });
-        
-        // create an instance of draw polyline action
-        // the polyline vertices will be only added when
-        // the pointer is clicked on the view
-        var action = draw.create("polyline");
-        
-        // fires when a vertex is added
-        action.on('vertex-add', (e) => drawLine(e));
-        action.on('cursor-update', (e) => drawLine(e));
-        action.on('vertex-remove', (e) => drawLine(e));
-        action.on('draw-complete', (e) => drawLine(e));
 
-        const drawLine = (event:any): void  => {
+        let graphicType: string;
+
+        (type === 'area') ? graphicType = 'polygon' : graphicType = 'polyline';        
+        
+        var action = draw.create(graphicType);
+        
+        action.on('vertex-add', (e) => drawGraphic(e));
+        action.on('cursor-update', (e) => drawGraphic(e));
+        action.on('vertex-remove', (e) => drawGraphic(e));
+        action.on('draw-complete', (e) => {
+            drawGraphic(e);
+            $(elements.measure.go_btn).toggleClass('is_measuring');
+        });
+
+        const drawGraphic = (event: any): void  => {
 
             let vertices = event.vertices;
-    
+            
+            let shape: any;
+
             view.graphics.removeAll();
     
-            let polyline = createPolyline(vertices);
+            (graphicType === 'polygon') ? shape = createPolygon(vertices) : shape = createPolyline(vertices);
     
-            let graphic = createGraphic(polyline);
+            let graphic = createGraphic(shape);
     
             view.graphics.add(graphic);
 
-            let length = GeometryEngine.geodesicLength(polyline, "feet");            
+            (graphicType === 'polygon') ? measureArea(shape) : measureLength(shape);
     
         }
     
@@ -62,24 +70,101 @@ export default class Measure extends Widget {
     
             return new Polyline({
                 paths: vertices,
-                type: "polyline",
                 spatialReference: view.spatialReference
             });
     
-        }
-    
-        const createGraphic = (polyline: any): any => {
-            let graphic = new Graphic({
-                geometry: polyline,
-                symbol: {
-                    type:"simple-line",
-                    color: [226, 119, 40],
-                    width: 3
-                }
+        };
+
+        const createPolygon = (vertices: any): any => {
+            return new Polygon({
+                rings: vertices,
+                spatialReference: view.spatialReference
             });
+        };
+    
+        const createGraphic = (shape: any): any => {
+
+            let symbol;
+
+            const polygonSymbol = {
+                geometry: shape,
+                symbol: {
+                    type: "simple-fill",
+                    color: [40, 51, 101, 0.8],
+                    style: "solid",
+                    outline: {
+                        color: [104, 96, 96],
+                        width: 2
+                    }
+                }
+            };
+
+            const polylineSymbol = {
+                geometry: shape,
+                symbol: {
+                    type: 'simple-line',
+                    color: [0, 174, 219],
+                    width: 2.5,
+                    style: "long-dash"
+                }
+            };
+
+            (shape.type === 'polygon') ? symbol = polygonSymbol : symbol = polylineSymbol;
+            
+            let graphic = new Graphic(symbol);
     
             return graphic;
-        }
+        };
+
+        const measureArea = (polygon: Polygon) => {
+
+            let area = GeometryEngine.geodesicArea(polygon, unit);
+
+            var graphic = new Graphic({
+                geometry: polygon.centroid,
+                symbol: {
+                  type: "text",
+                  color: "white",
+                  haloColor: "black",
+                  haloSize: "1px",
+                  text: `${parseFloat(area.toFixed(2)).toLocaleString('en')} ${unit}`,
+                  xoffset: 3,
+                  yoffset: 3,
+                  font: {
+                    size: 14,
+                    family: "sans-serif"
+                  }
+                }
+              });
+              view.graphics.add(graphic);
+            
+
+        };
+
+        const measureLength = (polyline: Polyline) => {
+
+            let length = GeometryEngine.geodesicLength(polyline, unit);
+
+            var graphic = new Graphic({
+                geometry: polyline.extent.center,
+                symbol: {
+                  type: "text",
+                  color: [0, 0, 0],
+                  haloColor: "black",
+                  haloSize: "1px",
+                  text: `${parseFloat(length.toFixed(2)).toLocaleString('en')} ${unit}`,
+                  xoffset: 0,
+                  yoffset: 30,
+                  font: {
+                    size: 14,
+                    family: "sans-serif",
+                    weight: "bold"
+                  }
+                }
+              });
+              view.graphics.add(graphic);
+            
+        };
 
     }
 
