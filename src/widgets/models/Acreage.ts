@@ -5,6 +5,7 @@ import Query from "esri/tasks/support/Query";
 
 import Widget from "./Widget";
 import * as acreageView from "../views/acreageView";
+import * as popups from "../../data/popups";
 
 export default class Acreage extends Widget {
 
@@ -31,7 +32,12 @@ export default class Acreage extends Widget {
                 sublayers: [{
                     id: 0,
                     visible: true,
-                    definitionExpression: definitionQuery
+                    definitionExpression: definitionQuery,
+                    popupEnabled: true,
+                    popupTemplate: {
+                        title: popups.acreage.title,
+                        content: popups.acreage.content
+                    }
                 }]
             });
             map.add(feature, 0);

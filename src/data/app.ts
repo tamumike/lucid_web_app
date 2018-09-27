@@ -1,13 +1,78 @@
 import MapImageLayer from "esri/layers/MapImageLayer";
 import FeatureLayer from "esri/layers/FeatureLayer";
-import KMLLayer from "esri/layers/KMLLayer";
 
 import Search from "esri/widgets/Search";
 import ScaleBar from "esri/widgets/ScaleBar";
 
+import * as popups from "./popups";
+
 export const systemLayer = new MapImageLayer({
     url: "https://gisportal.lucid-energy.com/arcgis/rest/services/Lucid_System/MapServer",
-    id: "System"
+    id: "System",
+    sublayers: [{
+        id: 0,
+        popupEnabled: true,
+        popupTemplate: {
+            title: popups.system.sites.title,
+            content: popups.system.sites.content
+        }
+    }, {
+        id: 1,
+        popupEnabled: true,
+        popupTemplate: {
+            title: popups.system.lines.title,
+            content: popups.system.lines.content
+        }
+    }, {
+        id: 2,
+        popupEnabled: true,
+        popupTemplate: {
+            title: popups.system.lines.title,
+            content: popups.system.lines.content
+        }
+    }, {
+        id: 3,
+        popupEnabled: true,
+        popupTemplate: {
+            title: popups.system.lines.title,
+            content: popups.system.lines.content
+        }
+    }, {
+        id: 4,
+        popupEnabled: true,
+        popupTemplate: {
+            title: popups.system.lines.title,
+            content: popups.system.lines.content
+        }
+    }, {
+        id: 5,
+        popupEnabled: true,
+        popupTemplate: {
+            title: popups.system.lines.title,
+            content: popups.system.lines.content
+        }
+    }, {
+        id: 6,
+        popupEnabled: true,
+        popupTemplate: {
+            title: popups.system.lines.title,
+            content: popups.system.lines.content
+        }
+    }, {
+        id: 7,
+        popupEnabled: true,
+        popupTemplate: {
+            title: popups.system.lines.title,
+            content: popups.system.lines.content
+        }
+    }, {
+        id: 8,
+        popupEnabled: true,
+        popupTemplate: {
+            title: popups.system.lines.title,
+            content: popups.system.lines.content
+        }
+    }]
 });
 
 export const STR = new MapImageLayer({

@@ -6,6 +6,7 @@ import Query from "esri/tasks/support/Query";
 import QueryTask from "esri/tasks/QueryTask";
 
 import * as thirdPartyView from "../views/thirdPartyView";
+import * as popups from "../../data/popups";
 
 export default class ThirdParty extends Widget {
 
@@ -29,7 +30,12 @@ export default class ThirdParty extends Widget {
                 id: featureClass,
                 sublayers: [{
                     id: 0,
-                    visible: false
+                    visible: false,
+                    popupEnabled: true,
+                    popupTemplate: {
+                        title: popups.thirdParty.title,
+                        content: popups.thirdParty.content
+                    }
                 }]
             });
 

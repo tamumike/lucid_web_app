@@ -1,5 +1,6 @@
 import EsriMap from "esri/Map";
 import MapView from "esri/views/MapView";
+import "@dojo/shim/Promise";
 
 import * as data from "../../data/app";
 
@@ -15,6 +16,8 @@ export default class ApplicationMap {
             basemap: "streets",
             layers: [data.systemLayer, data.STR]
         });
+
+        this.map.reorder(data.STR, 0);
 
         this.view = new MapView({
             map: this.map,
