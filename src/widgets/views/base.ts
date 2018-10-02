@@ -50,7 +50,8 @@ export const CSS = {
         options_img: "acreage__options-img",
         filter_img: "acreage__filter-img",
         remove_img: "acreage__remove-img",
-        filter_list: "acreage__filter-list"
+        filter_list: "acreage__filter-list",
+        action_container: "acreage__action-container"
     },
     drillingInfo: {
         action_container: "drillingInfo__action-container",
@@ -111,6 +112,11 @@ export const CSS = {
         go_btn: "measure__go-btn",
         is_measuring_img: "measure__is-measuring",
         unit_select: "measure__unit-select"
+    },
+    layers: {
+        action_container: "layers__action-container",
+        list_item: "layers__list-item",
+        list: "layers__list"
     }
 };
 
@@ -149,7 +155,8 @@ export const elements = {
         options: `.${CSS.acreage.options}`,
         options_filter: `#${CSS.acreage.filter_img}`,
         options_remove: `#${CSS.acreage.remove_img}`,
-        filter_list: `#${CSS.acreage.filter_list}`
+        filter_list: `#${CSS.acreage.filter_list}`,
+        action_container: `#${CSS.acreage.action_container}`
     },
     drillingInfo: {
         action_container: `#${CSS.drillingInfo.action_container}`,
@@ -209,5 +216,10 @@ export const elements = {
         action_container: `#${CSS.measure.action_container}`,
         go_btn: `#${CSS.measure.go_btn}`,
         unit_select: `#${CSS.measure.unit_select}`
+    },
+    layers:{
+        action_container: `#${CSS.layers.action_container}`,
+        list_item: `.${CSS.layers.list_item}`,
+        list: `#${CSS.layers.list}`
     }
 };

@@ -30,7 +30,6 @@ export default class ThirdParty extends Widget {
                 id: featureClass,
                 sublayers: [{
                     id: 0,
-                    visible: false,
                     popupEnabled: true,
                     popupTemplate: {
                         title: popups.thirdParty.title,
@@ -38,6 +37,8 @@ export default class ThirdParty extends Widget {
                     }
                 }]
             });
+
+            feature.visible = false;
 
             map.add(feature);
 
@@ -171,9 +172,10 @@ export default class ThirdParty extends Widget {
         layer.sublayers.forEach((sublayer, i = 0) => {
 
             sublayer.definitionExpression = definitionQuery;
-            (definitionQuery) ? sublayer.visible = true : sublayer.visible = false;
 
         });
+
+        (definitionQuery) ? layer.visible = true : layer.visible = false;
 
     }
 

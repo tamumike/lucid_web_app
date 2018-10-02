@@ -4,19 +4,24 @@
     left: 5%;
     height: 4%;
     width: 7%;
+    min-width: 115px;
+    min-height: 60px;
+    max-height: 65px;
     background-color: #0f1129;
     z-index: 1;
     color: white;
-    border-radius: 5%;
+    // border-radius: 5%;
     text-align: center;
-    padding-bottom: 0.5%;
+    // padding-bottom: 0.5%;
+    vertical-align: middle;
     margin: 0;
+    border: 2px grey solid;
 }
 
 #coordinates__values {
     height: 50%;
     width: 100%;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: bold;
     display: inline-block;
     position: relative;

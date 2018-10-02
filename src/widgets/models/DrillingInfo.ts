@@ -5,6 +5,7 @@ import Query from "esri/tasks/support/Query";
 
 import Widget from "./Widget";
 import * as drillingInfoView from "../views/drillingInfoView";
+import * as popups from "../../data/popups";
 
 export default class DrillingInfo extends Widget {
 
@@ -20,8 +21,26 @@ export default class DrillingInfo extends Widget {
 
         if (!this.isDuplicate(map, name)) {
 
-            const featureURL: string = `https://gisportal.lucid-energy.com/arcgis/rest/services/DI_${name}_NM/MapServer`;
-            const feature: MapImageLayer = new MapImageLayer({url: featureURL, id: `${name}`});
+            let formatDate;
+
+            formatDate = function (value) {    
+
+                const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+                let newDate = new Date(value);
+                let date = newDate.getUTCDate()+"-"+months[(newDate.getUTCMonth())]+"-"+newDate.getUTCFullYear();
+                return date;
+            };
+
+            const featureURL: string = `https://gisportal.lucid-energy.com/arcgis/rest/services/OPPL/DI_${name}/MapServer`;
+            const feature: MapImageLayer = new MapImageLayer({
+                url: featureURL, 
+                id: `${name}`,
+                sublayers: [{
+                    id: 0,
+                    popupEnabled: true,
+                    popupTemplate: popups.drillingInfo[name]
+                }]
+            });
 
             map.add(feature);
 
@@ -43,6 +62,8 @@ export default class DrillingInfo extends Widget {
 
     }
 
+    // `${content('{operator_name}')}`
+
     removeFeature(map: EsriMap, name: string): void {
         
         const feature = map.findLayerById(name);
@@ -59,7 +80,7 @@ export default class DrillingInfo extends Widget {
 
     queryLayer(name: string, clause: string, state: {}, currentExpressions: string[]): void {
         
-        const URL = `https://gisportal.lucid-energy.com/arcgis/rest/services/DI_${name}_NM/MapServer/0`;
+        const URL = `https://gisportal.lucid-energy.com/arcgis/rest/services/OPPL/DI_${name}/MapServer/0`;
         const queryTask = new QueryTask({ url: URL });
         const query = new Query({ where: clause, outFields: ["*"] });
 

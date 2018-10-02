@@ -45,6 +45,16 @@
     content: url("../img/rmv_lyr_icon.png");
   }
 
-  #acreage__filter-list {
-    margin-top: 5% !important;
+  #acreage__action-container {
+    background-color: #34a2e2;
+    width: 50%;
+    min-height: 24px;
+    height: auto;
+    border-radius: 3px;
+    margin: 5% auto;
+    border: 2px grey solid;
+  }
+
+  #acreage__dropdown {
+    margin-bottom: 10%;
   }

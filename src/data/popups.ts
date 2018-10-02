@@ -54,3 +54,129 @@ export const thirdParty = {
             <b>Miles: </b>{MILES}<br>
             <b>Previous Owner: </b>{PREV_OWNER}<br>`
 }
+
+export const formatDate = (value: any, key: any): any => {    
+
+    const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+    let newDate = new Date(value);
+    let date = newDate.getUTCDate()+"-"+months[(newDate.getUTCMonth())]+"-"+newDate.getUTCFullYear();
+    return date;
+};
+
+export const drillingInfo = {
+    "Rigs": {
+        title: '{lease_name}',
+        content: `<b>Operator: </b>{operator_name}<br>
+                <b>API: </b>{api_number}<br>
+                <b>Rig Number: </b>{rig_number}<br>
+                <b>Rig ID: </b>{rig_id}<br>
+                <b>Well Number: </b>{well_number}<br>
+                <b>Draw Works: </b>{draw_works}<br>
+                <b>Rated HP: </b>{rated_hp}<br>
+                <b>Spud Date: </b>{spud_date}<br>
+                <b>Release Date: </b>{release_date}<br>
+                <b>Permit ID: </b>{permit_id}<br>
+                <b>Permit Number: </b>{permit_number}<br>
+                <b>Permit Approval Date: </b>{permit_approval_date:formatDate}<br>
+                <b>Permit Posted Date: </b>{permit_posted_date}<br>
+                <b>Permit Depth: </b>{permit_depth}<br>
+                <b>Commodity: </b>{commodity}<br>
+                <b>Well Purpose: </b>{well_purpose}<br>
+                <b>Well Orientation: </b>{well_orientation}<br>
+                <b>Field: </b>{field_name}<br>
+                <b>Formation: </b>{formation}<br>
+                <b>Formation Depth: </b>{formation_depth}<br>
+                <b>Rated Water Depth: </b>{rated_water_depth}<br>
+                <b>H2S Area: </b>{h2s_area}<br>
+                <b>Operator: </b>{operator_name}<br>
+                <b>Drilling Info Link: </b><a target="_blank" href="{diLink}">More Info</a>
+                `
+    },
+    "Wells": {
+        title: '{well_name}',
+        content: `<b>Operator: </b>{current_operator}<br>
+                <b>API: </b>{api_10}<br>
+                <b>Well Number: </b>{well_number}<br>
+                <b>Well ID: </b>{well_id}<br>
+                <b>Status: </b>{well_status}<br>
+                <b>Type: </b>{well_type}<br>
+                <b>Lease Name: </b>{lease_name}<br>
+                <b>WGID: </b>{wgid}<br>
+                <b>Serial Number: </b>{well_serial_number}<br>
+                <b>Spud Date: </b>{spud_date}<br>
+                <b>First Completion Date: </b>{first_completion_date}<br>
+                <b>Total Measured Depth: </b>{total_measured_depth}<br>
+                <b>True Vertical Depth: </b>{true_vertical_depth}<br>
+                <b>Ground Elevation Reported: </b>{ground_elevation_reported}<br>
+                <b>Drilling Info Drill Verified: </b>{di_drill_verified}<br>
+                <b>Longitude: </b>{surface_longitude}<br>
+                <b>Latitude: </b>{surface_latitude}<br>
+                <b>ROW Change Date: </b>{row_change_date}`
+    },
+    "Production": {
+        title: '{lease_name}',
+        content: `<b>Production Type: </b>{prod_type}<br>
+                <b>API: </b>{api_uwi}<br>
+                <b>Initial Completion Date: </b>{initial_completion_date}<br>
+                <b>Field: </b>{field}<br>
+                <b>Reservoir: </b>{reservoir}<br>
+                <b>Regulatory Number: </b>{regulatory_number}<br>
+                <b>Well Number: </b>{well_number}<br>
+                <b>Operator: </b>{current_operator}<br>
+                <b>Oil Gatherer: </b>{oil_gatherer}<br>
+                <b>Gas Gatherer: </b>{gas_gatherer}<br>
+                <b>Spud Date: </b>{spud_date}<br>
+                <b>Status: </b>{current_producing_status}<br>
+                <b>IP Gas Daily: </b>{prac_ip_gas_daily}<br>
+                <b>IP BOE: </b>{prac_ip_boe}<br>
+                <b>Wellbore_Orientation: </b>{wellbore_orientation}<br>
+                <b>Total Depth: </b>{total_depth}<br>
+                <b>Daily Gas: </b>{daily_gas}<br>
+                <b>Cumulative Gas: </b>{cum_gas}<br>
+                <b>Peak Gas: </b>{peak_gas}<br>
+                <b>First Month Gas: </b>{first_month_gas}<br>
+                <b>First Year Gas: </b>{first_12_gas}<br>
+                <b>Last Year Gas: </b>{last_12_gas}<br>
+                <b>Daily Oil: </b>{daily_oil}<br>
+                <b>Cumulative Oil: </b>{cum_oil}<br>
+                <b>Peak Oil: </b>{peak_oil}<br>
+                <b>First Month Oil: </b>{first_month_oil}<br>
+                <b>First Year Oil: </b>{first_12_oil}<br>
+                <b>Last Year Oil: </b>{last_12_oil}<br>
+                <b>Cumulative Water: </b>{cum_water}<br>
+                <b>First Month Water: </b>{first_month_water}<br>
+                <b>First Year Water: </b>{first_12_water}<br>
+                <b>Last Year Water: </b>{last_12_water}<br>
+                <b>Latest Flow Pressure: </b>{latest_flow_pressure}<br>
+                <b>First Production Date: </b>{first_prod_date}<br>
+                <b>Last Production Date: </b>{last_prod_date}<br>
+                <b>Basin: </b>{basin}<br>
+                <b>Longitude: </b>{entity_longitude}<br>
+                <b>Latitude: </b>{entity_latitude}<br>`
+    },
+    "Permits": {
+        title: '{lease_name}',
+        content: `<b>Permit ID: </b>{permit_id}<br>
+                <b>Well ID: </b>{well_id}<br>
+                <b>API: </b>{api_10}<br>
+                <b>WGID: </b>{wgid}<br>
+                <b>Permit Number: </b>{permit_number}<br>
+                <b>Operator: </b>{operator_alias}<br>
+                <b>Well Number: </b>{well_number}<br>
+                <b>Lease Number: </b>{lease_number}<br>
+                <b>Lease Type: </b>{lease_type}<br>
+                <b>Field: </b>{field}<br>
+                <b>Formation: </b>{formation}<br>
+                <b>Formation Depth: </b>{formation_depth}<br>
+                <b>Permit Type: </b>{permit_type}<br>
+                <b>Well Type: </b>{well_type}<br>
+                <b>Drill Type: </b>{drill_type}<br>
+                <b>Permitted Depth: </b>{permitted_depth}<br>
+                <b>Permit Status: </b>{permit_status}<br>
+                <b>Well Status: </b>{well_status}<br>
+                <b>Submitted Date: </b>{submitted_date}<br>
+                <b>Approved Date: </b>{approved_date}<br>
+                <b>Longitude: </b>{surface_longitude}<br>
+                <b>Latitude: </b>{surface_latitude}`
+    }
+}

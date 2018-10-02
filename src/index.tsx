@@ -12,6 +12,7 @@ import DrillingInfo from "./widgets/models/DrillingInfo";
 import ThirdParty from "./widgets/models/ThirdParty";
 import Symbology from "./widgets/models/Symbology";
 import Measure from "./widgets/models/Measure";
+import Layers from "./widgets/models/Layers";
 
 import * as panelView from "./widgets/views/panelView";
 import * as widgetView from "./widgets/views/widgetView";
@@ -29,7 +30,7 @@ export const appController = () => {
 
   const app = new App();  
 
-  state.widgets = [new Acreage(), new Coordinates(), new DrillingInfo(), new ThirdParty(), new Symbology(), new Measure()];
+  state.widgets = [new Layers(), new Acreage(), new Coordinates(), new DrillingInfo(), new ThirdParty(), new Symbology(), new Measure()];
   state.acreage = [];
 
   const launchWidget = (currentWidget: string): void => {
@@ -39,6 +40,7 @@ export const appController = () => {
     (currentWidget == "thirdParty") ? controlThirdParty() : 
     (currentWidget == "symbology") ? controlSymbology() : 
     (currentWidget == "measure") ? controlMeasure() : 
+    (currentWidget == "layers") ? controlLayers() : 
     console.log('no Widget');
 
   };
@@ -72,6 +74,28 @@ export const appController = () => {
     }
 
   });
+
+  /*
+  * Layers Controller
+  */
+  const controlLayers = () => {
+
+    const widget = state.currentWidget;
+    const appMap = app.applicationMap.map;
+
+    widget.listLayers(appMap);
+
+    // Layers Events
+    $(elements.layers.list).on('click', 'li.panel__widget-list_item', (e) => {
+      
+      const $this = $(e.currentTarget);
+
+      $this.toggleClass('placeholder');
+
+      widget.toggleVisibility(appMap, $this.text().trim());
+      
+    });
+  };
 
   /* 
   * Acreage Controller 
@@ -578,4 +602,15 @@ export const appController = () => {
 
 };
 
-appController();
+
+const userAgent = window.navigator.userAgent;
+
+if (userAgent.indexOf('MSIE ') > 0) {
+  
+  alert('This application must be used with Google Chrome. Internet Explorer is not supported');
+
+} else {
+
+  appController();
+  
+}

@@ -10,6 +10,7 @@ $close2: #f61717;
 @import url("./widget/Symbology.scss");
 @import url("./widget/Coordinates.scss");
 @import url("./widget/Measure.scss");
+@import url("./widget/Layers.scss");
 
 html,
 body,
@@ -29,10 +30,11 @@ body,
 /* controller */
 #controller {
   width: 5%;
-  // min-width: 48px;
+  min-width: 45px;
   // max-width: 80px;
   height: 100%;
   background-color: #0f1129;
+  border-right: 2px grey solid;
 }
 
 #controller__branding {
@@ -64,18 +66,21 @@ body,
 .controller__widget-container {
   height: 100%;
   width: 100%;
+  vertical-align: middle;
   padding-top: 0.5em;
   padding-bottom: 0.5em;
   border-bottom: 2px grey solid;
   background: #485563;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to right, #29323c, #485563);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right, #29323c, #485563); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background-origin: border-box;
 }
 .controller__widget-container:hover {
   color: yellow;
   background: #4b6cb7;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to right, #182848, #4b6cb7);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right, #182848, #4b6cb7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background-origin: border-box;
 }
 
 @media screen and (min-width: 150px) {
@@ -83,7 +88,7 @@ body,
     width: calc(48px + (80 - 48) * ((100vw - 150px) / (2162 - 150)));
   }
   #controller__widgets, .controller__widget-label {
-    font-size: calc(9px + (11 - 9) * ((100vw - 150px) / (2162 - 150)));
+    font-size: calc(7px + (11 - 7) * ((100vw - 150px) / (2162 - 150)));
   }
   #panel {
     left: calc(48px + (80 - 48) * ((100vw - 150px) / (2162 - 150)));
@@ -109,6 +114,7 @@ body,
   background: #4b6cb7;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to right, #182848, #4b6cb7);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right, #182848, #4b6cb7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background-origin: border-box;
 }
 
 /************/
@@ -122,14 +128,18 @@ body,
   // overflow-y: scroll;
   background-color: #0f1129;
   position: absolute;
-  border: 2px grey solid;
+  border-width: 2px 2px 2px 2px;
+  border-color: grey;
+  border-style: solid;
   z-index: 1;
   text-align: center;
   color: #fff;
+  padding: 0;
 
   .panel__widget-container {
     height: 100%;
     width: 100%;
+    padding: 0;
   }
 
   .panel__widget-title {
@@ -149,6 +159,9 @@ body,
     background: -webkit-linear-gradient(to right, #29323c, #485563);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #29323c, #485563); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     border-bottom: 2px grey solid;
+    height: 100%;
+    width: 100%;
+    background-origin: border-box;
   }
 
   .panel__widget-list_item:hover {
@@ -157,6 +170,7 @@ body,
     background: #4b6cb7;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #182848, #4b6cb7);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #182848, #4b6cb7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background-origin: border-box;
   }
 
   .panel__widget-list_item.placeholder {
@@ -164,6 +178,7 @@ body,
     background: #ED213A;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #93291E, #ED213A);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #93291E, #ED213A); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background-origin: border-box;
   }
 
   #panel__tab-container-list {
@@ -255,6 +270,7 @@ body,
   left: 50%;
   margin: -200px 0 0 -310px;
   color: #fff;
+  border: 2px grey solid;
 
   .modal__close {
     height: 15px;
@@ -273,14 +289,15 @@ body,
   }
   
   .modal__subcontainer {
-    height: 80%;
+    height: 75%;
     width: 80%;
-    border: 2px #fff solid;
+    border: 2px grey solid;
+    border-radius: 2%;
     margin: 0 auto;
     position: relative;
     top: 8%;
-    // padding: 0.5em;
     text-align: center;
+    background-color: rgba(128, 128, 128, 0.2);
   }
 
   .modal__title {
@@ -322,7 +339,7 @@ body,
   .modal__btn-container {
     position: absolute;
     bottom: 3px;
-    width: 95%;
+    width: 100%;
     margin: 0 auto;
   }
 
@@ -336,11 +353,11 @@ body,
   }
 
   #modal__cancel-btn {
-    left: 1%;
+    left: 2%;
   }
 
   #modal__ok-btn {
-    right: -1%;
+    right: 2%;
   }
 
   #modal__apply-btn {
