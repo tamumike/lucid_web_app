@@ -3,6 +3,9 @@ import $ = require("jquery");
 
 import "@dojo/shim/Promise";
 
+import MapView from "esri/views/MapView";
+import EsriMap from "esri/Map";
+
 import App from "./widgets/models/App";
 import Panel from "./widgets/models/Panel";
 import Modal from "./widgets/models/Modal";
@@ -28,7 +31,21 @@ const state: {[key: string]: any} = {};
 
 export const appController = () => {
 
-  const app = new App();  
+  const app = new App({
+    appName: "Test",
+    container: document.getElementById('app') as HTMLElement
+  });
+
+  let appView: MapView, appMap: EsriMap;
+
+  app.watch('view', () => {
+    appView = app.view;
+    controlCoordinates();
+  });
+
+  app.watch('map', () => {
+    appMap = app.map;
+  });
 
   state.widgets = [new Layers(), new Acreage(), new Coordinates(), new DrillingInfo(), new ThirdParty(), new Symbology(), new Measure()];
   state.acreage = [];
@@ -52,7 +69,7 @@ export const appController = () => {
 
     e.stopImmediatePropagation();
     Panel.getInstance();
-    app.applicationMap.view.graphics.removeAll();
+    app.view.graphics.removeAll();
     var $this = $(e.currentTarget);
 
     widgetView.getWidget(state, $this.attr("widgetid"));
@@ -81,7 +98,6 @@ export const appController = () => {
   const controlLayers = () => {
 
     const widget = state.currentWidget;
-    const appMap = app.applicationMap.map;
 
     widget.listLayers(appMap);
 
@@ -103,7 +119,6 @@ export const appController = () => {
   const controlAcreage = () => {
 
     const widget = state.currentWidget;
-    const appMap = app.applicationMap.map;
 
     // Populate the dropdown menu
     acreageView.populateSelect();
@@ -215,9 +230,7 @@ export const appController = () => {
   * Coordinates Controller 
   */
   const controlCoordinates = () => {
-    
-    const appView = app.applicationMap.view;
-    
+
     const widget = state.widgets.filter(item => {
 
       return item.ID === 'coordinates';
@@ -248,7 +261,6 @@ export const appController = () => {
   const controlDrillingInfo = () => {
     
     const widget = state.currentWidget;
-    const appMap = app.applicationMap.map;
 
     let feature: string = $('.active-feature').text().trim();
 
@@ -356,7 +368,6 @@ export const appController = () => {
   const controlThirdParty = () => {
 
     const widget = state.currentWidget;
-    const appMap = app.applicationMap.map;
 
     let feature: string = $('.active-feature').text().trim();
 
@@ -487,8 +498,6 @@ export const appController = () => {
   const controlSymbology = () => {
 
     const widget = state.currentWidget;
-    const appMap = app.applicationMap.map;
-    const layerNames = widget.getMapLayers(appMap);
 
     $(elements.symbology.list).on('click', `li.${CSS.symbology.list_item}`, (e) => {
     
@@ -543,6 +552,20 @@ export const appController = () => {
         
       });
 
+      $(elements.modal.panel).on('keyup', `input#${CSS.symbology.lyr_search}`, (e) => {
+
+        let lyrNames: string[] = [];
+
+        $(elements.modal.list_item).each((index, value) => {
+
+          lyrNames.push(value.textContent as string);
+          
+        });
+        
+        symbologyView.getSearchInput($(e.currentTarget), lyrNames);
+
+      });
+
     });
     
   };
@@ -552,7 +575,6 @@ export const appController = () => {
    */
   const controlMeasure = () => {
 
-    const appView = app.applicationMap.view;
     const widget = state.currentWidget;
 
     let type = $('.active-feature').text().trim().toLowerCase();
@@ -595,22 +617,6 @@ export const appController = () => {
 
   };
 
-  /*
-  * Launch Perpetual Widgets
-  */
-  controlCoordinates();
-
 };
 
-
-const userAgent = window.navigator.userAgent;
-
-if (userAgent.indexOf('MSIE ') > 0) {
-  
-  alert('This application must be used with Google Chrome. Internet Explorer is not supported');
-
-} else {
-
-  appController();
-  
-}
+appController();

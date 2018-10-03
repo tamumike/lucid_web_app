@@ -1,12 +1,7 @@
-import $ = require("jquery");
-
-import MapView from "esri/views/MapView";
-import MapImageLayer from "esri/layers/MapImageLayer";
 import EsriMap from "esri/Map";
 
 import Widget from "./Widget";
 import * as layersView from "../views/layersView";
-import { elements } from '../views/base';
 
 export default class Layers extends Widget {
 

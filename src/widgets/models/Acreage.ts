@@ -25,7 +25,7 @@ export default class Acreage extends Widget {
 
             (producer === 'All') ? definitionQuery = '' : definitionQuery = `Producer IN('${producer}')`;
 
-            const featureURL: string = `https://gisportal.lucid-energy.com/arcgis/rest/services/Acreage/AllAcreage/MapServer`;
+            const featureURL: string = `https://gisportal.lucid-energy.com/arcgis/rest/services/Acreage/AllAcreage2/MapServer`;
             const feature: MapImageLayer = new MapImageLayer({
                 url: featureURL, 
                 id: `Acreage - ${producer}`,

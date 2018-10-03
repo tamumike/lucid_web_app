@@ -1,4 +1,3 @@
-import $ = require("jquery");
 import * as panelView from "../views/panelView";
 
 export default class Panel {

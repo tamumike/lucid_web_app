@@ -174,8 +174,7 @@ export const scrollOptionsDiv = (value: string): void => {
 
     if (element.length > 0) {
         
-        $parent.scrollTop(($parent.scrollTop() as number) + (element.position().top as number) - 
-        ($parent.height() as number)/1.6 + (element.height() as number)/2);
+        $parent.scrollTop(($parent.scrollTop() as number) + (element.position().top as number));
     }
 
 };

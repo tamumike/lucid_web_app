@@ -21,16 +21,6 @@ export default class DrillingInfo extends Widget {
 
         if (!this.isDuplicate(map, name)) {
 
-            let formatDate;
-
-            formatDate = function (value) {    
-
-                const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-                let newDate = new Date(value);
-                let date = newDate.getUTCDate()+"-"+months[(newDate.getUTCMonth())]+"-"+newDate.getUTCFullYear();
-                return date;
-            };
-
             const featureURL: string = `https://gisportal.lucid-energy.com/arcgis/rest/services/OPPL/DI_${name}/MapServer`;
             const feature: MapImageLayer = new MapImageLayer({
                 url: featureURL, 

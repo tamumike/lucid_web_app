@@ -39,7 +39,7 @@ export const renderSymbologyPanel = (name: string, info: any): void => {
 
     const markup = 
         `<div class=${CSS.modal.subcontainer}>
-            <p class=${CSS.modal.heading}>${name}</p>
+            <p class=${CSS.modal.title}>${name}</p>
             <div class=${CSS.symbology.values_container}>
                 <ul id=${CSS.symbology.avail_opts} class=${CSS.modal.options_list}>
                     ${renderValuesList(name, info)}
@@ -47,7 +47,7 @@ export const renderSymbologyPanel = (name: string, info: any): void => {
             </div>
             <div id=${CSS.symbology.render_container} class=${CSS.symbology.values_container}>
                 <label class=${CSS.symbology.label} for=${CSS.symbology.opacity_input}>Opacity</label>
-                <input type="text" size="3" maxLength="3" id=${CSS.symbology.opacity_input} />
+                <input type="text" size="3" maxLength="3" id=${CSS.symbology.opacity_input} class=${CSS.textbox} />
                 <div id=${CSS.symbology.slider_container}>
                     <input type="range" id=${CSS.symbology.slider_r} class=${CSS.symbology.slider} min="0" max="255" />
                     <input type="range" id=${CSS.symbology.slider_g} class=${CSS.symbology.slider} min="0" max="255" />
@@ -62,6 +62,8 @@ export const renderSymbologyPanel = (name: string, info: any): void => {
                     </div>
                 </div>
             </div>
+            <img class=${CSS.search_img} />
+            <input placeholder="Search..." type="text" id=${CSS.symbology.lyr_search} class=${CSS.textbox}></input>
         </div>`;
 
     $(elements.modal.panel).append(markup);
@@ -246,5 +248,33 @@ export const setRendererProps = (props: any): void => {
 
     props.opacity = parseInt($(elements.symbology.opacity_input).val() as string) * 0.01;
     
+
+};
+
+export const getSearchInput = (element: JQuery, layers: string[]): void => {
+
+    const input = element.val() as string;
+
+    let subArray: string[];
+
+    subArray = layers.filter((value) => {
+
+        return value.startsWith(input.toUpperCase());
+
+    });
+
+    scrollOptionsDiv(subArray[0]);
+
+};
+
+const scrollOptionsDiv = (value: string): void => {
+
+    const $parent = $(elements.symbology.avail_opts).parent();
+    const element = $(`${elements.symbology.avail_opts} > li:contains(${value})`);
+
+    if (element.length > 0) {
+        
+        $parent.scrollTop(($parent.scrollTop() as number) + (element.position().top as number));
+    }
 
 };

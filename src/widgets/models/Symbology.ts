@@ -258,5 +258,4 @@ export default class Symbology extends Widget {
 
     }
 
-
 }

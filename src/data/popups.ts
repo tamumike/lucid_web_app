@@ -55,13 +55,13 @@ export const thirdParty = {
             <b>Previous Owner: </b>{PREV_OWNER}<br>`
 }
 
-export const formatDate = (value: any, key: any): any => {    
+// export const formatDate = (value: any, key: any): any => {    
 
-    const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-    let newDate = new Date(value);
-    let date = newDate.getUTCDate()+"-"+months[(newDate.getUTCMonth())]+"-"+newDate.getUTCFullYear();
-    return date;
-};
+//     const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+//     let newDate = new Date(value);
+//     let date = newDate.getUTCDate()+"-"+months[(newDate.getUTCMonth())]+"-"+newDate.getUTCFullYear();
+//     return date;
+// };
 
 export const drillingInfo = {
     "Rigs": {

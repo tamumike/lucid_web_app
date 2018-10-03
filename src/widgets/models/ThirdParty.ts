@@ -81,8 +81,7 @@ export default class ThirdParty extends Widget {
      }
 
      queryLayer(map: EsriMap, name: string, currentExpressions: string[]) {
-        
-        const layer = map.findLayerById(name) as MapImageLayer;
+    
         const url = `https://gisportal.lucid-energy.com/arcgis/rest/services/OPPL/${name.replace(' ', '_')}/MapServer/1`;        
         
         const queryTask = new QueryTask({

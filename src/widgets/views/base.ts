@@ -96,7 +96,8 @@ export const CSS = {
         display_label: "symbology__display-label",
         slider_r: "symbology__slider-r",
         slider_g: "symbology__slider-g",
-        slider_b: "symbology__slider-b"
+        slider_b: "symbology__slider-b",
+        lyr_search: "symbology__lyr-search"
     },
     coordinates: {
         container: "coordinates__container",
@@ -202,6 +203,7 @@ export const elements = {
         slider_r: `#${CSS.symbology.slider_r}`,
         slider_g: `#${CSS.symbology.slider_g}`,
         slider_b: `#${CSS.symbology.slider_b}`,
+        lyr_search: `#${CSS.symbology.lyr_search}`
     },
     coordinates: {
         container: `#${CSS.coordinates.container}`,

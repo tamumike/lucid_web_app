@@ -23,11 +23,14 @@
     padding: 0;
     background-color: #34a2e2;
     border-radius: 3px;
+    border: 2px grey solid;
+    position: relative;
   }
 
   #symbology__render-container {
     overflow: hidden;
     background-color: #182848;
+    border: 2px grey solid;
   }
 
   .symbology__label {
@@ -42,7 +45,7 @@
 
   #symbology__display-container {
     position: absolute;
-    top: 33%;
+    top: 40%;
     right: 5%;
     height: 18%;
     width: 8%;

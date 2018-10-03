@@ -1,0 +1,1 @@
+{"version":3,"file":"Panel.js","sourceRoot":"","sources":["../../../src/widgets/models/Panel.ts"],"names":[],"mappings":";;;;IAEA;QAII;YACI,SAAS,CAAC,WAAW,EAAE,CAAC;QAC5B,CAAC;QAEM,iBAAW,GAAlB;YACI,IAAI,CAAC,KAAK,CAAC,QAAQ,EAAE;gBACjB,KAAK,CAAC,QAAQ,GAAG,IAAI,KAAK,EAAE,CAAC;aAChC;YACD,OAAO,KAAK,CAAC,QAAQ,CAAC;QAC1B,CAAC;QACL,YAAC;IAAD,CAAC,AAdD,IAcC"}
