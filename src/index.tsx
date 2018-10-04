@@ -374,31 +374,6 @@ export const appController = () => {
     widget.addCurrentLayersToList(appMap, feature);
 
     // Third Party Events
-
-    /*
-    $(elements.panel_obj.tab).on('click', (e) => {
-
-      const $this = $(e.currentTarget);
-
-      
-      feature = $this.text();
-      if (!thirdPartyView.isActive($this)) {
-
-        thirdPartyView.toggleCurrentActive();
-        thirdPartyView.toggleActiveFeature($this);
-        thirdPartyView.renderFeatureMarkup(feature);
-
-      } else {
-
-        thirdPartyView.toggleActiveFeature($this);
-        thirdPartyView.removeFeatureMarkup();
-      
-      }
-      
-
-    });
-    */
-
     $(elements.thirdParty.add_btn).on('click', (e) => {
 
       e.preventDefault();
@@ -480,6 +455,12 @@ export const appController = () => {
 
       });
 
+      $(elements.modal.cancel_btn).on('click', (e) => {
+
+        modal.removeModal();
+
+      });
+
       $(elements.thirdParty.op_search).on('keyup', (e) => {
         
         widget.getSearchInput($(e.currentTarget), featureName);
@@ -498,6 +479,8 @@ export const appController = () => {
   const controlSymbology = () => {
 
     const widget = state.currentWidget;
+
+    widget.getMapLayers(appMap);
 
     $(elements.symbology.list).on('click', `li.${CSS.symbology.list_item}`, (e) => {
     

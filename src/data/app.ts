@@ -1,8 +1,4 @@
 import MapImageLayer from "esri/layers/MapImageLayer";
-
-import Search from "esri/widgets/Search";
-import ScaleBar from "esri/widgets/ScaleBar";
-
 import EsriMap from "esri/Map";
 
 import * as popups from "./popups";
@@ -94,49 +90,4 @@ export const STR = new MapImageLayer({
 export const map = new EsriMap({
     basemap: "streets",
     layers: [STR, systemLayer]
-});
-
-
-// const searchSources = [{
-//     featureLayer: new FeatureLayer({
-//         url: "https://gisportal.lucid-energy.com/arcgis/rest/services/Lucid_II_Lines/FeatureServer/0",
-//         outFields: ["*"]
-//     }),
-//     searchFields: ["LineName", "AFE"],
-//     displayField: "LineName",
-//     exactMatch: false,
-//     outFields: ["*"],
-//     name: "Lucid Lines",
-//     placeholder: "Search Lines",
-//     maxResults: 6,
-//     maxSuggestions: 6,
-//     suggestionsEnabled: true,
-//     minSuggestCharacters: 0
-//   }, {
-//     featureLayer: new FeatureLayer({
-//         url: "https://gisportal.lucid-energy.com/arcgis/rest/services/Lucid_II_Facilities/MapServer/1",
-//         outFields: ["*"]
-//     }),
-//       searchFields: ["SiteName"],
-//       displayField: "SiteName",
-//       exactMatch: false,
-//       outFields: ["*"],
-//       name: "Lucid Facilities",
-//       maxResults: 6,
-//       maxSuggestions: 6,
-//       suggestionsEnabled: true,
-//       minSuggestCharacters: 0
-//   }] as any;
-
-// export var search = new Search({
-//     allPlaceholder: "Search Lines or Facilities",
-//     resultGraphicEnabled: true,
-//     includeDefaultSources: false,
-//     popupEnabled: true,
-//     locationEnabled: false,
-//     sources: searchSources
-// });
-
-export var scalebar = new ScaleBar({
-    style: "ruler"
 });

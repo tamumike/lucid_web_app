@@ -51,7 +51,7 @@ export default class App extends declared(Widget) {
   }
 
   private onAfterCreate(element: HTMLDivElement) {
-    import("../../data/app").then(({ systemLayer, map }) => {
+    import("../../data/app").then(({ map }) => {
       this.map = map;
       this.view = new MapView({
         map: this.map,
