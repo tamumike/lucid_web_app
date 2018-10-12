@@ -3,7 +3,7 @@ $icomoon-font-path: "~arcgis-js-api/themes/base/icons/fonts" !default;
 // Widgets (sorted alphabetically)
 $include_AreaMeasurement3D: false !default;
 $include_Attribution: true !default;
-$include_BasemapGallery: false !default;
+$include_BasemapGallery: true !default;
 $include_BasemapToggle: false !default;
 $include_Bookmarks: false !default;
 $include_BrowseItems: false !default;
@@ -18,7 +18,7 @@ $include_HorizontalSlider: false !default;
 $include_LayerList: false !default;
 $include_Legend: false !default;
 $include_NavigationToggle: false !default;
-$include_Print: false !default;
+$include_Print: true !default;
 $include_DirectLineMeasurement3D: false !default;
 $include_Popup: true !default;
 $include_RasterSymbologyEditor: false !default;

@@ -61,15 +61,9 @@ export default class App extends declared(Widget) {
         ui: {
             components: []
         }
-    });
+      });
+      console.log(this.map);
+      
     });
   }
 }
-
-// import ApplicationMap from "./Map";
-// import "@dojo/shim/Promise";
-
-// export default class App {
-//     // Initialize map
-//     applicationMap = new ApplicationMap();    
-// };

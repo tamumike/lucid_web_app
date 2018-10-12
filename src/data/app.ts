@@ -53,7 +53,8 @@ export const systemLayer = new MapImageLayer({
         popupTemplate: {
             title: popups.system.lines.title,
             content: popups.system.lines.content
-        }, 
+        },
+        legendEnabled: false,
         visible: true
     }, {
         id: 2,
@@ -84,7 +85,18 @@ export const systemLayer = new MapImageLayer({
 
 export const STR = new MapImageLayer({
     url: "https://gisportal.lucid-energy.com/arcgis/rest/services/STR/MapServer",
-    id: "STR"
+    id: "STR",
+    sublayers: [{
+        id: 2,
+        legendEnabled: false
+    }, {
+        id: 1,
+        legendEnabled: false
+    }, {
+        id: 0,
+        legendEnabled: false
+    }],
+    legendEnabled: false
 });
 
 export const map = new EsriMap({

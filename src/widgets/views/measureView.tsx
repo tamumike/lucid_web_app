@@ -38,7 +38,7 @@ export const renderMeasurementTypeOptions = (type: string) => {
     removeTypeMarkup();
 
     const markup = 
-    `<label for="unitSelect">Units: </label>
+    `<label class=${CSS.measure.label} for="unitSelect">Units: </label>
     <select name="unitSelect" id=${CSS.measure.unit_select} class=${CSS.dropdown}>${populateSelect(type)}</select>
     <br>
     <button id=${CSS.measure.go_btn} class=${CSS.button}><img class=${CSS.measure.is_measuring_img} /></button>`;

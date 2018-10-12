@@ -112,7 +112,8 @@ export const CSS = {
         action_container: "measure__action-container",
         go_btn: "measure__go-btn",
         is_measuring_img: "measure__is-measuring",
-        unit_select: "measure__unit-select"
+        unit_select: "measure__unit-select",
+        label: "measure__label"
     },
     layers: {
         action_container: "layers__action-container",

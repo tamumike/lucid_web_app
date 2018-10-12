@@ -8,8 +8,8 @@ import MapView from "esri/views/MapView";
 import Expand from "esri/widgets/Expand";
 import Search from "esri/widgets/Search";
 import ScaleBar from "esri/widgets/ScaleBar";
-
-import * as data from "../../data/app";
+import Print from "esri/widgets/Print";
+import BaseMapGallery from "esri/widgets/BasemapGallery";
 
 import {
   declared,
@@ -85,59 +85,23 @@ class AppViewModel extends declared(Accessor) {
       locationEnabled: false,
       sources: searchSources
     });
-    
-    const expand = new Expand({
-      content: search
+
+    const print = new Print({
+      view: this.view,
+      printServiceUrl: "https://gisportal.lucid-energy.com/arcgis/rest/services/PrintLayouts/GPServer/Export%20Web%20Map"
+    });
+
+    const basemapGallery = new BaseMapGallery({
+      view: this.view
     });
 
     const scalebar = new ScaleBar({ view: this.view, style: "ruler" });
-    this.view.ui.add(expand, "top-right");
+    this.view.ui.add(new Expand({content: search, expandTooltip: "Search"}), "top-right");
     this.view.ui.add(scalebar, "bottom-right");
+    this.view.ui.add(new Expand({content: print, expandTooltip: "Print"}), "top-right");
+    this.view.ui.add(new Expand({content: basemapGallery, expandTooltip: "Basemaps"}), "top-right");
 
   }
 }
 
 export default AppViewModel;
-
-
-// import EsriMap from "esri/Map";
-// import MapView from "esri/views/MapView";
-// import "@dojo/shim/Promise";
-
-// import * as data from "../../data/app";
-
-// export default class ApplicationMap {
-
-//     map: EsriMap;
-//     view: MapView;
-//     center: number[];
-//     basemap: string;
-
-//     constructor() {
-
-//         this.map = new EsriMap({
-//             basemap: "streets",
-//             layers: [data.systemLayer, data.STR]
-//         });
-
-//         this.map.reorder(data.STR, 0);
-
-        // this.view = new MapView({
-        //     map: this.map,
-        //     container: "app",
-        //     center: [-104.071, 32.568],
-        //     zoom: 10,
-        //     ui: {
-        //         components: []
-        //     }
-        // });
-
-//         data.search.view = this.view;
-//         data.scalebar.view = this.view;
-
-//         this.view.ui.add(data.search, 'top-right');
-//         this.view.ui.add(data.scalebar, 'bottom-right');
-        
-//     }
-// }
-
