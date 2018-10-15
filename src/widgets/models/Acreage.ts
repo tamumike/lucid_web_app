@@ -29,6 +29,7 @@ export default class Acreage extends Widget {
             const feature: MapImageLayer = new MapImageLayer({
                 url: featureURL, 
                 id: `Acreage - ${producer}`,
+                title: `Acreage - ${producer}`,
                 sublayers: [{
                     id: 0,
                     visible: true,

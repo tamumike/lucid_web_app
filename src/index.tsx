@@ -16,6 +16,7 @@ import ThirdParty from "./widgets/models/ThirdParty";
 import Symbology from "./widgets/models/Symbology";
 import Measure from "./widgets/models/Measure";
 import Layers from "./widgets/models/Layers";
+import Meters from "./widgets/models/Meters";
 
 import * as panelView from "./widgets/views/panelView";
 import * as widgetView from "./widgets/views/widgetView";
@@ -32,7 +33,7 @@ const state: {[key: string]: any} = {};
 export const appController = () => {
 
   const app = new App({
-    appName: "Test",
+    appName: "Lucid Portal App",
     container: document.getElementById('app') as HTMLElement
   });
 
@@ -47,7 +48,7 @@ export const appController = () => {
     appMap = app.map;
   });
 
-  state.widgets = [new Layers(), new Acreage(), new Coordinates(), new DrillingInfo(), new ThirdParty(), new Symbology(), new Measure()];
+  state.widgets = [new Layers(), new Acreage(), new Meters(), new Coordinates(), new DrillingInfo(), new ThirdParty(), new Symbology(), new Measure()];
   state.acreage = [];
 
   const launchWidget = (currentWidget: string): void => {
@@ -58,6 +59,7 @@ export const appController = () => {
     (currentWidget == "symbology") ? controlSymbology() : 
     (currentWidget == "measure") ? controlMeasure() : 
     (currentWidget == "layers") ? controlLayers() : 
+    (currentWidget == "meters") ? controlMeters() : 
     console.log('no Widget');
 
   };
@@ -223,6 +225,15 @@ export const appController = () => {
       state.acreage = [];
 
     });
+    
+  };
+
+  /*
+  * Meters Controller
+  */
+  const controlMeters = () => {
+    
+    const widget = state.currentWidget;
     
   };
 

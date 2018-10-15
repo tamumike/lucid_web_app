@@ -62,8 +62,6 @@ export default class App extends declared(Widget) {
             components: []
         }
       });
-      console.log(this.map);
-      
     });
   }
 }

@@ -92,7 +92,8 @@ class AppViewModel extends declared(Accessor) {
     });
 
     const basemapGallery = new BaseMapGallery({
-      view: this.view
+      view: this.view,
+      activeBasemap: this.map.basemap
     });
 
     const scalebar = new ScaleBar({ view: this.view, style: "ruler" });
@@ -100,7 +101,7 @@ class AppViewModel extends declared(Accessor) {
     this.view.ui.add(scalebar, "bottom-right");
     this.view.ui.add(new Expand({content: print, expandTooltip: "Print"}), "top-right");
     this.view.ui.add(new Expand({content: basemapGallery, expandTooltip: "Basemaps"}), "top-right");
-
+  
   }
 }
 
