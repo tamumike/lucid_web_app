@@ -27,6 +27,7 @@ import * as symbologyView from "./widgets/views/symbologyView";
 import * as measureView from "./widgets/views/measureView";
 
 import {CSS, elements} from "./widgets/views/base";
+import { log } from 'util';
 
 const state: {[key: string]: any} = {};
 
@@ -234,6 +235,8 @@ export const appController = () => {
   const controlMeters = () => {
     
     const widget = state.currentWidget;
+
+    widget.isLayerVisible(appMap);
     
   };
 
@@ -613,4 +616,5 @@ export const appController = () => {
 
 };
 
-appController();
+(navigator.userAgent.indexOf("MSIE ") > -1 || navigator.userAgent.indexOf("Trident/") > -1) ? alert("This application will not work with IE. Please use Google Chrome") : appController();
+

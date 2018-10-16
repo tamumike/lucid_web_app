@@ -29,6 +29,25 @@ export const system = {
     }
 };
 
+export const meters = {
+    title: `{Meter_Name}`,
+    content: `<b>Meter Number: </b>{Meter__}<br>
+            <b>Area: </b>{Area}<br>
+            <b>Lateral: </b>{Lateral}<br>
+            <b>Sub Lateral: </b>{Sub_Lateral}<br>
+            <b>Producer: </b>{Producer}<br>
+            <b>Pipe Diameter: </b>{Pipe_Diameter}<br>
+            <b>Orifice Diameter: </b>{Orifice_Diameter}<br>
+            <b>Flow Rate: </b>{FlowRate}<br>
+            <b>Actual Pressure: </b>{AP}<br>
+            <b>Differential Pressure: </b>{DP}<br>
+            <b>Previous Day Volume: </b>{Prev_Day_Vol}<br>
+            <b>Previous Day AP: </b>{Prev_Day_AP}<br>
+            <b>Previous Day DP: </b>{Prev_Day_DP}<br>
+            <b>Latitude: </b>{Latitude}<br>
+            <b>Longitude: </b>{Longitude}`
+}
+
 export const acreage = {
     title: `<b>Producer: </b>{Producer}<br>`,
     content: `<b>Owner: </b>{Owner}<br>
@@ -54,14 +73,6 @@ export const thirdParty = {
             <b>Miles: </b>{MILES}<br>
             <b>Previous Owner: </b>{PREV_OWNER}<br>`
 }
-
-// export const formatDate = (value: any, key: any): any => {    
-
-//     const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-//     let newDate = new Date(value);
-//     let date = newDate.getUTCDate()+"-"+months[(newDate.getUTCMonth())]+"-"+newDate.getUTCFullYear();
-//     return date;
-// };
 
 export const drillingInfo = {
     "Rigs": {

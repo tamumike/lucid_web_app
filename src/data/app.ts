@@ -107,12 +107,24 @@ export const STR = new MapImageLayer({
         title: "Township Range",
         legendEnabled: false
     }],
-    legendEnabled: false
+    legendEnabled: false,
+    visible: false
 });
 
 export const meters = new MapImageLayer({
     id: "Meters",
-    url: "https://gisportal.lucid-energy.com/arcgis/rest/services/Meters/MapServer"
+    url: "https://gisportal.lucid-energy.com/arcgis/rest/services/Meters/MapServer",
+    sublayers: [{
+        id: 0,
+        popupEnabled: true,
+        popupTemplate: {
+            title: popups.meters.title,
+            content: popups.meters.content
+        },
+        title: "Meters",
+        visible: true
+    }],
+    visible: false
 });
 
 export const map = new EsriMap({

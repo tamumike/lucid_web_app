@@ -10,6 +10,7 @@ import Search from "esri/widgets/Search";
 import ScaleBar from "esri/widgets/ScaleBar";
 import Print from "esri/widgets/Print";
 import BaseMapGallery from "esri/widgets/BasemapGallery";
+import Home from "esri/widgets/Home";
 
 import {
   declared,
@@ -74,11 +75,25 @@ class AppViewModel extends declared(Accessor) {
         maxSuggestions: 6,
         suggestionsEnabled: true,
         minSuggestCharacters: 0
+    }, {
+      featureLayer: new FeatureLayer({
+        url: "https://gisportal.lucid-energy.com/arcgis/rest/services/Meters/MapServer/0",
+        outFields: ["*"]
+      }),
+      searchFields: ["Meter_Name", "Meter__"],
+      displayField: "Meter_Name",
+      exactMatch: false,
+      outFields: ["*"],
+      name: "Lucid Meters",
+      maxResults: 6,
+      maxSuggestions: 6,
+      suggestionsEnabled: true,
+      minSuggestCharacters: 0
     }] as SearchSource[];
   
     const search = new Search({
       view: this.view,
-      allPlaceholder: "Search Lines or Facilities",
+      allPlaceholder: "Search Assets",
       resultGraphicEnabled: true,
       includeDefaultSources: false,
       popupEnabled: true,
@@ -96,7 +111,12 @@ class AppViewModel extends declared(Accessor) {
       activeBasemap: this.map.basemap
     });
 
+    const home = new Home({
+      view: this.view
+    });
+
     const scalebar = new ScaleBar({ view: this.view, style: "ruler" });
+    this.view.ui.add(home, "top-right");
     this.view.ui.add(new Expand({content: search, expandTooltip: "Search"}), "top-right");
     this.view.ui.add(scalebar, "bottom-right");
     this.view.ui.add(new Expand({content: print, expandTooltip: "Print"}), "top-right");

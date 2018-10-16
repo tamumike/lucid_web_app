@@ -40,11 +40,11 @@ body,
 #controller__branding {
   width: 100%;
   height: auto;
-  padding-top: 0.2em;
+  padding-top: 0.5em;
 }
 
 #controller__branding > img {
-  max-width: 80%;
+  max-width: 75%;
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -56,7 +56,8 @@ body,
   text-align: center;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 30%;
+  margin-top: 25%;
+  border-top: 2px grey solid;
 }
 
 #controller__widgets:hover {
