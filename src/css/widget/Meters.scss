@@ -1,0 +1,17 @@
+.meters__values-container {
+    overflow-y: scroll;
+    height: 40%;
+    width: 48%;
+    display: inline-block;
+    padding: 0;
+    background-color: #34a2e2;
+    border-radius: 3px;
+    position: relative;
+  }
+  
+  #meters__fields-dropdown {
+      display: block;
+      position: relative;
+      margin: auto auto 5% auto;
+    
+  }

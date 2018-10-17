@@ -119,6 +119,15 @@ export const CSS = {
         action_container: "layers__action-container",
         list_item: "layers__list-item",
         list: "layers__list"
+    },
+    meters: {
+        filter_btn: "meters__filter-btn",
+        values_container: "meters__values-container",
+        avail_opts: "meters__avail-opts",
+        selected_opts: "meters__selected-opts",
+        fields_dropdown: "meters__fields-dropdown",
+        value_search: "meters__value-search",
+        visualize_btn: "meters__visualize-btn"
     }
 };
 
@@ -224,5 +233,14 @@ export const elements = {
         action_container: `#${CSS.layers.action_container}`,
         list_item: `.${CSS.layers.list_item}`,
         list: `#${CSS.layers.list}`
+    },
+    meters: {
+        filter_btn: `#${CSS.meters.filter_btn}`,
+        values_container: `.${CSS.meters.values_container}`,
+        avail_opts: `#${CSS.meters.avail_opts}`,
+        selected_opts: `#${CSS.meters.selected_opts}`,
+        fields_dropdown: `#${CSS.meters.fields_dropdown}`,
+        value_search: `#${CSS.meters.value_search}`,
+        visualize_btn: `#${CSS.meters.visualize_btn}`
     }
 };

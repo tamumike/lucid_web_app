@@ -15,6 +15,8 @@ export const renderModal = (): void => {
         </div>`;
 
     $(markup).insertBefore(elements.controller);
+
+    addEvents();
 };
 
 export const removeModal = (): void => {
@@ -22,4 +24,14 @@ export const removeModal = (): void => {
     $(elements.modal.base).remove();
     $(elements.modal.panel).remove();
     
+};
+
+export const addEvents = () => {
+
+    $(elements.modal.cancel_btn).on('click', (e) => {
+
+        removeModal();
+        
+    });
+
 };

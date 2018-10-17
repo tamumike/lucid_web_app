@@ -42,6 +42,7 @@ export const meters = {
             <b>Actual Pressure: </b>{AP}<br>
             <b>Differential Pressure: </b>{DP}<br>
             <b>Previous Day Volume: </b>{Prev_Day_Vol}<br>
+            <b>Max Monthly Volume: </b>{Max_24_Month_Vol}<br>
             <b>Previous Day AP: </b>{Prev_Day_AP}<br>
             <b>Previous Day DP: </b>{Prev_Day_DP}<br>
             <b>Latitude: </b>{Latitude}<br>

@@ -25,9 +25,9 @@ import * as drillingInfoView from "./widgets/views/drillingInfoView";
 import * as thirdPartyView from "./widgets/views/thirdPartyView";
 import * as symbologyView from "./widgets/views/symbologyView";
 import * as measureView from "./widgets/views/measureView";
+import * as metersView from "./widgets/views/metersView";
 
 import {CSS, elements} from "./widgets/views/base";
-import { log } from 'util';
 
 const state: {[key: string]: any} = {};
 
@@ -201,12 +201,6 @@ export const appController = () => {
       
       });
       
-      $(elements.modal.cancel_btn).on('click', (e) => {
-
-        modal.removeModal();
-        
-      });
-      
     });
 
     $(elements.acreage.list).on('click', `img#${CSS.acreage.remove_img}`, (e) => {
@@ -236,7 +230,79 @@ export const appController = () => {
     
     const widget = state.currentWidget;
 
-    widget.isLayerVisible(appMap);
+    const meters = appMap.findLayerById('Meters');
+
+    widget.isLayerVisible(meters);
+
+    widget.queryLayer(meters);
+
+    // Meters Events
+    $(elements.meters.filter_btn).on('click', (e) => {
+
+      e.preventDefault();
+
+      const modal = new Modal();
+
+      let currentExpression: string[] = widget.getCurrentExpression(meters);
+
+      metersView.renderFilterPanel(currentExpression);
+
+      $(elements.meters.fields_dropdown).on('change', (e) => {
+
+        metersView.populateAvailableOptionsList();
+
+      });
+
+      $(elements.meters.value_search).on('keyup', (e) => {
+        
+        widget.getSearchInput($(e.currentTarget));
+
+      });
+
+      $(elements.meters.values_container).on('click', `li.${CSS.modal.list_item}`, (e) => {
+        
+        const $this = e.currentTarget;
+
+        $($this).toggleClass('active-filter');
+
+        metersView.transferItem($($this));
+        
+      });
+
+      $(elements.modal.apply_btn).on('click', (e) => {
+
+        e.preventDefault();
+
+        const selectedOptions: string[] = [];
+
+        $('.active-filter').each((key, value) => {
+
+          selectedOptions.push($(value).text().trim());
+
+        });
+
+        widget.applyFilter(selectedOptions, meters);
+
+      });
+
+      $(elements.modal.ok_btn).on('click', (e) =>{
+        
+        e.preventDefault();
+
+        $(elements.modal.apply_btn).trigger('click');
+
+        modal.removeModal();
+
+      })
+
+    });
+
+    $(elements.meters.visualize_btn).on('click', (e) => {
+
+      widget.heatMapTest(meters);
+      
+
+    });
     
   };
 
@@ -367,12 +433,6 @@ export const appController = () => {
 
       });
 
-      $(elements.modal.cancel_btn).on('click', (e) => {
-
-        modal.removeModal();
-        
-      });
-
     });
   };
 
@@ -469,12 +529,6 @@ export const appController = () => {
 
       });
 
-      $(elements.modal.cancel_btn).on('click', (e) => {
-
-        modal.removeModal();
-
-      });
-
       $(elements.thirdParty.op_search).on('keyup', (e) => {
         
         widget.getSearchInput($(e.currentTarget), featureName);
@@ -535,12 +589,6 @@ export const appController = () => {
 
         modal.removeModal();
 
-      });
-
-      $(elements.modal.cancel_btn).on('click', (e) => {
-
-        modal.removeModal();
-        
       });
 
       $(elements.modal.panel).on('input', `input.${CSS.symbology.slider}`, (e) => {
