@@ -11,6 +11,7 @@ import ScaleBar from "esri/widgets/ScaleBar";
 import Print from "esri/widgets/Print";
 import BaseMapGallery from "esri/widgets/BasemapGallery";
 import Home from "esri/widgets/Home";
+import Legend from "esri/widgets/Legend";
 
 import {
   declared,

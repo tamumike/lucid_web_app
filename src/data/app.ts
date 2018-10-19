@@ -3,7 +3,6 @@ import EsriMap from "esri/Map";
 
 import * as popups from "./popups";
 
-
 export const systemLayer = new MapImageLayer({
     url: "https://gisportal.lucid-energy.com/arcgis/rest/services/Lucid_System/MapServer",
     id: "Lucid System",

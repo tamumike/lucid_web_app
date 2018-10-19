@@ -1,9 +1,11 @@
 import $ = require('jquery');
+import esri = __esri;
 
 import MapImageLayer from "esri/layers/MapImageLayer";
 import QueryTask from "esri/tasks/QueryTask";
 import Query from "esri/tasks/support/Query";
-// import HeatMapRenderer from "esri/renderers/HeatmapRenderer";
+import EsriMap from "esri/Map";
+import MapView from "esri/views/MapView";
 
 import Widget from "./Widget";
 import * as metersView from "../views/metersView";
@@ -137,72 +139,16 @@ export default class Meters extends Widget {
 
     }
 
-    heatMapTest(layer: MapImageLayer): void {
+    addHeatMap(layer: MapImageLayer, map: EsriMap, view: MapView): void {
+        
+        const heatmap = new MapImageLayer({
+            url: "https://gisportal.lucid-energy.com/arcgis/rest/services/Meters_Heat_Map/MapServer",
+            title: "Heat Map",
+            id: "Heat Map"
+        });
 
-        const renderer = {
-            type: "heatmap",
-            colorStops: [
-            {
-              color: "rgba(63, 40, 102, 0)",
-              ratio: 0
-            },
-            {
-              color: "#472b77",
-              ratio: 0.083
-            },
-            {
-              color: "#4e2d87",
-              ratio: 0.166
-            },
-            {
-              color: "#563098",
-              ratio: 0.249
-            },
-            {
-              color: "#5d32a8",
-              ratio: 0.332
-            },
-            {
-              color: "#6735be",
-              ratio: 0.415
-            },
-            {
-              color: "#7139d4",
-              ratio: 0.498
-            },
-            {
-              color: "#7b3ce9",
-              ratio: 0.581
-            },
-            {
-              color: "#853fff",
-              ratio: 0.664
-            },
-            {
-              color: "#a46fbf",
-              ratio: 0.747
-            },
-            {
-              color: "#c29f80",
-              ratio: 0.830
-            },
-            {
-              color: "#e0cf40",
-              ratio: 0.913
-            },
-            {
-              color: "#ffff00",
-              ratio: 1
-            }],
-            maxPixelIntensity: 25,
-            minPixelIntensity: 0
-          };
+        map.add(heatmap, 1);        
 
-          layer.sublayers.forEach(sublayer => {
-
-            sublayer.renderer = renderer;
-
-          });
     }
 
 }

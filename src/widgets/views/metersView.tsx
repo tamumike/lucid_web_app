@@ -16,8 +16,8 @@ export const renderWidget = (): void => {
             <div class=${CSS.panel_obj.divider}></div>
             <p class=${CSS.panel_obj.heading}>Filter By Attributes</p>
             <button id=${CSS.meters.filter_btn} class=${CSS.button}>Filter</button>
-            <p class=${CSS.panel_obj.heading}>Visualize</p>
-            <button id=${CSS.meters.visualize_btn} class=${CSS.button}>Visualize</button>
+            <p class=${CSS.panel_obj.heading}>Heat Map</p>
+            <button id=${CSS.meters.visualize_btn} class=${CSS.button}>Display</button>
         </div>`;
 
     $(elements.panel).append(markup);

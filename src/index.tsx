@@ -232,7 +232,7 @@ export const appController = () => {
 
     const meters = appMap.findLayerById('Meters');
 
-    widget.isLayerVisible(meters);
+    // widget.isLayerVisible(meters);
 
     widget.queryLayer(meters);
 
@@ -299,8 +299,7 @@ export const appController = () => {
 
     $(elements.meters.visualize_btn).on('click', (e) => {
 
-      widget.heatMapTest(meters);
-      
+      widget.addHeatMap(meters, appMap, appView);
 
     });
     
