@@ -47,7 +47,7 @@ export default class Meters extends Widget {
 
     }
 
-    getFeatureValues(results: any): void {    
+    getFeatureValues(results: any): void {
 
         metersView.fields.forEach(field => {
 
@@ -140,14 +140,18 @@ export default class Meters extends Widget {
     }
 
     addHeatMap(layer: MapImageLayer, map: EsriMap, view: MapView): void {
-        
-        const heatmap = new MapImageLayer({
-            url: "https://gisportal.lucid-energy.com/arcgis/rest/services/Meters_Heat_Map/MapServer",
-            title: "Heat Map",
-            id: "Heat Map"
-        });
 
-        map.add(heatmap, 1);        
+        if (!map.findLayerById('Heat Map')) {
+        
+            const heatmap = new MapImageLayer({
+                url: "https://gisportal.lucid-energy.com/arcgis/rest/services/Meters_Heat_Map/MapServer",
+                title: "Heat Map",
+                id: "Heat Map"
+            });
+
+            map.add(heatmap, 1);
+
+        }
 
     }
 

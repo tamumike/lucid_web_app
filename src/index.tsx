@@ -232,7 +232,7 @@ export const appController = () => {
 
     const meters = appMap.findLayerById('Meters');
 
-    // widget.isLayerVisible(meters);
+    widget.isLayerVisible(meters);
 
     widget.queryLayer(meters);
 
