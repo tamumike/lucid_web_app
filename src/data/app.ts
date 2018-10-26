@@ -7,6 +7,11 @@ export const systemLayer = new MapImageLayer({
     url: "https://gisportal.lucid-energy.com/arcgis/rest/services/Lucid_System/MapServer",
     id: "Lucid System",
     sublayers: [{
+        id: 9,
+        popupEnabled: false,
+        title: "Facitily Boundaries",
+        visible: true
+    }, {
         id: 8,
         popupEnabled: true,
         popupTemplate: {
@@ -90,6 +95,12 @@ export const systemLayer = new MapImageLayer({
     }]
 });
 
+export const surfaceOwnership = new MapImageLayer({
+    url: "https://gisportal.lucid-energy.com/arcgis/rest/services/BLM_Surface_Ownership/MapServer",
+    id: "Surface Ownership",
+    visible: false
+});
+
 export const STR = new MapImageLayer({
     url: "https://gisportal.lucid-energy.com/arcgis/rest/services/STR/MapServer",
     id: "STR",
@@ -128,5 +139,5 @@ export const meters = new MapImageLayer({
 
 export const map = new EsriMap({
     basemap: "streets",
-    layers: [STR, systemLayer, meters]
+    layers: [surfaceOwnership, STR, systemLayer, meters]
 });

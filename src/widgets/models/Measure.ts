@@ -23,16 +23,16 @@ export default class Measure extends Widget {
         measureView.renderWidget();
     }
 
-    addMeasurement(view: MapView, type: string): void {
+    createDraw(view: MapView): Draw {
 
-        view.graphics.removeAll();
+        return new Draw({view: view});
+
+    }
+
+    addMeasurement(draw: Draw, view: MapView, type: string, state:any): void {
 
         let unit = $(elements.measure.unit_select).val() as string;
         unit = unit.toLowerCase();
-
-        var draw = new Draw({
-            view: view
-        });
 
         let graphicType: string;
 
@@ -44,9 +44,14 @@ export default class Measure extends Widget {
         action.on('cursor-update', (e) => drawGraphic(e));
         action.on('vertex-remove', (e) => drawGraphic(e));
         action.on('draw-complete', (e) => {
+
             drawGraphic(e);
+
             $(elements.measure.go_btn).toggleClass('is_measuring');
+            
         });
+
+        state.drawAction = action;
 
         const drawGraphic = (event: any): void  => {
 
@@ -167,7 +172,5 @@ export default class Measure extends Widget {
         };
 
     }
-
-
 
 }

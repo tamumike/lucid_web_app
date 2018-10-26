@@ -653,9 +653,23 @@ export const appController = () => {
 
       const $this = $(e.currentTarget);
 
-      $this.toggleClass('is_measuring');
+      let draw = widget.createDraw(appView);
 
-      widget.addMeasurement(appView, type);
+      if (!$this.hasClass('is_measuring')) {
+
+        $this.toggleClass('is_measuring');
+
+        widget.addMeasurement(draw, appView, type, state);
+
+      } else {
+
+        state.drawAction.complete();
+
+        appView.graphics.removeAll();
+
+      }
+
+  
       
     });
 
