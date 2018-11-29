@@ -11,7 +11,7 @@ import ScaleBar from "esri/widgets/ScaleBar";
 import Print from "esri/widgets/Print";
 import BaseMapGallery from "esri/widgets/BasemapGallery";
 import Home from "esri/widgets/Home";
-import Legend from "esri/widgets/Legend";
+import Zoom from "esri/widgets/Zoom";
 
 import {
   declared,
@@ -117,11 +117,13 @@ class AppViewModel extends declared(Accessor) {
     });
 
     const scalebar = new ScaleBar({ view: this.view, style: "ruler" });
+    this.view.ui.add(new Zoom({view: this.view}), "top-right");
     this.view.ui.add(home, "top-right");
     this.view.ui.add(new Expand({content: search, expandTooltip: "Search"}), "top-right");
     this.view.ui.add(scalebar, "bottom-right");
     this.view.ui.add(new Expand({content: print, expandTooltip: "Print"}), "top-right");
     this.view.ui.add(new Expand({content: basemapGallery, expandTooltip: "Basemaps"}), "top-right");
+    
   
   }
 }

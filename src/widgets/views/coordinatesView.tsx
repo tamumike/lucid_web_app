@@ -5,7 +5,7 @@ export const renderWidget = () => {
 
     const markup = 
     `<div id=${CSS.coordinates.values_container}>
-        <p id=${CSS.coordinates.values}>0, 0</p>
+        <p id=${CSS.coordinates.values}>0°, 0°</p>
         <div id=${CSS.coordinates.action_container}>
             <img id=${CSS.coordinates.copy_btn} class=${CSS.coordinates.action_btn} title="Copy" />
             <img id=${CSS.coordinates.target_btn} class=${CSS.coordinates.action_btn} title="Target" />

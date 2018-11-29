@@ -18,6 +18,7 @@ const acreageProducers = [
     "Devon",
     "Energen",
     "EOG",
+    "Felix",
     "Halcon",
     "Kaiser Francis",
     "Lilis",
@@ -26,9 +27,12 @@ const acreageProducers = [
     "Matador",
     "Mewbourne",
     "Murchison",
+    "Novo",
     "Oasis",
     "Read & Stevens",
+    "Ridge Runner",
     "Taprock",
+    "Torchlight",
     "WPX",
     "XTO"
 ];

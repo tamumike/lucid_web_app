@@ -28,7 +28,7 @@ export default class Coordinates extends Widget {
 
             if (!$(elements.coordinates.target_btn).hasClass('active')) {
 
-                coordinatesView.setCoordinateValues(`${point.latitude.toFixed(4)}, ${point.longitude.toFixed(4)}`);
+                coordinatesView.setCoordinateValues(`${point.latitude.toFixed(4)}°, ${point.longitude.toFixed(4)}°`);
 
             }
             
@@ -42,7 +42,7 @@ export default class Coordinates extends Widget {
 
             if ($(elements.coordinates.target_btn).hasClass('active')) {
 
-                coordinatesView.setCoordinateValues(`${evt.mapPoint.latitude.toFixed(4)}, ${evt.mapPoint.longitude.toFixed(4)}`);
+                coordinatesView.setCoordinateValues(`${evt.mapPoint.latitude.toFixed(4)}°, ${evt.mapPoint.longitude.toFixed(4)}°`);
 
             }
 
