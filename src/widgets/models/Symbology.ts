@@ -136,10 +136,16 @@ export default class Symbology extends Widget {
 
         if (expression) {
 
-        return expression
-            .slice(expression.indexOf('(') + 1, expression.indexOf(')'))
-            .replace(/[()'']/g, '')
-            .split(',');
+            if (expression.startsWith('Dedication')) {
+                return '';
+            }
+
+            else {
+                return expression
+                .slice(expression.indexOf('(') + 1, expression.indexOf(')'))
+                .replace(/[()'']/g, '')
+                .split(',');
+            }
         } else {
             return expression;
         }

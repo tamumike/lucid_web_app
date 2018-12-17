@@ -150,14 +150,18 @@ export const appController = () => {
     acreageView.populateSelect();
 
     // Add current acreage layers to the list
-    widget.addCurrentLayersToList(state);
+    widget.addCurrentLayersToList(state, appMap);
 
     // Acreage Events
     $(elements.acreage.add_btn).on('click', () => {
 
       let producer: string = ($(elements.acreage.dropdown).val() as string);
 
-      widget.addFeature(appMap, producer, state);
+      let definitionQuery: string;
+
+      (producer === 'All') ? definitionQuery = '' : definitionQuery = `Producer IN ('${producer}')`;
+
+      widget.addFeature(appMap, producer, state, definitionQuery);
 
       acreageView.renderListItem(producer);
     
@@ -168,6 +172,8 @@ export const appController = () => {
       e.stopImmediatePropagation();
 
       acreageView.renderFeatureOptions($(e.currentTarget));
+
+      if ($(e.currentTarget)[0].innerText.indexOf('(') > -1) $(elements.acreage.options_filter).remove();
       
     });
 
@@ -207,11 +213,20 @@ export const appController = () => {
           selectedOptions.push($(value).text().trim());
 
         });
-        
-        widget.applyFilter({
-          map: appMap,
-          name: featureName,
-          definitionQuery: widget.generateDefinitionQuery(fieldName, selectedOptions)
+
+        if (selectedOptions.length > 0) {
+
+          widget.removeFeature(appMap, featureName, state);
+
+        }
+
+        selectedOptions.forEach(option => {
+          let expression: string = widget.generateDefinitionQuery(appMap, featureName, fieldName, option);
+
+          widget.addFeature(appMap, featureName, state, expression, option);
+
+          acreageView.renderListItem(`${featureName} (${option})`);
+
         });
 
       });

@@ -62,10 +62,21 @@ export const renderWidget = (): void => {
 
 export const renderListItem = (text: string): void => {
 
-    if ($(`li.${CSS.acreage.list_item}:contains(${text})`).length === 0){
+    let exists: boolean = false;
+
+    let listElements = ($(`li.${CSS.acreage.list_item}`));
+
+    listElements.each((index, element) => {
         
+        if (element.textContent == text) {
+            exists = true;
+        }
+
+    });
+    
+    if (!exists) {
         const markup = 
-        `<li class=${CSS.acreage.list_item}>${text}</li>`;
+            `<li class=${CSS.acreage.list_item}>${text}</li>`;
     
         $(elements.acreage.list).append(markup);
     }
@@ -74,7 +85,17 @@ export const renderListItem = (text: string): void => {
 
 export const removeListItem = (text: string): void => {
 
-    $(`${elements.acreage.list} li:contains(${text})`).remove();
+    let listElements = ($(`li.${CSS.acreage.list_item}`));
+    
+    listElements.each((index, element) => {
+
+        if (element.innerText.trim() === text.trim()) {
+
+            listElements[index].remove();
+
+        }
+
+    });
     
 };
 

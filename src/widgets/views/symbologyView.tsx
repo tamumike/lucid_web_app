@@ -128,18 +128,12 @@ const getUniqueValueColor = (name: string, rendererProps: any) => {
 
     let valueInfo: any = {};
 
-    if (name.indexOf('Acreage') !== -1) {
-
-        name = name.slice(name.indexOf('-')+1).trim();
-
-    }
-
     valueInfo = rendererProps.uniqueValueInfos.filter((info) => {
         
         return info.value === name;
         
     });
-
+    
     return {
             symbol: valueInfo[0].symbol
             };

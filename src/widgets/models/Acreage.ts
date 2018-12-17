@@ -17,19 +17,21 @@ export default class Acreage extends Widget {
         acreageView.renderWidget();
     }
 
-    addFeature(map: EsriMap, producer: string, state: { acreage: string[], query: {} }): void {
+    addFeature(map: EsriMap, producer: string, state: { acreage: string[], query: {} }, definitionQuery: string, option?: string): void {
 
-        if (!this.isDuplicate(map, producer)) {
+        
 
-            let definitionQuery: string;
+            let id: string;
 
-            (producer === 'All') ? definitionQuery = '' : definitionQuery = `Producer IN('${producer}')`;
+            (option) ? id = `Acreage - ${producer} (${option})` : id = `Acreage - ${producer}`;
+
+            if (!this.isDuplicate(map, id)) {
 
             const featureURL: string = `https://gisportal.lucid-energy.com/arcgis/rest/services/Acreage/AllAcreage2/MapServer`;
             const feature: MapImageLayer = new MapImageLayer({
                 url: featureURL, 
-                id: `Acreage - ${producer}`,
-                title: `Acreage - ${producer}`,
+                id: id,
+                title: id,
                 sublayers: [{
                     id: 0,
                     visible: true,
@@ -45,7 +47,7 @@ export default class Acreage extends Widget {
 
             feature.when(() => {
 
-                state.acreage.push(producer);
+                state.acreage.push(id.slice(id.indexOf(producer)));
                 
             });
         }
@@ -70,7 +72,7 @@ export default class Acreage extends Widget {
 
     }
 
-    addCurrentLayersToList(state: { acreage: string[] }): void {
+    addCurrentLayersToList(state: { acreage: string[] }, map: EsriMap): void {   
 
         state.acreage.forEach((layer) => {
 
@@ -98,7 +100,7 @@ export default class Acreage extends Widget {
 
         (name === 'All') ? clause = 'Shape.STArea() > 0' : clause = `Producer = '${name}'`;
 
-        const URL = `https://gisportal.lucid-energy.com/arcgis/rest/services/Acreage/AllAcreage/MapServer/0`;
+        const URL = `https://gisportal.lucid-energy.com/arcgis/rest/services/Acreage/AllAcreage2/MapServer/0`;
         const queryTask = new QueryTask({ url: URL });
         const query = new Query({ where: clause, outFields: ["*"] });
 
@@ -169,23 +171,6 @@ export default class Acreage extends Widget {
         
     }
 
-    generateDefinitionQuery(field: string, options: string[]): string | null {
-
-        let definitionQuery: string | null = '';
-
-        if (options.length > 0) {
-
-            definitionQuery = `${field} IN (`;            
-
-            options.forEach((option: string, index: number) => {
-                (index !== options.length - 1) ? definitionQuery += `'${option}',` : definitionQuery += `'${option}')`;
-            });
-
-        } else definitionQuery = null;
-
-        return definitionQuery;
-    }
-
     getCurrentDefinitionQuery(map: EsriMap, name: string): string[] {
 
         const expressionValues: string[] = [];
@@ -215,6 +200,20 @@ export default class Acreage extends Widget {
         });
 
         return expressionValues;
+
+    }
+
+    generateDefinitionQuery(map: EsriMap, producer: string, field: string, option: string): string {
+
+        let definitionQuery: string = '';
+
+        if (producer !== 'All') {
+            definitionQuery = `Producer IN ('${producer}') AND ${field} IN ('${option}')`;
+        } else {
+            definitionQuery = `${field} In ('${option}')`;
+        }
+
+        return definitionQuery;
 
     }
 }
