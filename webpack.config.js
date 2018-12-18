@@ -1,6 +1,7 @@
 const ArcGISPlugin = require("@arcgis/webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
+const CleanWebpackPlugin = require("clean-webpack-plugin");
 
 const path = require('path');
 
@@ -15,7 +16,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.tsx$/, 
+                test: /\.tsx?$/, 
                 loader: "ts-loader",
                 options: {
                     transpileOnly: true
@@ -53,6 +54,8 @@ module.exports = {
         ]
     },
     plugins: [
+        new CleanWebpackPlugin(["dist"]),
+        
         new ArcGISPlugin({
             root: "."
         }),
