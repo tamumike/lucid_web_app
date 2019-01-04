@@ -1,8 +1,6 @@
 import "./config";
 import $ = require("jquery");
 
-// import "@dojo/shim/Promise";
-
 import MapView from "esri/views/MapView";
 import EsriMap from "esri/Map";
 
@@ -17,7 +15,6 @@ import Symbology from "./widgets/models/Symbology";
 import Measure from "./widgets/models/Measure";
 import Layers from "./widgets/models/Layers";
 import Meters from "./widgets/models/Meters";
-import Drawing from "./widgets/models/Draw";
 
 import * as panelView from "./widgets/views/panelView";
 import * as widgetView from "./widgets/views/widgetView";
@@ -62,7 +59,6 @@ export const appController = () => {
     (currentWidget == "measure") ? controlMeasure() : 
     (currentWidget == "layers") ? controlLayers() : 
     (currentWidget == "meters") ? controlMeters() : 
-    (currentWidget == "draw") ? controlDraw() :
     console.log('no Widget');
 
   };
@@ -117,27 +113,6 @@ export const appController = () => {
       
     });
   };
-
-  /*
-  * Draw Controller
-  */
- const controlDraw = () => {
-   const widget = state.currentWidget;
-
-   // Draw Events
-   $(elements.draw.mode_div).on('click', (e) => {
-
-    const $this: JQuery = $(e.currentTarget);
-    const mode: string = $this.attr('title') as string;
-
-    $(`.${CSS.draw.mode_div}.active`).removeClass('active');
-
-    $this.toggleClass('active');
-
-    widget.createDrawing(mode.toLowerCase());
-    
-   });
- };
 
   /* 
   * Acreage Controller 

@@ -12,6 +12,7 @@ import Print from "esri/widgets/Print";
 import BaseMapGallery from "esri/widgets/BasemapGallery";
 import Home from "esri/widgets/Home";
 import Zoom from "esri/widgets/Zoom";
+import Sketch from "esri/widgets/Sketch";
 
 import {
   declared,
@@ -19,7 +20,7 @@ import {
   subclass
 } from "esri/core/accessorSupport/decorators";
 
-type SearchSource = esri.LocatorSource | esri.FeatureLayerSource;
+type SearchSource = esri.LocatorSearchSource | esri.FeatureLayerSearchSource;
 
 export interface AppParams {
   appName: string;
@@ -116,6 +117,11 @@ class AppViewModel extends declared(Accessor) {
       view: this.view
     });
 
+    const sketch = new Sketch({
+      view: this.view,
+      layer: this.map.findLayerById("Graphics")
+    });
+
     const scalebar = new ScaleBar({ view: this.view, style: "ruler" });
     this.view.ui.add(new Zoom({view: this.view}), "top-right");
     this.view.ui.add(home, "top-right");
@@ -123,6 +129,7 @@ class AppViewModel extends declared(Accessor) {
     this.view.ui.add(scalebar, "bottom-right");
     this.view.ui.add(new Expand({content: print, expandTooltip: "Print"}), "top-right");
     this.view.ui.add(new Expand({content: basemapGallery, expandTooltip: "Basemaps"}), "top-right");
+    this.view.ui.add(new Expand({content: sketch, expandTooltip: "Draw"}), "top-right");
     
   
   }

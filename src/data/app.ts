@@ -1,5 +1,6 @@
 import MapImageLayer from "esri/layers/MapImageLayer";
 import EsriMap from "esri/Map";
+import GraphicsLayer from "esri/layers/GraphicsLayer";
 
 import * as popups from "./popups";
 
@@ -137,7 +138,11 @@ export const meters = new MapImageLayer({
     visible: false
 });
 
+export const graphicsLayer = new GraphicsLayer({
+    id: "Graphics"
+});
+
 export const map = new EsriMap({
     basemap: "streets",
-    layers: [surfaceOwnership, STR, systemLayer, meters]
+    layers: [surfaceOwnership, STR, systemLayer, meters, graphicsLayer]
 });
