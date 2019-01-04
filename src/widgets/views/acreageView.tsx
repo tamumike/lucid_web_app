@@ -29,6 +29,7 @@ const acreageProducers = [
     "Murchison",
     "Novo",
     "Oasis",
+    "OneEnergy",
     "Read & Stevens",
     "Ridge Runner",
     "Taprock",
