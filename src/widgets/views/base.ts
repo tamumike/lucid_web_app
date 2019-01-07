@@ -254,3 +254,17 @@ export const elements = {
         mode_div: `.${CSS.draw.mode_div}`
     }
 };
+
+export const fields = {
+    thirdParty: {
+        owner: "MAP_LABEL"
+    },
+    acreage: {
+        dedication: "Dedication",
+        producer: "Producer"
+    }
+};
+
+export const URLs = {
+    acreage: "https://gisportal.lucid-energy.com/arcgis/rest/services/Acreage/AllAcreage2/MapServer"
+};

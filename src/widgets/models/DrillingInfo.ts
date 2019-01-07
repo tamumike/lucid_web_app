@@ -52,8 +52,6 @@ export default class DrillingInfo extends Widget {
 
     }
 
-    // `${content('{operator_name}')}`
-
     removeFeature(map: EsriMap, name: string): void {
         
         const feature = map.findLayerById(name);

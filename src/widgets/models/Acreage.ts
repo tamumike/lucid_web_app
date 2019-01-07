@@ -6,6 +6,7 @@ import Query from "esri/tasks/support/Query";
 import Widget from "./Widget";
 import * as acreageView from "../views/acreageView";
 import * as popups from "../../data/popups";
+import {URLs, fields} from "../views/base";
 
 export default class Acreage extends Widget {
 
@@ -27,7 +28,7 @@ export default class Acreage extends Widget {
 
             if (!this.isDuplicate(map, id)) {
 
-            const featureURL: string = `https://gisportal.lucid-energy.com/arcgis/rest/services/Acreage/AllAcreage2/MapServer`;
+            const featureURL: string = `${URLs.acreage}`;
             const feature: MapImageLayer = new MapImageLayer({
                 url: featureURL, 
                 id: id,
@@ -98,9 +99,9 @@ export default class Acreage extends Widget {
         
         let clause: string;
 
-        (name === 'All') ? clause = 'Shape.STArea() > 0' : clause = `Producer = '${name}'`;
+        (name === 'All') ? clause = 'Shape.STArea() > 0' : clause = `${fields.acreage.producer} = '${name}'`;
 
-        const URL = `https://gisportal.lucid-energy.com/arcgis/rest/services/Acreage/AllAcreage2/MapServer/0`;
+        const URL = `${URLs.acreage}\\0`;
         const queryTask = new QueryTask({ url: URL });
         const query = new Query({ where: clause, outFields: ["*"] });
 
@@ -182,9 +183,9 @@ export default class Acreage extends Widget {
 
             if (expression) {
 
-                if (expression.indexOf('Dedication IN (') !==  -1) {
+                if (expression.indexOf(`${fields.acreage.dedication} IN (`) !==  -1) {
 
-                    let clause = 'Dedication IN (';
+                    let clause = `${fields.acreage.dedication} IN (`;
                     let first = expression.indexOf(clause);
                     let clauseLength = clause.length;
 
@@ -208,7 +209,7 @@ export default class Acreage extends Widget {
         let definitionQuery: string = '';
 
         if (producer !== 'All') {
-            definitionQuery = `Producer IN ('${producer}') AND ${field} IN ('${option}')`;
+            definitionQuery = `${fields.acreage.producer} IN ('${producer}') AND ${field} IN ('${option}')`;
         } else {
             definitionQuery = `${field} In ('${option}')`;
         }

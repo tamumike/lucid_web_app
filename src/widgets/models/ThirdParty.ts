@@ -7,6 +7,7 @@ import QueryTask from "esri/tasks/QueryTask";
 
 import * as thirdPartyView from "../views/thirdPartyView";
 import * as popups from "../../data/popups";
+import {fields} from "../views/base";
 
 export default class ThirdParty extends Widget {
 
@@ -89,7 +90,7 @@ export default class ThirdParty extends Widget {
         });
 
         const query = new Query();
-        query.where = "MAP_LABEL <> '$$$'";
+        query.where = `"${fields.thirdParty.owner}" <> '$$$'`;
         query.outFields = ["*"];
 
         queryTask.execute(query).then((results) => {
@@ -106,7 +107,7 @@ export default class ThirdParty extends Widget {
 
         results.forEach((feature) => {
             
-            values.push(feature.attributes["MAP_LABEL"]);
+            values.push(feature.attributes[`${fields.thirdParty.owner}`]);
 
         });
 
@@ -121,7 +122,7 @@ export default class ThirdParty extends Widget {
 
         if (options.length > 0) {
 
-            definitionQuery = "MAP_LABEL IN (";
+            definitionQuery = `${fields.thirdParty.owner} IN (`;
 
             options.forEach((option: string, index: number) => {
 
