@@ -262,7 +262,7 @@ export const appController = () => {
 
       $(elements.meters.fields_dropdown).on('change', (e) => {
 
-        metersView.populateAvailableOptionsList();
+        metersView.populateAvailableOptionsList(currentExpression);
 
       });
 
