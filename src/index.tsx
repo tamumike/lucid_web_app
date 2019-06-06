@@ -490,6 +490,16 @@ export const appController = () => {
 
     });
 
+    $(elements.thirdParty.list).on('click', `img#${CSS.thirdParty.add_all_img}`, (e) => {
+
+      e.stopImmediatePropagation();
+
+      const featureClass = $(elements.thirdParty.dropdown).val() as string;
+
+      widget.removeDefinitionQuery(appMap, featureClass);
+
+    });
+
     $(elements.thirdParty.list).on('click', `img#${CSS.thirdParty.filter_img}`, (e) => {
 
       const modal = new Modal();

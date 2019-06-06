@@ -118,6 +118,7 @@ export const renderFeatureOptions = (element: JQuery): void => {
     const markup = 
     `<div class=${CSS.thirdParty.options}>
         <img id=${CSS.thirdParty.filter_img} class=${CSS.thirdParty.options_img} title="Filter" />
+        <img id=${CSS.thirdParty.add_all_img} class=${CSS.thirdParty.options_img} title="Add All" />
         <img id=${CSS.thirdParty.remove_img} class=${CSS.thirdParty.options_img} title="Remove" />
     </div>`;
     

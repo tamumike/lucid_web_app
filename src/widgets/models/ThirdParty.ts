@@ -66,6 +66,18 @@ export default class ThirdParty extends Widget {
  
      }
 
+     removeDefinitionQuery(map: EsriMap, name: string) {
+        
+        const layer = map.findLayerById(name) as MapImageLayer;
+        
+        layer.sublayers.forEach((sublayer, i = 0) => {
+            sublayer.definitionExpression = '';
+        });
+
+        layer.visible = true;
+
+     }
+
     addCurrentLayersToList(map: EsriMap, feature: string): void {
 
         map.allLayers.forEach((layer) => {
