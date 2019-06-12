@@ -2,7 +2,7 @@ import $ = require("jquery");
 
 import {CSS, elements} from "../views/base";
 
-export const excludeNames: string[] = ["Lucid System", "STR", "Meters", "Surface Ownership", "Graphics"];
+export const excludeNames: string[] = ["Lucid System", "STR", "Meters", "Surface Ownership", "Graphics", "BLM"];
 
 export const renderWidget = (): void => {
 

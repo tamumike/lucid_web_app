@@ -15,6 +15,7 @@ import Symbology from "./widgets/models/Symbology";
 import Measure from "./widgets/models/Measure";
 import Layers from "./widgets/models/Layers";
 import Meters from "./widgets/models/Meters";
+import BLM from "./widgets/models/BLM";
 
 import * as panelView from "./widgets/views/panelView";
 import * as widgetView from "./widgets/views/widgetView";
@@ -47,7 +48,7 @@ export const appController = () => {
     appMap = app.map;
   });
 
-  state.widgets = [new Layers(), new Acreage(), new Meters(), new Coordinates(), new DrillingInfo(), new ThirdParty(), new Symbology(), new Measure()];
+  state.widgets = [new Layers(), new Acreage(), new Meters(), new Coordinates(), new DrillingInfo(), new ThirdParty(), new Symbology(), new Measure(), new BLM()];
   state.acreage = [];
 
   const launchWidget = (currentWidget: string): void => {
@@ -59,6 +60,7 @@ export const appController = () => {
     (currentWidget == "measure") ? controlMeasure() : 
     (currentWidget == "layers") ? controlLayers() : 
     (currentWidget == "meters") ? controlMeters() : 
+    (currentWidget == "blm") ? controlBlm() : 
     console.log('no Widget');
 
   };
@@ -696,6 +698,35 @@ export const appController = () => {
       
     });
 
+  };
+
+  /*
+   * BLM Controller
+   */
+  const controlBlm = () => {
+
+    const widget = state.currentWidget;
+    widget.listLayers(appMap);
+
+    // BLM Events
+    $(elements.layers.list).on('click', 'li.panel__widget-list_item', (e) => {
+  
+      const $this = $(e.currentTarget);
+
+      $this.toggleClass('placeholder');
+
+      // console.log($this.text());
+      widget.toggleVisibility(appMap, $this.text());
+      
+    });
+
+    $(elements.blm.visibility_btn).on('click', (e) => {
+      const $this = $(e.currentTarget);
+      
+      const layer = appMap.findLayerById('BLM');
+      layer.visible = !layer.visible;
+      (layer.visible) ? $this.text('Hide BLM Layer') : $this.text('Show BLM Layer');
+    });
   };
 
 };

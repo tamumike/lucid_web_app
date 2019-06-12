@@ -21,8 +21,11 @@ export default class Layers extends Widget {
         let notVisible: string[] = [];
         
         map.layers.forEach((layer) => {
+
+            if (layersView.excludeLayers.indexOf(layer.id) === -1) {
             
-            (layer.visible) ? visible.push(layer.id) : notVisible.push(layer.id);
+                (layer.visible) ? visible.push(layer.id) : notVisible.push(layer.id);
+            }
             
         });
 
@@ -34,7 +37,7 @@ export default class Layers extends Widget {
         
         const layer = map.findLayerById(ID);
 
-        (layer.visible) ? layer.visible = false : layer.visible = true;
+        layer.visible = !layer.visible;
         
     }
 

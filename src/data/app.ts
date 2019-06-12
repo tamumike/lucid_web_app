@@ -142,7 +142,13 @@ export const graphicsLayer = new GraphicsLayer({
     id: "Graphics"
 });
 
+export const blm = new MapImageLayer({
+    id: "BLM",
+    url: "https://gis.blm.gov/nmarcgis/rest/services/Wildlife/BLM_NM_Plant_Wildlife_Habitat/MapServer",
+    visible : false
+});
+
 export const map = new EsriMap({
     basemap: "streets",
-    layers: [surfaceOwnership, STR, systemLayer, meters, graphicsLayer]
+    layers: [surfaceOwnership, blm, STR, systemLayer, meters, graphicsLayer]
 });

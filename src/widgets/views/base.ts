@@ -136,6 +136,9 @@ export const CSS = {
         mode_point: "draw__mode-point",
         mode_line: "draw__mode-line",
         mode_polygon: "draw__mode-polygon"
+    },
+    blm: {
+        visibility_btn: "blm__visibility-btn"
     }
 };
 
@@ -254,6 +257,9 @@ export const elements = {
     },
     draw: {
         mode_div: `.${CSS.draw.mode_div}`
+    },
+    blm: {
+        visibility_btn: `#${CSS.blm.visibility_btn}`
     }
 };
 
