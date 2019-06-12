@@ -145,6 +145,43 @@ export const graphicsLayer = new GraphicsLayer({
 export const blm = new MapImageLayer({
     id: "BLM",
     url: "https://gis.blm.gov/nmarcgis/rest/services/Wildlife/BLM_NM_Plant_Wildlife_Habitat/MapServer",
+    sublayers: [{
+        id: 4,
+        title: 'Lesser Prairie Chicken Habitat',
+        visible: true,
+        popupEnabled: true,
+        popupTemplate: {
+            title: popups.blm[4].title,
+            content: popups.blm[4].content
+        }
+        }, {
+        id: 3,
+        title: 'Dunes Sage Brush Lizard Habitat',
+        visible: true,
+        popupEnabled: true,
+        popupTemplate: {
+            title: popups.blm[3].title
+        }
+        }, {
+        id: 2,
+        title: 'Potential Habitat (Planning Area Only)',
+        visible: true,
+        popupEnabled: true,
+        popupTemplate: {
+            title: popups.blm[2].title,
+            content: popups.blm[2].content
+        }
+        }, {
+        id: 1,
+        title: 'Potential Habitat (BLM Surface Only)',
+        visible: true,
+        popupEnabled: true,
+        popupTemplate: {
+            title: popups.blm[2].title,
+            content: popups.blm[2].content
+        }
+    }],
+    opacity: 0.6,
     visible : false
 });
 

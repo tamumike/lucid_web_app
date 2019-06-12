@@ -192,3 +192,17 @@ export const drillingInfo = {
                 <b>Latitude: </b>{surface_latitude}`
     }
 }
+
+export const blm = {
+    2: {
+        title: '{Name}',
+        content: '<b>Rank:</b> {HabitatPotential_Rank}'
+    },
+    3: {
+        title: 'Dunes Sage Brush Lizard Habitat'
+    },
+    4: {
+        title: 'Lesser Prairie Chicken Habitat',
+        content: '<b> Description: </b>{DESCRIPTION}'
+    }
+}
