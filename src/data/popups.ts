@@ -59,20 +59,15 @@ export const acreage = {
 };
 
 export const thirdParty = {
-    title: `{MAP_LABEL}`,
+    title: `{NAME}`,
     content: `<b>Operator: </b>{OPERATOR}<br>
             <b>Owner: </b>{OWNER}<br>
             <b>System: </b>{SYS_NAME}<br>
             <b>Diameter: </b>{DIAMETER}<br>
-            <b>System Type: </b>{SYS_TYPE}<br>
+            <b>Type: </b>{TYPE}<br>
             <b>Interstate: </b>{INTERSTATE}<br>
-            <b>Rate Zone: </b>{RATE_ZONE}<br>
-            <b>Status: </b>{OPER_STAT}<br>
-            <b>State: </b>{STATE}<br>
-            <b>Commodity: </b>{COMMODITY}<br>
-            <b>Flow Direction: </b>{FLOW_DIR}<br>
-            <b>Miles: </b>{MILES}<br>
-            <b>Previous Owner: </b>{PREV_OWNER}<br>`
+            <b>Status: </b>{STATUS}<br>
+            <b>Commodity: </b>{COMMODITY}<br>`
 }
 
 export const drillingInfo = {

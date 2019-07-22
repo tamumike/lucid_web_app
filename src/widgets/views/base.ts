@@ -265,7 +265,7 @@ export const elements = {
 
 export const fields = {
     thirdParty: {
-        owner: "MAP_LABEL"
+        owner: "Name"
     },
     acreage: {
         dedication: "Dedication",
