@@ -94,7 +94,7 @@ export default class Acreage extends Widget {
         });
 
     }
-    
+
     queryLayer(name: string, state: { acreage_query: {}}, currentExpressions: string[]): void {
         
         let clause: string;
@@ -110,7 +110,6 @@ export default class Acreage extends Widget {
         .then(() => {
             
             if (currentExpressions.length > 0) acreageView.toggleActiveFilters(currentExpressions);
-
         });
 
     }

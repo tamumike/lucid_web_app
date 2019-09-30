@@ -49,7 +49,7 @@ class AppViewModel extends declared(Accessor) {
   onload() {
 
     const searchSources = [{
-      featureLayer: new FeatureLayer({
+      layer: new FeatureLayer({
           url: "https://gisportal.lucid-energy.com/arcgis/rest/services/Lucid_II_Lines/FeatureServer/0",
           outFields: ["*"]
       }),
@@ -64,7 +64,7 @@ class AppViewModel extends declared(Accessor) {
       suggestionsEnabled: true,
       minSuggestCharacters: 0
     }, {
-      featureLayer: new FeatureLayer({
+      layer: new FeatureLayer({
           url: "https://gisportal.lucid-energy.com/arcgis/rest/services/Lucid_II_Facilities/MapServer/1",
           outFields: ["*"]
       }),
@@ -78,14 +78,13 @@ class AppViewModel extends declared(Accessor) {
         suggestionsEnabled: true,
         minSuggestCharacters: 0
     }, {
-      featureLayer: new FeatureLayer({
-        url: "https://gisportal.lucid-energy.com/arcgis/rest/services/Meters/MapServer/0",
+      layer: new FeatureLayer({
+        url: "https://gisportal.lucid-energy.com/arcgis/rest/services/Meters_Search/MapServer/0",
         outFields: ["*"]
       }),
-      searchFields: ["Meter_Name", "Meter__"],
+      searchFields: ["Meter_Name"],
       displayField: "Meter_Name",
       exactMatch: false,
-      outFields: ["*"],
       name: "Lucid Meters",
       maxResults: 6,
       maxSuggestions: 6,
