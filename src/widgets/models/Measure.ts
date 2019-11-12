@@ -1,7 +1,7 @@
 import $ = require("jquery");
 
 import MapView from "esri/views/MapView";
-import Draw from "esri/views/2d/draw/Draw";
+import Draw from "esri/views/draw/Draw";
 import Polyline from "esri/geometry/Polyline";
 import Polygon from "esri/geometry/Polygon";
 import Graphic from "esri/Graphic";
@@ -10,6 +10,7 @@ import GeometryEngine from "esri/geometry/geometryEngine";
 import Widget from "./Widget";
 import * as measureView from "../views/measureView";
 import { elements } from '../views/base';
+import { TextSymbol } from 'esri/symbols';
 
 export default class Measure extends Widget {
 
@@ -61,7 +62,12 @@ export default class Measure extends Widget {
 
             view.graphics.removeAll();
     
-            (graphicType === 'polygon') ? shape = createPolygon(vertices) : shape = createPolyline(vertices);
+            // (graphicType === 'polygon') ? shape = createPolygon(vertices) : shape = createPolyline(vertices);
+            if (graphicType === 'polygon') {
+                vertices.length > 2 ? shape = createPolygon(vertices) : shape = createPolyline(vertices);
+            } else {
+                shape = createPolyline(vertices);
+            }
     
             let graphic = createGraphic(shape);
     
@@ -72,7 +78,6 @@ export default class Measure extends Widget {
         }
     
         const createPolyline = (vertices: any): any => {
-    
             return new Polyline({
                 paths: vertices,
                 spatialReference: view.spatialReference
@@ -108,7 +113,7 @@ export default class Measure extends Widget {
                 geometry: shape,
                 symbol: {
                     type: 'simple-line',
-                    color: [0, 174, 219],
+                    color: [40, 51, 101, 0.8],
                     width: 2.5,
                     style: "long-dash"
                 }
@@ -125,21 +130,22 @@ export default class Measure extends Widget {
 
             let area = GeometryEngine.geodesicArea(polygon, unit);
 
+            var polygonText = new TextSymbol({
+                color: "white",
+                haloColor: "black",
+                haloSize: "1px",
+                text: `${parseFloat(area.toFixed(2)).toLocaleString('en')} ${unit}`,
+                xoffset: 3,
+                yoffset: 3,
+                font: {
+                  size: 14,
+                  family: "sans-serif"
+                }
+            });
+
             var graphic = new Graphic({
                 geometry: polygon.centroid,
-                symbol: {
-                  type: "text",
-                  color: "white",
-                  haloColor: "black",
-                  haloSize: "1px",
-                  text: `${parseFloat(area.toFixed(2)).toLocaleString('en')} ${unit}`,
-                  xoffset: 3,
-                  yoffset: 3,
-                  font: {
-                    size: 14,
-                    family: "sans-serif"
-                  }
-                }
+                symbol: polygonText
               });
               view.graphics.add(graphic);
             
@@ -150,22 +156,23 @@ export default class Measure extends Widget {
 
             let length = GeometryEngine.geodesicLength(polyline, unit);
 
+            var lineText = new TextSymbol({
+                color: "white",
+                haloColor: "black",
+                haloSize: "1px",
+                text: `${parseFloat(length.toFixed(2)).toLocaleString('en')} ${unit}`,
+                xoffset: 0,
+                yoffset: 30,
+                font: {
+                  size: 14,
+                  family: "sans-serif",
+                  weight: "bold"
+                }
+            });
+
             var graphic = new Graphic({
                 geometry: polyline.extent.center,
-                symbol: {
-                  type: "text",
-                  color: [0, 0, 0],
-                  haloColor: "black",
-                  haloSize: "1px",
-                  text: `${parseFloat(length.toFixed(2)).toLocaleString('en')} ${unit}`,
-                  xoffset: 0,
-                  yoffset: 30,
-                  font: {
-                    size: 14,
-                    family: "sans-serif",
-                    weight: "bold"
-                  }
-                }
+                symbol: lineText
               });
               view.graphics.add(graphic);
             

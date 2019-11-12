@@ -1,5 +1,5 @@
 import $ = require('jquery');
-import esri = __esri;
+//import esri = __esri;
 
 import MapImageLayer from "esri/layers/MapImageLayer";
 import QueryTask from "esri/tasks/QueryTask";
