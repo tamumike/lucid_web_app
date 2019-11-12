@@ -103,6 +103,11 @@ body,
 
 .controller__widget-label {
   font-weight: bold;
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   // letter-spacing: 0.05em;
 }
 

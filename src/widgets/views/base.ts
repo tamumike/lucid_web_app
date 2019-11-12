@@ -128,7 +128,9 @@ export const CSS = {
         selected_opts: "meters__selected-opts",
         fields_dropdown: "meters__fields-dropdown",
         value_search: "meters__value-search",
-        visualize_btn: "meters__visualize-btn"
+        visualize_btn: "meters__visualize-btn",
+        select_btn: "meters__select-btn",
+        export_btn: "meters__export-btn"
     },
     draw: {
         modes_container: "draw__modes-container",
@@ -253,7 +255,9 @@ export const elements = {
         selected_opts: `#${CSS.meters.selected_opts}`,
         fields_dropdown: `#${CSS.meters.fields_dropdown}`,
         value_search: `#${CSS.meters.value_search}`,
-        visualize_btn: `#${CSS.meters.visualize_btn}`
+        visualize_btn: `#${CSS.meters.visualize_btn}`,
+        select_btn: `#${CSS.meters.select_btn}`,
+        export_btn: `#${CSS.meters.export_btn}`
     },
     draw: {
         mode_div: `.${CSS.draw.mode_div}`

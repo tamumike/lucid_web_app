@@ -18,6 +18,9 @@ export const renderWidget = (): void => {
             <button id=${CSS.meters.filter_btn} class=${CSS.button}>Filter</button>
             <p class=${CSS.panel_obj.heading}>Heat Map</p>
             <button id=${CSS.meters.visualize_btn} class=${CSS.button}>Display</button>
+            <p class=${CSS.panel_obj.heading}>Select Meters</p>
+            <button id=${CSS.meters.select_btn} class=${CSS.button}>Start Selecting!</button>
+            <button id=${CSS.meters.export_btn} class=${CSS.button}>Export Selection</button>
         </div>`;
 
     $(elements.panel).append(markup);

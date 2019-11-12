@@ -317,6 +317,23 @@ export const appController = () => {
       widget.addHeatMap(meters, appMap, appView);
 
     });
+
+    $(elements.meters.select_btn).on('click', () => {
+      var selectMode = widget.toggleSelectMode();
+      if (selectMode) {
+        widget.drawBoundingBox(appView);
+      } else {
+        appView.graphics.removeAll();
+      }
+    });
+
+    $(elements.meters.export_btn).on('click', () => {
+      if (widget.boundingBox) {
+        widget.spatialQuery(appMap);
+      } else {
+        console.log('nah bra');
+      }
+    });
     
   };
 
