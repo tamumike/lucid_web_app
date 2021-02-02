@@ -1,6 +1,7 @@
 import MapImageLayer from "esri/layers/MapImageLayer";
 import EsriMap from "esri/Map";
 import GraphicsLayer from "esri/layers/GraphicsLayer";
+import BingMapsLayer from "esri/layers/BingMapsLayer";
 
 import * as popups from "./popups";
 
@@ -176,7 +177,14 @@ export const blm = new MapImageLayer({
     visible : false
 });
 
+const bing = new BingMapsLayer({
+    style: "aerial",
+    key: "AiT8f_j8Li-0oBjCHKRCSgi7PLCAabrTUUf7fLvwBYf-y-RAhZzwUT0ugl6inLBj"
+})
+
 export const map = new EsriMap({
-    basemap: "streets",
+    basemap: {
+        baseLayers: [bing]
+    },
     layers: [surfaceOwnership, blm, STR, systemLayer, meters, graphicsLayer]
 });
