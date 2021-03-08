@@ -20,13 +20,13 @@ export default class Acreage extends Widget {
 
     addFeature(map: EsriMap, producer: string, state: { acreage: string[], query: {} }, definitionQuery: string, option?: string): void {
 
-        
-
             let id: string;
 
             (option) ? id = `Acreage - ${producer} (${option})` : id = `Acreage - ${producer}`;
 
             if (!this.isDuplicate(map, id)) {
+
+                console.log(definitionQuery);
 
             const featureURL: string = `${URLs.acreage}`;
             const feature: MapImageLayer = new MapImageLayer({
@@ -51,6 +51,8 @@ export default class Acreage extends Widget {
                 state.acreage.push(id.slice(id.indexOf(producer)));
                 
             });
+
+            console.log(feature);
         }
 
     }
@@ -167,6 +169,7 @@ export default class Acreage extends Widget {
 
         }
 
+        console.log(newExpression);
         return newExpression;
         
     }
@@ -212,6 +215,8 @@ export default class Acreage extends Widget {
         } else {
             definitionQuery = `${field} In ('${option}')`;
         }
+
+        console.log(definitionQuery);
 
         return definitionQuery;
 
