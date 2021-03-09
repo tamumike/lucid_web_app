@@ -103,6 +103,12 @@ export const surfaceOwnership = new MapImageLayer({
     visible: false
 });
 
+export const mineralOwnership = new MapImageLayer({
+    url: "https://gisportal.lucid-energy.com/arcgis/rest/services/BLM_Mineral_Ownership/MapServer",
+    id: "Mineral Ownership",
+    visible: false
+});
+
 export const STR = new MapImageLayer({
     url: "https://gisportal.lucid-energy.com/arcgis/rest/services/STR/MapServer",
     id: "STR",
@@ -186,5 +192,5 @@ export const map = new EsriMap({
     basemap: {
         baseLayers: [bing]
     },
-    layers: [surfaceOwnership, blm, STR, systemLayer, meters, graphicsLayer]
+    layers: [surfaceOwnership, mineralOwnership, blm, STR, systemLayer, meters, graphicsLayer]
 });

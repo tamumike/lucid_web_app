@@ -13,6 +13,7 @@ import BaseMapGallery from "esri/widgets/BasemapGallery";
 import Home from "esri/widgets/Home";
 import Zoom from "esri/widgets/Zoom";
 import Sketch from "esri/widgets/Sketch";
+import Legend from "esri/widgets/Legend";
 
 import {
   declared,
@@ -121,6 +122,10 @@ class AppViewModel extends declared(Accessor) {
       layer: this.map.findLayerById("Graphics")
     });
 
+    const legend = new Legend({
+      view: this.view,
+    });
+
     const scalebar = new ScaleBar({ view: this.view, style: "ruler" });
     this.view.ui.add(new Zoom({view: this.view}), "top-right");
     this.view.ui.add(home, "top-right");
@@ -129,6 +134,7 @@ class AppViewModel extends declared(Accessor) {
     this.view.ui.add(new Expand({content: print, expandTooltip: "Print"}), "top-right");
     this.view.ui.add(new Expand({content: basemapGallery, expandTooltip: "Basemaps"}), "top-right");
     this.view.ui.add(new Expand({content: sketch, expandTooltip: "Draw"}), "top-right");
+    this.view.ui.add(new Expand({content: legend, expandTooltip: "Legend"}), "top-right");
     
   
   }
