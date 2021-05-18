@@ -1,3 +1,5 @@
+const jobBookPrefix = 'https://lucidenergyllc.sharepoint.com';
+
 export const system = {
     sites: {
         title: `{SiteName}`,
@@ -25,7 +27,8 @@ export const system = {
                 <b>Pipe Usage: </b>{PipeJurisdiction}<br>
                 <b>State: </b>{State}<br>
                 <b>County: </b>{CountyParish}<br>
-                <b>Length(ft): </b>{SegmentLength}`
+                <b>Length(ft): </b>{SegmentLength}<br>
+                <b>Documents: </b><a href="` + "https://lucidenergyllc.sharepoint.com" + `{JobBookURL}" target="_blank">Documents</a>`
     }
 };
 
@@ -200,4 +203,9 @@ export const blm = {
         title: 'Lesser Prairie Chicken Habitat',
         content: '<b> Description: </b>{DESCRIPTION}'
     }
+}
+
+export const documentPoint= {
+    title: "{DPName}",
+    content: '<b>Job Book: </b><a href="{EditNotes}{Remarks}" target="_blank">Click to View</a>'
 }
