@@ -143,6 +143,22 @@ export const STR = new MapImageLayer({
     visible: false
 });
 
+export const row = new MapImageLayer({
+    url: "https://gisportal.lucid-energy.com/arcgis/rest/services/ROW_Polygons/MapServer",
+    id: "ROW Polygons",
+    sublayers: [{
+        id: 1,
+        popupEnabled: true,
+        popupTemplate: {
+            title: popups.row.title,
+            content: popups.row.content
+        },
+        title: "ROW Polygons",
+        visible: true      
+    }],
+    visible: false
+})
+
 export const meters = new MapImageLayer({
     id: "Meters",
     url: "https://gisportal.lucid-energy.com/arcgis/rest/services/Meters/MapServer",
@@ -206,5 +222,5 @@ export const map = new EsriMap({
     basemap: {
         baseLayers: [bing]
     },
-    layers: [surfaceOwnership, mineralOwnership, blm, STR, systemLayer, meters, graphicsLayer, documentPoint]
+    layers: [surfaceOwnership, mineralOwnership, blm, row, STR, systemLayer, meters, graphicsLayer, documentPoint]
 });

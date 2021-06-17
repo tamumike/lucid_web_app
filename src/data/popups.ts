@@ -1,5 +1,3 @@
-const jobBookPrefix = 'https://lucidenergyllc.sharepoint.com';
-
 export const system = {
     sites: {
         title: `{SiteName}`,
@@ -31,6 +29,11 @@ export const system = {
                 <b>Documents: </b><a href="` + "https://lucidenergyllc.sharepoint.com" + `{JobBookURL}" target="_blank">Documents</a>`
     }
 };
+
+export const row = {
+    title: "{TractName}",
+    content: `<b>Documents: </b>{Hyperlink_ROW}`
+}
 
 export const meters = {
     title: `{Meter_Name}`,
