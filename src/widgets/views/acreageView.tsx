@@ -2,51 +2,6 @@ import $ = require("jquery");
 
 import {CSS, elements} from "../views/base";
 
-
-const acreageProducers = [
-    "All",
-    "Ameredev",
-    "Apache",
-    "BC Operating",
-    "BHP",
-    "BTA",
-    "Caza",
-    "Centennial",
-    "Chevron",
-    "Chi",
-    "Chisholm",
-    "Cimarex",
-    "Concho",
-    "Conoco",
-    "Crestwood",
-    "Devon",
-    "Diamondback",
-    "Energen",
-    "EOG",
-    "Felix",
-    "Halcon",
-    "Kaiser Francis",
-    "Limestone",
-    "Marathon",
-    "Matador",
-    "Mewbourne",
-    "Murchison",
-    "Oasis",
-    "OneEnergy",
-    "Oxy",
-    "Novo",
-    "Read & Stevens",
-    "Ridge Runner",
-    "Santo",
-    "Spur Energy",
-    "Tap Rock",
-    "Titus",
-    "Torchlight",
-    "WPX",
-    "XTO"
-];
-
-
 export const renderWidget = (): void => {
     
     const markup = 
@@ -189,7 +144,7 @@ export const toggleActiveFilters = (values: string[]) => {
     
 };
 
-export const populateSelect = () => {
+export const populateSelect = (acreageProducers: string[]) => {
     acreageProducers.forEach(producer => {
 
         $(elements.acreage.dropdown).append(`<option>${producer}</option>`);

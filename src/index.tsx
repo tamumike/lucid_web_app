@@ -124,7 +124,8 @@ export const appController = () => {
     const widget = state.currentWidget;
 
     // Populate the dropdown menu
-    acreageView.populateSelect();
+    // acreageView.populateSelect();
+    widget.queryTableLayer(appMap);
 
     // Add current acreage layers to the list
     widget.addCurrentLayersToList(state, appMap);

@@ -26,8 +26,6 @@ export default class Acreage extends Widget {
 
             if (!this.isDuplicate(map, id)) {
 
-                console.log(definitionQuery);
-
             const featureURL: string = `${URLs.acreage}`;
             const feature: MapImageLayer = new MapImageLayer({
                 url: featureURL, 
@@ -125,6 +123,40 @@ export default class Acreage extends Widget {
         return features;
 
     }
+
+    queryTableLayer(map: EsriMap) {
+    
+        const url = `https://gisportal.lucid-energy.com/arcgis/rest/services/Acreage/AllAcreage2/MapServer/1`;        
+        
+        const queryTask = new QueryTask({
+            url
+        });
+
+        const query = new Query();
+        query.where = `"Producer" <> '$$$'`;
+        query.outFields = ["*"];
+
+        queryTask.execute(query).then((results) => {
+            
+            this.getValuesList(results.features);
+            
+        });
+
+     }
+
+     getValuesList(results: any): void {
+
+        const values: string[] = [];
+
+        results.forEach((feature) => {
+            
+            values.push(feature.attributes[`Producer`]);
+
+        });
+
+        acreageView.populateSelect(values);
+        
+     }
 
     applyFilter(filterParams : {map: EsriMap, name: string, definitionQuery: string}): void {
 
