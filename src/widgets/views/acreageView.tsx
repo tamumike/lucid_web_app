@@ -145,6 +145,7 @@ export const toggleActiveFilters = (values: string[]) => {
 };
 
 export const populateSelect = (acreageProducers: string[]) => {
+    $(elements.acreage.dropdown).append(`<option>All</option>`);
     acreageProducers.forEach(producer => {
 
         $(elements.acreage.dropdown).append(`<option>${producer}</option>`);
@@ -154,16 +155,17 @@ export const populateSelect = (acreageProducers: string[]) => {
 
 export const populateFieldValues = (features: any) => {
     
-    let uniqueValues: string[] = [];
+    let uniqueValues: string[] = ['Ded', 'Non-Ded', 'Neg'];
 
-    features.forEach((feature: {attributes: {Dedication: string}}) => {
+    // features.forEach((feature: {attributes: {Dedication: string}}) => {
 
-        let value = feature.attributes.Dedication;
+    //     let value = feature.attributes.Dedication;
         
-        if (uniqueValues.indexOf(value) === -1) uniqueValues.push(value);
+    //     if (uniqueValues.indexOf(value) === -1) uniqueValues.push(value);
 
-    });
+    // });
 
+    // #### THE ABOVE HAS BEEN COMMENTED BECAUSE THE QUERYING COULD NOT BRING IN ENOUGH FEATURES TO POPULATE THE DED, NON-DED, NEG VALUES SO THEY HAVE BEEN HARD CODED 7/26/2021
     renderFieldValuesList(uniqueValues);
     
 };
