@@ -57,11 +57,15 @@ export const meters = {
 
 export const acreage = {
     title: `<b>Producer: </b>{Producer}<br>`,
-    content: `<b>Owner: </b>{Owner}<br>
-            <b>Lease: </b>{Lease_Name}<br>
+    content: `<b>Lease Name: </b>{Lease_Name}<br>
             <b>Alias: </b>{Alias}<br>
             <b>Dedication: </b>{Dedication}<br>
-            <b>Previous Owner: </b>{Previous_Owner}`
+            <b>Contract: </b>{Contract}<br>
+            <b>Effective Date: </b>{EffectiveDate}<br>
+            <b>Expiration Date: </b>{ExpirationDate}<br>
+            <b>Term Status: </b>{TermStatus}<br>
+            <b>Sweet_Sour: </b>{Sweet_Sour}<br>
+            <b>HP_LP: </b>{HP_LP}`
 };
 
 export const thirdParty = {
